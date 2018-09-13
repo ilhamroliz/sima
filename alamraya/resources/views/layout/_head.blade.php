@@ -30,6 +30,9 @@
 	.dataTables_length .form-control{
 		padding-top: 5px;
 	}
+	.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+	  	padding: 10px 8px;
+	}
 </style>
 <!-- Plugins css -->
 <link href="{{ asset('assets/plugins/timepicker/bootstrap-timepicker.min.css') }}" rel="stylesheet">
@@ -37,6 +40,7 @@
 <link href="{{ asset('assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet">
 <link href="{{ asset('assets/plugins/clockpicker/css/bootstrap-clockpicker.min.css') }}" rel="stylesheet">
 <link href="{{ asset('assets/plugins/bootstrap-daterangepicker/daterangepicker.css') }}" rel="stylesheet">
+
 <script type="text/javascript">
 	var baseUrl = "{{ url('/') }}";
 </script>
