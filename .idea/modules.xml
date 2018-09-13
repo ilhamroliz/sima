@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/alamraya_adminox.iml" filepath="$PROJECT_DIR$/.idea/alamraya_adminox.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/sima.iml" filepath="$PROJECT_DIR$/.idea/sima.iml" />
     </modules>
   </component>
 </project>
