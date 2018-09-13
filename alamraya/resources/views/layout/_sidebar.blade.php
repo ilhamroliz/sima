@@ -19,7 +19,7 @@
                             <a class="" href="{{ url('manajemen-project/daftar-project') }}">Daftar Project</a>
                         </li>
                         <li class="">
-                            <a href="{{url('/home')}}">
+                            <a href="{{ url('manajemen-project/project-progress') }}">
                                 Project Progress
                             </a>
                         </li>
