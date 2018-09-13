@@ -34,7 +34,7 @@ class DaftarProjectController extends Controller
                 ->join('m_projecttype', 'p_type', '=', 'pt_code')
                 ->select('p_name', 'p_comp', 'p_code', 'p_state', 'pt_detail', DB::raw('date_format(p_kickoff, "%d/%m/%Y") as p_kickoff'), DB::raw('date_format(p_deadline, "%d/%m/%Y") as p_deadline'))
                 ->where('p_state', '=', $status)
-                ->orderBy('p_code', 'desc')
+                ->orderBy('p_code')
                 ->get();
         }
 
@@ -49,7 +49,18 @@ class DaftarProjectController extends Controller
                     return '<div class="text-center"><span class="label label-table label-danger">'.$data->p_state.'</span></div>';
                 }
             })
-            ->rawColumns(['p_state'])
+            ->editColumn('p_kickoff', function ($data){
+                return "<div class='text-center'>".Carbon::createFromFormat('d/m/Y', $data->p_kickoff)->format('d M Y')."</div>";
+            })
+            ->editColumn('p_deadline', function ($data){
+                return "<div class='text-center'>".Carbon::createFromFormat('d/m/Y', $data->p_deadline)->format('d M Y')."</div>";
+            })
+            ->addColumn('aksi', function ($data){
+                return '<div class="text-center">
+                        <a href="#" class="on-default edit-row" data-toggle="tooltip" data-placement="top" title="Team" data-original-title="Team"><i class="fa fa-users"></i></a>
+                        </div>';
+            })
+            ->rawColumns(['p_state', 'p_kickoff', 'p_deadline', 'aksi'])
             ->make(true);
     }
 }

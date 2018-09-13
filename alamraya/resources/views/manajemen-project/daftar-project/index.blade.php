@@ -53,6 +53,7 @@
                                 <th>Tanggal Mulai</th>
                                 <th>Tanggal Berakhir</th>
                                 <th>Status</th>
+                                <th>Aksi</th>
                                 </thead>
                                 <tbody>
                                 {{-- @foreach($project as $index=>$data)
@@ -105,7 +106,8 @@
                         {data: 'pt_detail', name: 'pt_detail'},
                         {data: 'p_kickoff', name: 'p_kickoff'},
                         {data: 'p_deadline', name: 'p_deadline'},
-                        {data: 'p_state', name: 'p_state'}
+                        {data: 'p_state', name: 'p_state'},
+                        {data: 'aksi', name: 'aksi'}
                     ],
                     responsive: true,
                     "pageLength": 10,
@@ -141,7 +143,8 @@
                         {data: 'pt_detail', name: 'pt_detail'},
                         {data: 'p_kickoff', name: 'p_kickoff'},
                         {data: 'p_deadline', name: 'p_deadline'},
-                        {data: 'p_state', name: 'p_state'}
+                        {data: 'p_state', name: 'p_state'},
+                        {data: 'aksi', name: 'aksi'}
                     ],
                     responsive: true,
                     "pageLength": 10,
