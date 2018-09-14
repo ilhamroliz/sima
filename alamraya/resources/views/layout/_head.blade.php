@@ -23,6 +23,8 @@
 <link href="{{ asset('assets/css/metismenu.min.css') }}" rel="stylesheet" type="text/css">
 <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" type="text/css">
 <script src="{{ asset('assets/js/modernizr.min.js') }}"></script>
+<!-- Contextmenu -->
+<link href="{{ asset('assets/css/jquery.contextMenu.css') }}" rel="stylesheet" type="text/css">
 <!-- DataTables -->
 <link href="{{ asset('assets/plugins/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css"/>
 <link href="{{ asset('assets/plugins/datatables/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css"/>

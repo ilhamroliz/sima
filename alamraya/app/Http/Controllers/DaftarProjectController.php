@@ -55,12 +55,21 @@ class DaftarProjectController extends Controller
             ->editColumn('p_deadline', function ($data){
                 return "<div class='text-center'>".Carbon::createFromFormat('d/m/Y', $data->p_deadline)->format('d M Y')."</div>";
             })
-            ->addColumn('aksi', function ($data){
-                return '<div class="text-center">
-                        <a href="#" class="on-default edit-row" data-toggle="tooltip" data-placement="top" title="Team" data-original-title="Team"><i class="fa fa-users"></i></a>
-                        </div>';
+            ->setRowId(function ($data) {
+                return $data->p_code;
             })
-            ->rawColumns(['p_state', 'p_kickoff', 'p_deadline', 'aksi'])
+            ->setRowClass(function (){
+                return 'contextMenu';
+            })
+            ->setRowAttr([
+                'style' => function() {
+                    return 'cursor: pointer';
+                },
+                'title' => function() {
+                    return 'Klik kanan untuk menampilkan aksi';
+                }
+            ])
+            ->rawColumns(['p_state', 'p_kickoff', 'p_deadline'])
             ->make(true);
     }
 }

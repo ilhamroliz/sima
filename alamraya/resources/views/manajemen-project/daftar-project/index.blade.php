@@ -28,8 +28,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card-box">
-                        <button type="button" onclick="addProject()"
-                                class="btn btn-sm btn-custom pull-right w-md waves-effect waves-light"><i
+                        <button type="button" onclick="addProject()" class="btn btn-sm btn-custom pull-right w-md waves-effect waves-light"><i
                                 class="fa fa-plus"></i> Tambah Project
                         </button>
                         <h4 class="header-title m-b-15 m-t-0 pull-left">Daftar Project</h4>
@@ -48,29 +47,13 @@
                             <table class="table table-hover table-bordered table-colored table-custom table-striped"
                                    cellspacing="0" width="100%" id="daftar-project">
                                 <thead>
-                                <th>Nama Project</th>
-                                <th>Tipe</th>
-                                <th>Tanggal Mulai</th>
-                                <th>Tanggal Berakhir</th>
-                                <th>Status</th>
-                                <th>Aksi</th>
+                                    <th>Nama Project</th>
+                                    <th>Tipe</th>
+                                    <th>Tanggal Mulai</th>
+                                    <th>Tanggal Berakhir</th>
+                                    <th>Status</th>
                                 </thead>
                                 <tbody>
-                                {{-- @foreach($project as $index=>$data)
-                                <tr>
-                                    <td>{{ $data->p_name }}</td>
-                                    <td>{{ $data->p_type }}</td>
-                                    <td>{{ $data->p_kickoff }}</td>
-                                    <td>{{ $data->p_deadline }}</td>
-                                    @if($data->p_state == 'DONE')
-                                        <td class="text-center"><span class="label label-table label-success">{{ $data->p_state }}</span></td>
-                                    @elseif($data->p_state == 'RUNNING')
-                                        <td class="text-center"><span class="label label-table label-info">{{ $data->p_state }}</span></td>
-                                    @elseif($data->p_state == 'FAULT')
-                                        <td class="text-center"><span class="label label-table label-danger">{{ $data->p_state }}</span></td>
-                                    @endif
-                                </tr>
-                                @endforeach --}}
                                 </tbody>
                             </table>
                         </div>
@@ -106,8 +89,7 @@
                         {data: 'pt_detail', name: 'pt_detail'},
                         {data: 'p_kickoff', name: 'p_kickoff'},
                         {data: 'p_deadline', name: 'p_deadline'},
-                        {data: 'p_state', name: 'p_state'},
-                        {data: 'aksi', name: 'aksi'}
+                        {data: 'p_state', name: 'p_state'}
                     ],
                     responsive: true,
                     "pageLength": 10,
@@ -119,6 +101,39 @@
                 });
                 $('#daftar-project').css('width', '100%').dataTable().fnAdjustColumnSizing();
             }, 500);
+        });
+
+        function getTeam(id){
+            alert(id);
+        }
+
+        $(function() {
+            $.contextMenu({
+                selector: '.contextMenu', 
+                callback: function(key, options) {
+                    if (key == 'team') {
+                        getTeam(this.attr('id'));
+                    }
+                    alert(key);
+                },
+                items: {
+                    "team": {name: "Project Team", icon: "fa-users"},
+                    "detail": {name: "Detail", icon: "fa-folder-open"},
+                    "sep1": "---------",
+                    "status": {
+                        'name': 'Status',
+                        'items': {
+                            'running': {'name': 'Running'},
+                            'fault': {'name': 'Fault'},
+                            'done': {'name': 'Done'}
+                        }
+                    }
+                }
+            });
+
+            $('.btn').on('click', function(e){
+                console.log('clicked', this);
+            })
         });
 
         function addProject() {
@@ -143,8 +158,7 @@
                     {data: 'pt_detail', name: 'pt_detail'},
                     {data: 'p_kickoff', name: 'p_kickoff'},
                     {data: 'p_deadline', name: 'p_deadline'},
-                    {data: 'p_state', name: 'p_state'},
-                    {data: 'aksi', name: 'aksi'}
+                    {data: 'p_state', name: 'p_state'}
                 ],
                 responsive: true,
                 "pageLength": 10,

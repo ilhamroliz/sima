@@ -27,7 +27,7 @@ class DaftarTeamController extends Controller
         return Datatables::of($data)
             ->addColumn('aksi', function ($data){
                 return '<div class="text-center">
-                        <a href="#" class="on-default edit-row" data-toggle="tooltip" data-placement="top" title="Project" data-original-title="Project"><i class="fa fa-window-maximize"></i></a>
+                        <a href="#" class="on-default edit-row" data-toggle="tooltip" data-placement="top" title="Proje<!---->ct" data-original-title="Project"><i class="fa fa-window-maximize"></i></a>
                         </div>';
             })
             ->rawColumns(['aksi'])
