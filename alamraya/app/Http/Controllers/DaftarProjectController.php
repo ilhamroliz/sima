@@ -67,6 +67,9 @@ class DaftarProjectController extends Controller
                 },
                 'title' => function() {
                     return 'Klik kanan untuk menampilkan aksi';
+                },
+                'onclick' => function($data) {
+                    return 'detail('.$data->p_code.')';
                 }
             ])
             ->rawColumns(['p_state', 'p_kickoff', 'p_deadline'])

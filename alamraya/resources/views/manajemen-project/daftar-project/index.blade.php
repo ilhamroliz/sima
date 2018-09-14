@@ -103,39 +103,6 @@
             }, 500);
         });
 
-        function getTeam(id){
-            alert(id);
-        }
-
-        $(function() {
-            $.contextMenu({
-                selector: '.contextMenu', 
-                callback: function(key, options) {
-                    if (key == 'team') {
-                        getTeam(this.attr('id'));
-                    }
-                    alert(key);
-                },
-                items: {
-                    "team": {name: "Project Team", icon: "fa-users"},
-                    "detail": {name: "Detail", icon: "fa-folder-open"},
-                    "sep1": "---------",
-                    "status": {
-                        'name': 'Status',
-                        'items': {
-                            'running': {'name': 'Running'},
-                            'fault': {'name': 'Fault'},
-                            'done': {'name': 'Done'}
-                        }
-                    }
-                }
-            });
-
-            $('.btn').on('click', function(e){
-                console.log('clicked', this);
-            })
-        });
-
         function addProject() {
             window.location = '{{ url('manajemen-project/tambah-project') }}';
         }
@@ -168,6 +135,39 @@
                 //"scrollCollapse": true,
                 "language": dataTableLanguage,
             });
+        }
+
+        $(function() {
+            $.contextMenu({
+                selector: '.contextMenu', 
+                callback: function(key, options) {
+                    if (key == 'team') {
+                        getTeam(this.attr('id'));
+                    }
+                    alert(key);
+                },
+                items: {
+                    "team": {name: "Project Team", icon: "fa-users"},
+                    "detail": {name: "Detail", icon: "fa-folder-open"},
+                    "sep1": "---------",
+                    "status": {
+                        'name': 'Status',
+                        'items': {
+                            'running': {'name': 'Running'},
+                            'fault': {'name': 'Fault'},
+                            'done': {'name': 'Done'}
+                        }
+                    }
+                }
+            });
+        });
+
+        function getTeam(id){
+            alert(id);
+        }
+
+        function detail(data){
+            console.log(data.attr('id'));
         }
     </script>
 @endsection
