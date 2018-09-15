@@ -49,8 +49,10 @@
 <!-- Jquery contextmenu -->
 <script src="{{ asset('assets/js/contextmenu.js') }}"></script>
 <script src="{{ asset('assets/js/jquery.ui.position.min.js') }}"></script>
-{{-- <script src="{{ asset('assets/js/jquery.contextMenu.js') }}"></script>
-<script src="{{ asset('assets/js/contextmenu-main.js') }}"></script> --}}
+<!-- Toastr js -->
+<script src="{{ asset('assets/plugins/jquery-toastr/jquery.toast.min.js') }}"></script>
+<!-- Waitingfor -->
+<script src="{{ asset('assets/plugins/waitingfor/waitingfor.js') }}"></script>
 <!-- Jquery filer js -->
 <script src="{{ asset('assets/plugins/jquery.filer/js/jquery.filer.min.js') }}"></script>
 <!-- Bootstrap fileupload js -->

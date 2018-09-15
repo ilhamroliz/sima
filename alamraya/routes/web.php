@@ -39,6 +39,9 @@ Route::group(['middleware' => 'auth'], function () {
 	//==== project team
 	Route::get('manajemen-project/tim-pelaksana', 'ProjectTeamController@index');
 	Route::get('manajemen-project/tim-pelaksana/project/{kode}', 'ProjectTeamController@projectTeam');
+	Route::post('manajemen-project/tim-pelaksana/getData', 'ProjectTeamController@getData');
+	Route::post('manajemen-project/tim-pelaksana/addTeam', 'ProjectTeamController@addTeam');
+	Route::get('manajemen-project/tim-pelaksana/deleteTeam', 'ProjectTeamController@deleteTeam');
 
 	//==== daftar team
 	Route::get('manajemen-team/daftar-team', 'DaftarTeamController@index');
