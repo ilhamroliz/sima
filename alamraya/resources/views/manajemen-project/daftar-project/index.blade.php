@@ -144,18 +144,19 @@
                     if (key == 'team') {
                         getTeam(this.attr('id'));
                     }
-                    alert(key);
                 },
                 items: {
                     "team": {name: "Project Team", icon: "fa-users"},
+                    "progress": {name: "Project Progress", icon: "fa-line-chart"},
                     "detail": {name: "Detail", icon: "fa-folder-open"},
                     "sep1": "---------",
                     "status": {
                         'name': 'Status',
+                        'icon': "fa-exchange",
                         'items': {
-                            'running': {'name': 'Running'},
-                            'fault': {'name': 'Fault'},
-                            'done': {'name': 'Done'}
+                            'done': {'name': 'Done', icon: 'fa-check'},
+                            'running': {'name': 'Running', icon: 'fa-location-arrow'},
+                            'fault': {'name': 'Fault', icon: 'fa-times'}
                         }
                     }
                 }
@@ -163,11 +164,15 @@
         });
 
         function getTeam(id){
-            alert(id);
+            location.href = baseUrl + '/manajemen-project/tim-pelaksana/project/' + id;
         }
 
         function detail(data){
             console.log(data.attr('id'));
         }
+
+        $('.list-project').click(function(){
+            console.log(this);
+        })
     </script>
 @endsection

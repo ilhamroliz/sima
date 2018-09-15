@@ -59,7 +59,7 @@ class DaftarProjectController extends Controller
                 return $data->p_code;
             })
             ->setRowClass(function (){
-                return 'contextMenu';
+                return 'contextMenu list-project';
             })
             ->setRowAttr([
                 'style' => function() {
@@ -67,9 +67,11 @@ class DaftarProjectController extends Controller
                 },
                 'title' => function() {
                     return 'Klik kanan untuk menampilkan aksi';
-                },
+                }
+            ])
+            ->setRowData([
                 'onclick' => function($data) {
-                    return 'detail('.$data->p_code.')';
+                    return "detail('".$data->p_code."')";
                 }
             ])
             ->rawColumns(['p_state', 'p_kickoff', 'p_deadline'])
