@@ -6,7 +6,6 @@ use Auth;
 use Carbon\Carbon;
 use DB;
 use Illuminate\Http\Request;
-use Yajra\DataTables\Contracts\DataTable;
 use Yajra\DataTables\DataTables;
 
 class ProjectTeamController extends Controller

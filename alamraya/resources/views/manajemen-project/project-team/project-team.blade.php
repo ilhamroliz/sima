@@ -37,6 +37,7 @@
                                 <th>Tipe</th>
                                 <th>Deadline</th>
                                 <th>Status</th>
+                                <th>Progress</th>
                                 </thead>
                                 <tbody>
                                 <tr>
@@ -44,6 +45,9 @@
                                     <td>{{ $project[0]->pt_detail }}</td>
                                     <td class="text-center">{{ $project[0]->deadline }}</td>
                                     <td class="text-center">{{ $project[0]->p_state }}</td>
+                                    <td class="text-center">
+                                        <button type="button" onclick="progress('{{ $project[0]->p_code }}')" title="Project Progress" class="btn btn-icon waves-effect btn-custom btn-xs"> <i class="fa fa-line-chart"></i> </button>
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -150,7 +154,7 @@
                     processing: true,
                     serverSide: true,
                     "ajax": {
-                        "url": baseUrl + '/manajemen-project/tim-pelaksana/getData',
+                        "url": baseUrl + '/manajemen-project/project-team/getData',
                         "type": "post",
                         "data": {kode: 'ourteam', project: project}
                     },
@@ -177,7 +181,7 @@
                     processing: true,
                     serverSide: true,
                     "ajax": {
-                        "url": baseUrl + '/manajemen-project/tim-pelaksana/getData',
+                        "url": baseUrl + '/manajemen-project/project-team/getData',
                         "type": "post",
                         "data": {kode: 'projectteam', project: project}
                     },
@@ -211,17 +215,19 @@
 
         function tambah() {
             $('#masukan-team').modal('hide');
+            waitingDialog.show();
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
             $.ajax({
-                url: baseUrl + '/manajemen-project/tim-pelaksana/addTeam',
+                url: baseUrl + '/manajemen-project/project-team/addTeam',
                 type: 'post',
                 data: $('#form-modal').serialize(),
                 dataType: 'json',
                 success: function (response) {
+                    setTimeout(function () {waitingDialog.hide();}, 500);
                     if (response.status == 'success') {
                         ourteam.ajax.reload();
                         projectteam.ajax.reload();
@@ -257,6 +263,7 @@
                     }
                 },
                 error: function (xhr, status) {
+                    setTimeout(function () {waitingDialog.hide();}, 500);
                     if (status == 'timeout') {
                         $('.error-load').css('visibility', 'visible');
                         $('.error-load small').text('Ups. Terjadi Kesalahan, Coba Lagi Nanti');
@@ -281,8 +288,8 @@
                 }
             });
             $.ajax({
-                url: baseUrl + '/manajemen-project/tim-pelaksana/deleteTeam',
-                type: 'get',
+                url: baseUrl + '/manajemen-project/project-team/deleteTeam',
+                type: 'post',
                 data: {ct_id: id, p_code: project},
                 dataType: 'json',
                 success: function (response) {
@@ -325,6 +332,10 @@
                     }
                 }
             });
+        }
+
+        function progress(kode){
+            location.href = baseUrl + '/manajemen-project/project-progress/project/' + kode;
         }
     </script>
 @endsection

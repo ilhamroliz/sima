@@ -164,7 +164,7 @@
         });
 
         function getTeam(id){
-            location.href = baseUrl + '/manajemen-project/tim-pelaksana/project/' + id;
+            location.href = baseUrl + '/manajemen-project/project-team/project/' + id;
         }
 
         function detail(data){

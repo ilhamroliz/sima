@@ -26,8 +26,8 @@
                         <li class="{{ Request::is('manajemen-project/time-schedule') ? 'active' : '' || Request::is('manajemen-project/time-schedule/*') ? 'active' : ''}}">
                             <a href="{{ url('manajemen-project/time-schedule') }}">Time Schedule</a>
                         </li>
-                        <li class="{{ Request::is('manajemen-project/tim-pelaksana') ? 'active' : '' || Request::is('manajemen-project/tim-pelaksana/*') ? 'active' : ''}}">
-                            <a href="{{ url('manajemen-project/tim-pelaksana') }}">Tim Pelaksana</a>
+                        <li class="{{ Request::is('manajemen-project/project-team') ? 'active' : '' || Request::is('manajemen-project/project-team/*') ? 'active' : ''}}">
+                            <a href="{{ url('manajemen-project/project-team') }}">Project Team</a>
                         </li>
                         <li class="{{ Request::is('manajemen-project/agenda-project') ? 'active' : '' || Request::is('manajemen-project/agenda-project/*') ? 'active' : ''}}">
                             <a href="{{ url('manajemen-project/agenda-project') }}">Agenda Project</a>
