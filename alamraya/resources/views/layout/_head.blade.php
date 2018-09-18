@@ -31,12 +31,51 @@
 <link href="{{ asset('assets/plugins/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css"/>
 <link href="{{ asset('assets/plugins/datatables/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css"/>
 <style type="text/css">
-	.dataTables_length .form-control{
-		padding-top: 5px;
+	.table>tbody>tr>td, .table>tbody>tr>th {
+		padding: 8px 8px;
+		vertical-align: top;
 	}
-	.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+	.table>thead>tr>td, .table>thead>tr>th {
 	  	padding: 10px 8px;
+	  	vertical-align: middle;
 	}
+	.footer{
+		padding: 10px 30px 10px;
+	}
+	.checkbox.checkbox-single {
+
+        label {
+            width: 0;
+            height: 16px;
+            visibility: hidden;
+
+	        &
+	        :before,
+
+	        &
+	        :after {
+	            visibility: visible;
+	        }
+
+        }
+    }
+    .radio.radio-single {
+
+        label {
+            width: 0;
+            height: 16px;
+            visibility: hidden;
+
+	        &
+	        :before,
+
+	        &
+	        :after {
+	            visibility: visible;
+	        }
+
+        }
+    }
 </style>
 <!-- Plugins css -->
 <link href="{{ asset('assets/plugins/timepicker/bootstrap-timepicker.min.css') }}" rel="stylesheet">
