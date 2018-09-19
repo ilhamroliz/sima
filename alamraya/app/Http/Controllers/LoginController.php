@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\d_companylog;
+use App\d_companyteam;
 use Carbon\Carbon;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableCOntract;
@@ -40,6 +41,14 @@ class LoginController extends Controller
                     'cl_lastlogin' => Carbon::now('Asia/Jakarta')
                 ]);
 
+            $team = d_companylog::where(DB::raw('BINARY cl_username'), $request->username)
+                ->join('d_companyteam', function ($q){
+                    $q->on('ct_id', '=', 'cl_id');
+                    $q->on('ct_comp', '=', 'cl_comp');
+                })
+                ->first();
+
+            Auth::guard('team')->login($team);
             Auth::login($user);
 
             return redirect(url('/home'));

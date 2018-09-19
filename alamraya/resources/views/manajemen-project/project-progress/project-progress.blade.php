@@ -36,19 +36,19 @@
                                     <th style="width: 15%;">Tanggal</th>
                                     <th style="width: 55%;">Progress</th>
                                     <th style="width: 10%;" class="text-center">
-                                        {{-- <button type="button" onclick="tambah()" title="Tambah" class="btn btn-icon waves-effect btn-primary btn-sm"> <i class="fa fa-plus"></i> </button> --}}
+                                        <button type="button" onclick="tambah()" title="Tambah" class="btn btn-icon waves-effect btn-primary btn-sm"> <i class="fa fa-plus"></i> </button>
                                     </th>
                                 </thead>
                                 <tbody>
-                                    {{-- <tr>
-                                        <td></td>
+                                    <tr>
+                                        <td>Master Item</td>
                                         <td class="text-center">{{ Carbon\Carbon::now('Asia/Jakarta')->format('d M Y') }}</td>
                                         <td class="text-center"><textarea class="form-control"></textarea></td>
                                         <td class="text-center">
                                             <button type="button" onclick="tambah()" title="Tambah" class="btn btn-icon waves-effect btn-primary btn-sm"> <i class="fa fa-plus"></i> </button>
                                             <button type="button" onclick="hapus()" title="Hapus" class="btn btn-icon waves-effect btn-danger btn-sm"> <i class="fa fa-times"></i> </button>
                                         </td>
-                                    </tr> --}}
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -56,7 +56,7 @@
                 </div>
             </div>
 
-            <div class="row">
+            {{-- <div class="row">
                 @foreach($info as $row)
                 <div class="col-12">
                     <div class="portlet">
@@ -114,7 +114,7 @@
                     </div>
                 </div>
                 @endforeach
-            </div>
+            </div> --}}
 
         </div>
     </div>

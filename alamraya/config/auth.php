@@ -41,6 +41,11 @@ return [
             'provider' => 'users',
         ],
 
+        'team' => [
+            'driver' => 'session',
+            'provider' => 'team',
+        ],
+
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
@@ -69,11 +74,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\d_companylog::class,
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'team' => [
+            'driver' => 'eloquent',
+            'model' => App\d_companyteam::class,
+        ],
     ],
 
     /*

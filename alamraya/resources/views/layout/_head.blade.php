@@ -76,6 +76,14 @@
 
         }
     }
+    .dataTables_length .form-control{
+    	padding: 0px 10px 0px 10px;
+    	height: 30px;
+    }
+    .dataTables_filter .form-control{
+    	padding: 0px 10px 0px 10px;
+    	height: 30px;
+    }
 </style>
 <!-- Plugins css -->
 <link href="{{ asset('assets/plugins/timepicker/bootstrap-timepicker.min.css') }}" rel="stylesheet">
@@ -87,3 +95,8 @@
 <script type="text/javascript">
 	var baseUrl = "{{ url('/') }}";
 </script>
+<style type="text/css">
+	.topbar{
+		height: 50px;
+	}
+</style>

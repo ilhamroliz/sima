@@ -47,6 +47,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('manajemen-project/project-progress', 'ProjectProgressController@index');
 	Route::get('manajemen-project/project-progress/project/{kode}', 'ProjectProgressController@projectProgress');
 	Route::get('manajemen-project/project-progress/save', 'ProjectProgressController@save');
+	Route::post('manajemen-project/project-progress/get-project/{status}', 'ProjectProgressController@data');
 
 	//==== daftar team
 	Route::get('manajemen-team/daftar-team', 'DaftarTeamController@index');
