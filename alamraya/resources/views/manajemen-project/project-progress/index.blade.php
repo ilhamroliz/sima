@@ -2,7 +2,9 @@
 @section('title', 'Daftar Project')
 @section('extra_styles')
     <style type="text/css">
-
+        .dark{
+          background-color: #F2F2F2;
+        }
     </style>
 @endsection
 @section('content')
@@ -29,63 +31,19 @@
                 <div class="col-12">
                     <div class="card-box">
                         <h4 class="header-title m-b-15 m-t-0 pull-left">Daftar Project</h4>
-                        <button type="button" onclick="addProject()"
-                                class="btn btn-sm btn-custom pull-right w-md waves-effect waves-light"><i
-                                class="fa fa-plus"></i> Progress
-                        </button>
+                        <button type="button" onclick="addProject()" class="btn btn-sm btn-custom pull-right w-md waves-effect waves-light"><i class="fa fa-plus"></i> Progress </button>
                         <div class="col-sm-12" style="margin-top: 50px;">
-
-                            <table class="table table-hover table-bordered table-colored table-custom"
-                                   cellspacing="0" width="100%" id="daftar-project">
+                            <table class="table table-hover table-bordered table-colored table-custom" cellspacing="0" width="100%" id="daftar-project">
                                 <thead>
-                                <th>Nama Project</th>
-                                <th>Tanggal</th>
-                                <th>Team</th>
-                                <th>Fitur</th>
+                                    <th>Nama Project</th>
+                                    <th>Tanggal</th>
+                                    <th>Team</th>
+                                    <th>Fitur</th>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>Tamma Food</td>
-                                    <td class="text-center"> 17 Sep 2018</td>
-                                    <td>
-                                        Mahmud Efendi
-                                    </td>
-                                    <td>
-                                        <span onclick="detail()" style="cursor: pointer;">Master Supplier <span
-                                                class="badge badge-danger noti-icon-badge">H</span></span><br>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td rowspan="3">Tamma Food</td>
-                                    <td class="text-center"> 17 Sep 2018</td>
-                                    <td>
-                                        Mahmud Efendi
-                                    </td>
-                                    <td>
-                                        <span onclick="detail()" style="cursor: pointer;">Master Supplier <span
-                                                class="badge badge-danger noti-icon-badge">H</span></span><br>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center"> 17 Sep 2018</td>
-                                    <td>
-                                        Mahmud Efendi
-                                    </td>
-                                    <td>
-                                        <span onclick="detail()" style="cursor: pointer;">Master Pegawai <span
-                                                class="badge badge-danger noti-icon-badge">H</span></span><br>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center"> 17 Sep 2018</td>
-                                    <td>
-                                        Mahmud Efendi
-                                    </td>
-                                    <td>
-                                        <span onclick="detail()" style="cursor: pointer;">Pembelian Supplier <span
-                                                class="badge badge-danger noti-icon-badge">H</span></span><br>
-                                    </td>
-                                </tr>
+                                    @foreach($progress as $data)
+                                    <tr></tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -104,7 +62,6 @@
                     <h4 class="modal-title">Pilih Project</h4>
                 </div>
                 <div class="modal-body">
-
                     <table class="table table-striped table-bordered table-hover table-colored table-custom">
                         <thead>
                         <th>Nama Project</th>

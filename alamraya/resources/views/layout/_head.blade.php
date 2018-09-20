@@ -84,6 +84,12 @@
     	padding: 0px 10px 0px 10px;
     	height: 30px;
     }
+    @media (min-width: 768px) {
+	  .modal-xl {
+	    width: 90%;
+	   max-width:1200px;
+	  }
+	}
 </style>
 <!-- Plugins css -->
 <link href="{{ asset('assets/plugins/timepicker/bootstrap-timepicker.min.css') }}" rel="stylesheet">

@@ -2,7 +2,23 @@
 @section('title', 'Project Progress')
 @section('extra_styles')
     <style type="text/css">
+        .checkbox.checkbox-single {
 
+            label {
+                width: 0;
+                height: 16px;
+                visibility: hidden;
+
+                &:before, &:after {
+                    visibility: visible;
+                }
+
+            }
+        }
+        .table-project {
+            max-height: calc(100vh - 210px);
+            overflow-y: auto;
+        }
     </style>
 @endsection
 @section('content')
@@ -28,136 +44,397 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card-box">
-                        <h4 class="header-title m-b-15 m-t-0 pull-left">Project {{ $info[0]->pt_detail }} {{ $info[0]->p_name }}</h4>
-                        <div class="col-sm-12" style="margin-top: 50px;">
+                        <h4 class="header-title m-b-15 m-t-0 pull-left">Project {{ $project[0]->pt_detail }} {{ $project[0]->p_name }}</h4>
+                        <h4 class="header-title m-b-15 m-t-0 pull-right">{{ Carbon\Carbon::now('Asia/Jakarta')->format('d M Y') }}</h4>
+                        <div class="col-sm-12 table-project" style="margin-top: 50px;">
                             <table class="table table-hover table-bordered table-colored table-custom table-striped" cellspacing="0" width="100%" id="project">
                                 <thead>
-                                    <th style="width: 20%;">Nama Fitur</th>
+                                    <th style="width: 25%;">Nama Fitur</th>
                                     <th style="width: 15%;">Tanggal</th>
-                                    <th style="width: 55%;">Progress</th>
+                                    <th style="width: 20%;">Initiator</th>
+                                    <th style="width: 20%;">Executor</th>
+                                    <th style="width: 10%;">Status</th>
                                     <th style="width: 10%;" class="text-center">
+                                        @if ($posisi == 'PRJSPV')
                                         <button type="button" onclick="tambah()" title="Tambah" class="btn btn-icon waves-effect btn-primary btn-sm"> <i class="fa fa-plus"></i> </button>
+                                        @else
+                                        Aksi
+                                        @endif
                                     </th>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>Master Item</td>
-                                        <td class="text-center">{{ Carbon\Carbon::now('Asia/Jakarta')->format('d M Y') }}</td>
-                                        <td class="text-center"><textarea class="form-control"></textarea></td>
-                                        <td class="text-center">
-                                            <button type="button" onclick="tambah()" title="Tambah" class="btn btn-icon waves-effect btn-primary btn-sm"> <i class="fa fa-plus"></i> </button>
-                                            <button type="button" onclick="hapus()" title="Hapus" class="btn btn-icon waves-effect btn-danger btn-sm"> <i class="fa fa-times"></i> </button>
-                                        </td>
-                                    </tr>
+                                    
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
 
-            {{-- <div class="row">
-                @foreach($info as $row)
-                <div class="col-12">
-                    <div class="portlet">
-                        <div class="portlet-heading portlet-default">
-                            <h3 class="portlet-title text-dark">
-                                Fitur {{ $row->pf_detail }}
-                            </h3>
-                            <div class="portlet-widgets">
-                                <a href="javascript:;" data-toggle="reload"><i class="fa fa-save" onclick="save({{ $row->pf_id }})"></i></a>
-                                <a data-toggle="collapse" data-parent="#accordion1" href="#portlet-{{ $row->pf_id }}"><i class="mdi mdi-minus"></i></a>
-                                <a href="#" data-toggle="remove"><i class="mdi mdi-close"></i></a>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div id="portlet-{{ $row->pf_id }}" class="panel-collapse collapse in show">
-                            <div class="portlet-body">
-                                <form class="form-horizontal row form-{{ $row->pf_id }}">
-                                    @if($row->pp_init == null)
-                                    <div class="col-3" style="margin-top: 10px">
-                                        <select class="form-control init-{{ $row->pf_id }}" name="team">
-                                            <option selected disabled>Pilih Inisiator</option>
-                                            @foreach($team as $tim)
-                                                <option value="{{ $tim->ct_id }}">{{ $tim->ct_name }} - {{ $tim->pp_detail }}</option>
+    <!--  Modal content for the above example -->
+    <div class="custombox-modal custombox-modal-fadein" style="transition-duration: 500ms; z-index: 10003;">
+        <div id="modal-fitur" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog modal-xl" >
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title" id="myLargeModalLabel">Tambah Progress {{ Carbon\Carbon::now('Asia/Jakarta')->format('d M Y') }}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal">
+                            <div class="row">
+                                <div class="col-4" style="overflow: auto;" id="content-table">
+                                    <table class="table table-colored table-pink table-striped table-hover table-bordered" id="list-fitur">
+                                        <thead>
+                                            <th>No</th>
+                                            <th>Nama Fitur</th>
+                                            <th></th>
+                                        </thead>
+                                        <tbody>
+                                            @if(count($projectFitur) > 0)
+                                            @foreach($projectFitur as $index=>$modal)
+                                                <tr style="cursor: pointer;" onclick="check({{ $modal->pf_id }}, this)">
+                                                    <td>{{ $index + 1 }}</td>
+                                                    <td>{{ $modal->pf_detail }}</td>
+                                                    <td>
+                                                        <div class="text-center">
+                                                            <div class="checkbox checkbox-pink checkbox-single checkbox-inline">
+                                                                <input type="checkbox" class="checkfitur pilih" id="fitur-{{ $modal->pf_id }}" value="{{ $modal->pf_id }}" name="fitur" aria-label="Single radio One">
+                                                                <label></label>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
                                             @endforeach
-                                        </select>
+                                            @endif
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-8">
+                                    <div class="form-group no-margin">
+                                        <label for="text-target" class="control-label">Target</label>
+                                        <textarea class="form-control" id="text-target" placeholder="Tulis target untuk fitur ini" 
+                                        @if ($posisi != 'PRJSPV')
+                                            readonly 
+                                        @endif
+                                        ></textarea>
                                     </div>
-                                    <div class="col-9">
-                                        <textarea class="target-{{ $row->pf_id }} form-control" name="target[]"></textarea>
+                                    <div class="form-group no-margin row">
+                                        <div class="col-8 form-group row">
+                                            <label for="text-execution" class="col-form-label col-2">Eksekusi</label>
+                                            <div class="col-10">
+                                                <select class="form-control executor" name="eksekutor">
+                                                    <option selected disabled>Pilih Eksekutor</option>
+                                                    @foreach($team as $tim)
+                                                        <option value="{{ $tim->ct_id }}">{{ $tim->ct_name }} - {{ $tim->pp_detail }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <textarea class="form-control" id="text-execution" placeholder="Tulis hasil eksekusi untuk fitur ini"></textarea>
+                                        </div>
                                     </div>
-                                    @else
-                                    <label class="col-3 col-form-label">{{ $row->init_name }}</label>
-                                    <div class="col-9">
-                                        <textarea class="target-{{ $row->pf_id }} form-control" name="target[]">{{ $row->pp_target }}</textarea>
+                                    <div class="form-group no-margin">
+                                        <label for="text-note" class="control-label">Catatan</label>
+                                        <textarea class="form-control" id="text-note" placeholder="Tulis catatan untuk fitur ini"></textarea>
                                     </div>
-                                    @endif
+                                    <div class="form-group no-margin">
+                                        <div class="pull-right">
+                                            <button type="button" class="btn btn-info waves-effect waves-light" onclick="addProgress()">Simpan</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
+    </div><!-- /.modal -->
 
-                                    @if($row->pp_team == null)
-                                    <div class="col-3" style="margin-top: 10px">
-                                        <select class="form-control team-{{ $row->pf_id }}" name="team">
+
+<!--  Modal content for the above example -->
+    <div class="custombox-modal custombox-modal-fadein" style="transition-duration: 500ms; z-index: 10003;">
+        <div id="modal-progress" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog modal-lg" >
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title edit-fitur" id="myLargeModalLabel">Edit Progress</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal">
+                            <input type="hidden" name="pf_id" class="pf_id">
+                            <div class="form-group no-margin">
+                                <label for="edit-target" class="control-label">Target</label>
+                                <textarea class="form-control" id="edit-target" placeholder="Tulis target untuk fitur ini" 
+                                @if ($posisi != 'PRJSPV')
+                                    readonly 
+                                @endif
+                                ></textarea>
+                            </div>
+                            <div class="form-group no-margin row">
+                                <div class="col-12 form-group row">
+                                    <label for="edit-execution" class="col-form-label col-2">Eksekusi</label>
+                                    <div class="select-executor col-5">
+                                        <select class="form-control executor" name="eksekutor" id="edit-executor"
+                                        @if ($posisi != 'PRJSPV')
+                                            disabled 
+                                        @endif
+                                        >
                                             <option selected disabled>Pilih Eksekutor</option>
                                             @foreach($team as $tim)
                                                 <option value="{{ $tim->ct_id }}">{{ $tim->ct_name }} - {{ $tim->pp_detail }}</option>
                                             @endforeach
                                         </select>
                                     </div>
-                                    @else
-                                    <label class="col-3 col-form-label" style="margin-top: 10px">{{ $row->team_name }}</label>
-                                    @endif
-                                    <div class="col-9" style="margin-top: 10px">
-                                        <textarea class="eksekusi-{{ $row->pf_id }} form-control" name="eksekusi[]"></textarea>
+                                    <label for="edit-execution" class="col-form-label col-2" style="text-align: right;">Status</label>
+                                    <div class="select-status col-3">
+                                        <select class="form-control modal-status" name="status" id="edit-status"
+                                        @if ($posisi != 'PRJSPV')
+                                            disabled 
+                                        @endif
+                                        >
+                                            <option selected disabled>Status</option>
+                                            <option value="Entry">Entry</option>
+                                            <option value="Hold">Hold</option>
+                                            <option value="Revision">Revision</option>
+                                            <option value="Closed">Closed</option>
+                                        </select>
                                     </div>
-                                </form>                                
+                                </div>
+                                <div class="col-12">
+                                    <textarea class="form-control" id="edit-execution" placeholder="Tulis hasil eksekusi untuk fitur ini"></textarea>
+                                </div>
                             </div>
-                        </div>
+                            <div class="form-group no-margin">
+                                <label for="edit-note" class="control-label">Catatan</label>
+                                <textarea class="form-control" id="edit-note" placeholder="Tulis catatan untuk fitur ini"></textarea>
+                            </div>
+                            <div class="form-group no-margin">
+                                <div class="pull-right">
+                                    <button type="button" class="btn btn-info waves-effect waves-light btnUpdate" onclick="updateProgress()">Simpan</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                </div>
-                @endforeach
-            </div> --}}
-
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
         </div>
-    </div>
+    </div><!-- /.modal -->
 
 @endsection
 
 @section('extra_scripts')
     <script type="text/javascript">
-        var counter = 1;
         var table;
-        var project = '{{ $info[0]->p_code }}';
+        var posisi = '{{ $posisi }}';
         $(document).ready(function(){
-            table = document.getElementById("project");
-            $('.mdi-minus').click();
+            setTimeout(function () {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                table = $("#project").DataTable({
+                    "search": {
+                        "caseInsensitive": true
+                    },
+                    processing: true,
+                    serverSide: true,
+                    "ajax": {
+                        "url": baseUrl + '/manajemen-project/project-progress/get-progress/'+'{{ $project[0]->p_code }}',
+                        "type": "get",
+                    },
+                    columns: [
+                        {data: 'pf_detail', name: 'pf_detail'},
+                        {data: 'pp_date', name: 'pp_date'},
+                        {data: 'init', name: 'init'},
+                        {data: 'team', name: 'team'},
+                        {data: 'pp_state', name: 'pp_state'},
+                        {data: 'aksi', name: 'aksi'}
+                    ],
+                    responsive: true,
+                    "pageLength": 10,
+                    "ordering": false,
+                    "aaSorting": [],
+                    "lengthMenu": [[10, 20, 50, -1], [10, 20, 50, "All"]],
+                    "language": dataTableLanguage,
+                });
+            }, 500);
         });
 
         function tambah(){
-            $('#masukan-fitur').modal('show');
+            document.getElementById("content-table").style.height = (screen.height - (screen.height/3))+'px';
+            $('#modal-fitur').modal('show');
         }
 
-        function addFitur(kode){
-            
+        function check(id, field){
+            $(".checkfitur").prop("checked", false);
+            document.getElementById("fitur-"+id).checked = true;
         }
 
-        function save(id){
-            var eksekusi = $('.eksekusi-'+id).val();
-            var target = $('.target-'+id).val();
-            var team = $('.team-'+id).val();
-            var init = $('.init-'+id).val();
+        function addProgress(){
+            var target = $('#text-target').val();
+            var eksekusi = $('#text-execution').val();
+            var note = $('#text-execution').val();
+            var eksekutor = $('.executor').val();
+
+            if (fitur == null || fitur == '') {
+                $.toast({
+                    heading: 'Peringatan!',
+                    text: 'Pilih fitur yang ingin ditambahkan.',
+                    position: 'top-right',
+                    loaderBg: '#5ba035',
+                    icon: 'warning',
+                    hideAfter: 3000,
+                    stack: 1
+                });
+                return false;
+            }
+            if (eksekutor == null || eksekutor == '') {
+                $.toast({
+                    heading: 'Peringatan!',
+                    text: 'Pilih eksekutor yang ingin ditambahkan.',
+                    position: 'top-right',
+                    loaderBg: '#5ba035',
+                    icon: 'warning',
+                    hideAfter: 3000,
+                    stack: 1
+                });
+                return false;
+            }
+
+            $('#modal-fitur').modal('hide');
             waitingDialog.show();
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+
             $.ajax({
-                url: baseUrl + '/manajemen-project/project-progress/save',
-                type: 'get',
-                data: {target: target, eksekusi: eksekusi, id: id, project: project, team: team, init: init},
+                url: baseUrl + '/manajemen-project/project-progress/get-project/{{ $kode }}/save-progress-init',
+                type: 'post',
+                data: {fitur: fitur, target: target, eksekusi: eksekusi, note: note, eksekutor: eksekutor},
                 dataType: 'json',
                 success: function (response) {
                     setTimeout(function () {waitingDialog.hide();}, 500);
                     if (response.status == 'success') {
+                        table.ajax.reload();
+                        $.toast({
+                            heading: 'Sukses!',
+                            text: 'Data berhasil disimpan.',
+                            position: 'top-right',
+                            loaderBg: '#5ba035',
+                            icon: 'success',
+                            hideAfter: 3000,
+                            stack: 1
+                        });
+                    } else if (response.status == 'failed') {
+                        $.toast({
+                            heading: 'Gagal!',
+                            text: 'Data gagal disimpan, hubungi admin.',
+                            position: 'top-right',
+                            loaderBg: '#bf441d',
+                            icon: 'error',
+                            hideAfter: 3000,
+                            stack: 1
+                        });
+                    }
+                },
+                error: function (xhr, status) {
+                    setTimeout(function () {waitingDialog.hide();}, 500);
+                    if (status == 'timeout') {
+                        $('.error-load').css('visibility', 'visible');
+                        $('.error-load small').text('Ups. Terjadi Kesalahan, Coba Lagi Nanti');
+                    }
+                    else if (xhr.status == 0) {
+                        $('.error-load').css('visibility', 'visible');
+                        $('.error-load small').text('Ups. Koneksi Internet Bemasalah, Coba Lagi Nanti');
+                    }
+                    else if (xhr.status == 500) {
+                        $('.error-load').css('visibility', 'visible');
+                        $('.error-load small').text('Ups. Server Bemasalah, Coba Lagi Nanti');
+                    }
+                }
+            });
+        }
+
+        function edit(id){
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                url: baseUrl + '/manajemen-project/project-progress/get-project/{{ $kode }}/getProgress',
+                type: 'get',
+                data: {pp_id: id},
+                dataType: 'json',
+                success: function (response) {
+                    $('#modal-progress').modal('show');
+                    var data = response.data[0];
+                    if (posisi == 'PRJPRG' && (data.pp_state == 'Hold' || data.pp_state == 'Closed')) {
+                        $('#edit-target').prop('readonly', true);
+                        $('#edit-execution').prop('readonly', true);
+                        $('#edit-note').prop('readonly', true);
+                        $('.btnUpdate').prop('disabled', true);
+                    }
+                    $('.edit-fitur').html('Edit Progress ' + data.pf_detail);
+                    $('textarea#edit-target').val(data.pp_target);
+                    $('textarea#edit-execution').val(data.pp_execution);
+                    $('textarea#edit-note').val(data.pp_note);
+                    $('div .select-executor select').val(data.pp_team);
+                    $('div .select-status select').val(data.pp_state);
+                    $('.pf_id').val(data.pf_id);
+                },
+                error: function (xhr, status) {
+                    if (status == 'timeout') {
+                        $('.error-load').css('visibility', 'visible');
+                        $('.error-load small').text('Ups. Terjadi Kesalahan, Coba Lagi Nanti');
+                    }
+                    else if (xhr.status == 0) {
+                        $('.error-load').css('visibility', 'visible');
+                        $('.error-load small').text('Ups. Koneksi Internet Bemasalah, Coba Lagi Nanti');
+                    }
+                    else if (xhr.status == 500) {
+                        $('.error-load').css('visibility', 'visible');
+                        $('.error-load small').text('Ups. Server Bemasalah, Coba Lagi Nanti');
+                    }
+                }
+            });
+        }
+
+        function updateProgress(){
+            var fitur = $('.pf_id').val();
+            var target = $('#edit-target').val();
+            var eksekusi = $('#edit-execution').val();
+            var note = $('#edit-note').val();
+            var eksekutor = $('#edit-executor').val();
+            var status = $('.modal-status').val();
+
+            $('#modal-progress').modal('hide');
+            waitingDialog.show();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                url: baseUrl + '/manajemen-project/project-progress/get-project/{{ $kode }}/update-progress-init',
+                type: 'get',
+                data: {fitur: fitur, target: target, eksekusi: eksekusi, note: note, eksekutor: eksekutor, status: status},
+                dataType: 'json',
+                success: function (response) {
+                    setTimeout(function () {waitingDialog.hide();}, 500);
+                    if (response.status == 'success') {
+                        table.ajax.reload();
                         $.toast({
                             heading: 'Sukses!',
                             text: 'Data berhasil disimpan.',
