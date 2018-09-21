@@ -19,17 +19,28 @@
 <link href="{{ asset('assets/plugins/bootstrap-fileupload/bootstrap-fileupload.css') }}" rel="stylesheet" />
 <!-- Toastr css -->
 <link href="{{ asset('assets/plugins/jquery-toastr/jquery.toast.min.css') }}" rel="stylesheet" />
+<!-- Time Picker -->
+<link href="{{ asset('assets/plugins/timepicker/bootstrap-timepicker.min.css') }}" rel="stylesheet">
+<!-- Color Picker -->
+<link href="{{ asset('assets/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css') }}" rel="stylesheet">
+<!-- Date Picker -->
+<link href="{{ asset('assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet">
+<!-- Clock Picker -->
+<link href="{{ asset('assets/plugins/clockpicker/css/bootstrap-clockpicker.min.css') }}" rel="stylesheet">
+<!-- Date Range Picker -->
+<link href="{{ asset('assets/plugins/bootstrap-daterangepicker/daterangepicker.css') }}" rel="stylesheet">
+<!-- Contextmenu -->
+<link href="{{ asset('assets/css/jquery.contextMenu.css') }}" rel="stylesheet" type="text/css">
+<!-- DataTables -->
+<link href="{{ asset('assets/plugins/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css"/>
+<link href="{{ asset('assets/plugins/datatables/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css"/>
 <!-- App css -->
 <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
 <link href="{{ asset('assets/css/icons.css') }}" rel="stylesheet" type="text/css">
 <link href="{{ asset('assets/css/metismenu.min.css') }}" rel="stylesheet" type="text/css">
 <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" type="text/css">
 <script src="{{ asset('assets/js/modernizr.min.js') }}"></script>
-<!-- Contextmenu -->
-<link href="{{ asset('assets/css/jquery.contextMenu.css') }}" rel="stylesheet" type="text/css">
-<!-- DataTables -->
-<link href="{{ asset('assets/plugins/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css"/>
-<link href="{{ asset('assets/plugins/datatables/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css"/>
+
 <style type="text/css">
 	.table>tbody>tr>td, .table>tbody>tr>th {
 		padding: 8px 8px;
@@ -91,12 +102,6 @@
 	  }
 	}
 </style>
-<!-- Plugins css -->
-<link href="{{ asset('assets/plugins/timepicker/bootstrap-timepicker.min.css') }}" rel="stylesheet">
-<link href="{{ asset('assets/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css') }}" rel="stylesheet">
-<link href="{{ asset('assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet">
-<link href="{{ asset('assets/plugins/clockpicker/css/bootstrap-clockpicker.min.css') }}" rel="stylesheet">
-<link href="{{ asset('assets/plugins/bootstrap-daterangepicker/daterangepicker.css') }}" rel="stylesheet">
 
 <script type="text/javascript">
 	var baseUrl = "{{ url('/') }}";

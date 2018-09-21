@@ -15,7 +15,7 @@
 
         <ul class="list-inline float-right mb-0">
             <li class="list-inline-item dropdown notification-list">
-                <span style="color: #fff">{{ Auth::guard('team')->user()->ct_name }}</span>
+                <span style="color: #fff"><strong>{{ Auth::guard('team')->user()->ct_name }}</strong></span>
             </li>
 
             <li class="list-inline-item dropdown notification-list">

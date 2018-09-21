@@ -247,7 +247,7 @@
                     serverSide: true,
                     "ajax": {
                         "url": baseUrl + '/manajemen-project/project-progress/get-progress/'+'{{ $project[0]->p_code }}',
-                        "type": "get",
+                        "type": "post",
                     },
                     columns: [
                         {data: 'pf_detail', name: 'pf_detail'},
@@ -373,7 +373,7 @@
 
             $.ajax({
                 url: baseUrl + '/manajemen-project/project-progress/get-project/{{ $kode }}/getProgress',
-                type: 'get',
+                type: 'post',
                 data: {pp_id: id},
                 dataType: 'json',
                 success: function (response) {
@@ -428,7 +428,7 @@
 
             $.ajax({
                 url: baseUrl + '/manajemen-project/project-progress/get-project/{{ $kode }}/update-progress-init',
-                type: 'get',
+                type: 'post',
                 data: {fitur: fitur, target: target, eksekusi: eksekusi, note: note, eksekutor: eksekutor, status: status},
                 dataType: 'json',
                 success: function (response) {

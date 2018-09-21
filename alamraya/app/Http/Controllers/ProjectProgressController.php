@@ -12,17 +12,19 @@ class ProjectProgressController extends Controller
 {
     public function index()
     {
-        $progress = DB::table('d_projectprogress')
-            ->join('d_project', 'p_code', '=', 'pp_projectcode')
-            ->where('pp_team', '=', Auth::user()->cl_id)
-            ->get();
-
+        $cl_comp = Auth::user()->cl_comp;
+        $cl_id = Auth::user()->cl_id;
         $project = DB::table('d_projectteam')
-            ->join('d_project', 'pt_projectcode', '=', 'p_code')
-            ->where('pt_teamid', '=', Auth::user()->cl_id)
+            ->join('d_project', function ($q){
+                $q->on('pt_comp', '=', 'p_comp');
+                $q->on('pt_projectcode', '=', 'p_code');
+                $q->where('p_state', '=', 'RUNNING');
+            })
+            ->select('p_name', 'p_code')
+            ->where('pt_teamid', '=', $cl_id)
+            ->where('pt_comp', '=', $cl_comp)
             ->get();
-
-        return view('manajemen-project/project-progress/index', compact('project', 'progress'));
+        return view('manajemen-project/project-progress/index', compact('project'));
     }
 
     public function projectProgress($kode)
@@ -83,61 +85,94 @@ class ProjectProgressController extends Controller
         return view('manajemen-project/project-progress/project-progress', compact('team', 'projectFitur', 'info', 'project', 'posisi', 'kode'));
     }
 
-    public function data($status)
+    public function getProjectProgress(Request $request)
     {
-        if ($status == 'all'){
-            $data = DB::table('d_project')
-                ->join('m_projecttype', 'p_type', '=', 'pt_code')
-                ->select('p_name', 'p_comp', 'p_code', 'p_state', 'pt_detail', DB::raw('date_format(p_kickoff, "%d/%m/%Y") as p_kickoff'), DB::raw('date_format(p_deadline, "%d/%m/%Y") as p_deadline'))
-                ->orderBy('p_code')
+        $tipe = $request->tipe;
+        $cl_comp = Auth::user()->cl_comp;
+        $cl_id = Auth::user()->cl_id;
+        $data = [];
+        if ($tipe == 'project'){
+            $data = DB::table('d_projectprogress')
+                ->join('d_project', function ($q) {
+                    $q->on('pp_projectcode', '=', 'p_code');
+                    $q->on('pp_comp', '=', 'p_comp');
+                    $q->where('p_state', '=', 'RUNNING');
+                })
+                ->join('d_projectfitur', function ($q){
+                    $q->on('pf_id', '=', 'pp_fitur');
+                    $q->on('pf_projectcode', '=', 'pp_projectcode');
+                })
+                ->join('d_companyteam', function ($q){
+                    $q->on('ct_id', '=', 'pp_team');
+                })
+                ->select('p_name', 'pp_date', 'ct_name', 'pf_detail')
+                ->where('pp_comp', '=', $cl_comp)
+                ->where(function ($q) use ($cl_id){
+                    $q->orWhere('pp_init', '=', $cl_id);
+                    $q->orWhere('pp_team', '=', $cl_id);
+                })
+                ->orderBy('pp_update')
                 ->get();
-        } else {
-            $data = DB::table('d_project')
-                ->join('m_projecttype', 'p_type', '=', 'pt_code')
-                ->select('p_name', 'p_comp', 'p_code', 'p_state', 'pt_detail', DB::raw('date_format(p_kickoff, "%d/%m/%Y") as p_kickoff'), DB::raw('date_format(p_deadline, "%d/%m/%Y") as p_deadline'))
-                ->where('p_state', '=', $status)
-                ->orderBy('p_code')
+        } elseif ($tipe == 'date'){
+            $start = Carbon::createFromFormat('d/m/Y', $request->start)->format('Y-m-d');
+            $end = Carbon::createFromFormat('d/m/Y', $request->end)->format('Y-m-d');
+            $data = DB::table('d_projectprogress')
+                ->join('d_project', function ($q) {
+                    $q->on('pp_projectcode', '=', 'p_code');
+                    $q->on('pp_comp', '=', 'p_comp');
+                    $q->where('p_state', '=', 'RUNNING');
+                })
+                ->join('d_projectfitur', function ($q){
+                    $q->on('pf_id', '=', 'pp_fitur');
+                    $q->on('pf_projectcode', '=', 'pp_projectcode');
+                })
+                ->join('d_companyteam', function ($q){
+                    $q->on('ct_id', '=', 'pp_team');
+                })
+                ->select('p_name', 'pp_date', 'ct_name', 'pf_detail')
+                ->where('pp_comp', '=', $cl_comp)
+                ->where(function ($q) use ($cl_id){
+                    $q->orWhere('pp_init', '=', $cl_id);
+                    $q->orWhere('pp_team', '=', $cl_id);
+                })
+                ->where('pp_update', '<=', $end)
+                ->where('pp_update', '>=', $start)
+                ->orderBy('pp_update')
+                ->get();
+        } elseif ($tipe == 'team'){
+            $data = DB::table('d_projectprogress')
+                ->join('d_project', function ($q) {
+                    $q->on('pp_projectcode', '=', 'p_code');
+                    $q->on('pp_comp', '=', 'p_comp');
+                    $q->where('p_state', '=', 'RUNNING');
+                })
+                ->join('d_projectfitur', function ($q){
+                    $q->on('pf_id', '=', 'pp_fitur');
+                    $q->on('pf_projectcode', '=', 'pp_projectcode');
+                })
+                ->join('d_companyteam', function ($q){
+                    $q->on('ct_id', '=', 'pp_team');
+                })
+                ->select('p_name', 'pp_date', 'ct_name', 'pf_detail')
+                ->where('pp_comp', '=', $cl_comp)
+                ->where(function ($q) use ($cl_id){
+                    $q->orWhere('pp_init', '=', $cl_id);
+                    $q->orWhere('pp_team', '=', $cl_id);
+                })
+                ->where('pp_update', '<=', $end)
+                ->where('pp_update', '>=', $start)
+                ->orderBy('pp_update')
                 ->get();
         }
 
         $data = collect($data);
         return Datatables::of($data)
-            ->editColumn('p_state', function ($data){
-                if ($data->p_state == 'RUNNING'){
-                    return '<div class="text-center"><span class="label label-table label-info">'.$data->p_state.'</span></div>';
-                } elseif ($data->p_state == 'DONE'){
-                    return '<div class="text-center"><span class="label label-table label-success">'.$data->p_state.'</span></div>';
-                } elseif ($data->p_state == 'FAULT'){
-                    return '<div class="text-center"><span class="label label-table label-danger">'.$data->p_state.'</span></div>';
-                }
+            ->editColumn('pp_date', function ($data){
+                return "<div class='text-center'>".Carbon::createFromFormat('Y-m-d', $data->pp_date)->format('d M Y')."</div>";
             })
-            ->editColumn('p_kickoff', function ($data){
-                return "<div class='text-center'>".Carbon::createFromFormat('d/m/Y', $data->p_kickoff)->format('d M Y')."</div>";
-            })
-            ->editColumn('p_deadline', function ($data){
-                return "<div class='text-center'>".Carbon::createFromFormat('d/m/Y', $data->p_deadline)->format('d M Y')."</div>";
-            })
-            ->setRowId(function ($data) {
-                return $data->p_code;
-            })
-            ->setRowClass(function (){
-                return 'contextMenu list-project';
-            })
-            ->setRowAttr([
-                'style' => function() {
-                    return 'cursor: pointer';
-                },
-                'title' => function() {
-                    return 'Klik kanan untuk menampilkan aksi';
-                }
-            ])
-            ->setRowData([
-                'onclick' => function($data) {
-                    return "detail('".$data->p_code."')";
-                }
-            ])
-            ->rawColumns(['p_state', 'p_kickoff', 'p_deadline'])
+            ->rawColumns(['pp_date'])
             ->make(true);
+
     }
 
     public function saveInit(Request $request, $project)
@@ -412,4 +447,10 @@ class ProjectProgressController extends Controller
             ]);
         }
     }
+
+    public function getTeam(Request $request)
+    {
+        $key = $request->term;
+    }
+
 }
