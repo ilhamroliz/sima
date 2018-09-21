@@ -159,8 +159,6 @@ class ProjectProgressController extends Controller
                     $q->orWhere('pp_init', '=', $cl_id);
                     $q->orWhere('pp_team', '=', $cl_id);
                 })
-                ->where('pp_update', '<=', $end)
-                ->where('pp_update', '>=', $start)
                 ->orderBy('pp_update')
                 ->get();
         }
