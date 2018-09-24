@@ -37,6 +37,7 @@
 		    "next": "Selanjutnya",
 		 }
 	}
+
 </script>
 
 <!-- plugin js -->
@@ -53,6 +54,10 @@
 <script src="{{ asset('assets/plugins/jquery-toastr/jquery.toast.min.js') }}"></script>
 <!-- Waitingfor -->
 <script src="{{ asset('assets/plugins/waitingfor/waitingfor.js') }}"></script>
+<!-- Autocomplete -->
+<script src="{{ asset('assets/plugins/autocomplete/jquery.autocomplete.min.js') }}"></script>
+<!-- Select2 -->
+<script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}" type="text/javascript"></script>
 <!-- Jquery filer js -->
 <script src="{{ asset('assets/plugins/jquery.filer/js/jquery.filer.min.js') }}"></script>
 <!-- Bootstrap fileupload js -->

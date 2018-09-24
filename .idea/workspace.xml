@@ -3,6 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="e5413198-c071-49c8-8a12-3c47bba6ea88" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/alamraya/app/Http/Controllers/ProjectProgressController.php" beforeDir="false" afterPath="$PROJECT_DIR$/alamraya/app/Http/Controllers/ProjectProgressController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/alamraya/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/alamraya/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/alamraya/resources/views/layout/_head.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/alamraya/resources/views/layout/_head.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/alamraya/resources/views/layout/_scripts.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/alamraya/resources/views/layout/_scripts.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/alamraya/resources/views/manajemen-project/project-progress/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/alamraya/resources/views/manajemen-project/project-progress/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/alamraya/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/alamraya/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -36,25 +42,26 @@
     <session id="1552611614">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="14" />
+          <entry key="project.closed" value="16" />
           <entry key="project.open.time.12" value="1" />
-          <entry key="project.open.time.13" value="1" />
+          <entry key="project.open.time.13" value="2" />
           <entry key="project.open.time.17" value="1" />
           <entry key="project.open.time.29" value="1" />
           <entry key="project.open.time.34" value="1" />
           <entry key="project.open.time.37" value="2" />
-          <entry key="project.open.time.38" value="2" />
+          <entry key="project.open.time.38" value="3" />
           <entry key="project.open.time.39" value="1" />
           <entry key="project.open.time.42" value="1" />
+          <entry key="project.open.time.43" value="1" />
           <entry key="project.open.time.45" value="1" />
           <entry key="project.open.time.49" value="1" />
           <entry key="project.open.time.51" value="1" />
-          <entry key="project.opened" value="14" />
+          <entry key="project.opened" value="17" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="php" value="13745" />
+          <entry key="php" value="14811" />
           <entry key="sql" value="24" />
           <entry key="txt" value="21" />
           <entry key="vmoptions" value="7" />
@@ -63,7 +70,7 @@
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="HTML" value="15" />
-          <entry key="PHP" value="13730" />
+          <entry key="PHP" value="14796" />
           <entry key="PLAIN_TEXT" value="28" />
           <entry key="Scratch" value="24" />
         </counts>
@@ -71,7 +78,7 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="DATABASE/3a1a13ef-3c26-4229-823b-53d0d5fad455" value="1" />
-          <entry key="php" value="31" />
+          <entry key="php" value="32" />
           <entry key="sql" value="4" />
           <entry key="vmoptions" value="1" />
         </counts>
@@ -79,7 +86,7 @@
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="Blade" value="3" />
-          <entry key="PHP" value="28" />
+          <entry key="PHP" value="29" />
           <entry key="PLAIN_TEXT" value="1" />
           <entry key="Scratch" value="4" />
           <entry key="UML" value="1" />
@@ -92,17 +99,17 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/alamraya/app/Http/Controllers/ProjectProgressController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="350">
-              <caret line="161" column="38" lean-forward="true" selection-start-line="161" selection-start-column="38" selection-end-line="161" selection-end-column="38" />
+            <state relative-caret-position="237">
+              <caret line="486" column="19" selection-start-line="486" selection-start-column="19" selection-end-line="486" selection-end-column="19" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/alamraya/app/Http/Controllers/DaftarTeamController.php">
+        <entry file="file://$PROJECT_DIR$/alamraya/app/Http/Controllers/DaftarProjectController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="271">
-              <caret line="27" column="39" selection-start-line="27" selection-start-column="39" selection-end-line="27" selection-end-column="39" />
+            <state relative-caret-position="77">
+              <caret line="41" column="36" selection-start-line="40" selection-start-column="8" selection-end-line="41" selection-end-column="36" />
             </state>
           </provider>
         </entry>
@@ -126,7 +133,12 @@
       <find>erp</find>
       <find>getProjectProgress</find>
       <find>orw</find>
+      <find>where('pp_update</find>
+      <find>getTeam</find>
     </findStrings>
+    <replaceStrings>
+      <replace>whereDate('pp_update</replace>
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -249,6 +261,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -322,7 +335,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -370,6 +382,9 @@
       <workItem from="1537320742719" duration="15146000" />
       <workItem from="1537412767464" duration="16331000" />
       <workItem from="1537497437547" duration="6210000" />
+      <workItem from="1537580652170" duration="598000" />
+      <workItem from="1537582424693" duration="5409000" />
+      <workItem from="1537770411488" duration="3682000" />
     </task>
     <task id="LOCAL-00001" summary="roliz">
       <created>1536841189585</created>
@@ -424,12 +439,13 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="91459000" />
+    <option name="totallyTimeSpent" value="101148000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2246596" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23524962" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -447,7 +463,7 @@
       <window_info anchor="bottom" id="Database Console" order="12" weight="0.63022506" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.24962178" />
       <window_info anchor="right" id="Database" order="3" weight="0.24357034" />
     </layout>
   </component>
@@ -596,18 +612,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret line="167" column="40" lean-forward="true" selection-start-line="167" selection-start-column="40" selection-end-line="167" selection-end-column="40" />
-          <folding>
-            <element signature="e#1518#1543#0#HTML" expanded="true" />
-            <element signature="e#2417#2441#0#HTML" expanded="true" />
-            <element signature="e#3074#3098#0#HTML" expanded="true" />
-            <element signature="e#3659#3683#0#HTML" expanded="true" />
-            <element signature="e#4243#4267#0#HTML" expanded="true" />
-            <element signature="e#4783#4805#0#HTML" expanded="true" />
-            <element signature="e#5469#5493#0#HTML" expanded="true" />
-            <element signature="e#5613#5637#0#HTML" expanded="true" />
-            <element signature="e#5754#5778#0#HTML" expanded="true" />
-            <element signature="e#5891#5915#0#HTML" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -625,24 +629,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/alamraya/app/Http/Controllers/DaftarProjectController.php">
+    <entry file="file://$PROJECT_DIR$/alamraya/app/Http/Controllers/DaftarTeamController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="657">
-          <caret line="76" column="64" lean-forward="true" selection-start-line="76" selection-start-column="12" selection-end-line="76" selection-end-column="64" />
+        <state relative-caret-position="500">
+          <caret line="27" column="39" selection-start-line="27" selection-start-column="39" selection-end-line="27" selection-end-column="39" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/alamraya/app/Http/Controllers/DaftarTeamController.php">
+    <entry file="file://$PROJECT_DIR$/alamraya/app/Http/Controllers/DaftarProjectController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="271">
-          <caret line="27" column="39" selection-start-line="27" selection-start-column="39" selection-end-line="27" selection-end-column="39" />
+        <state relative-caret-position="77">
+          <caret line="41" column="36" selection-start-line="40" selection-start-column="8" selection-end-line="41" selection-end-column="36" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/alamraya/app/Http/Controllers/ProjectProgressController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="161" column="38" lean-forward="true" selection-start-line="161" selection-start-column="38" selection-end-line="161" selection-end-column="38" />
+        <state relative-caret-position="237">
+          <caret line="486" column="19" selection-start-line="486" selection-start-column="19" selection-end-line="486" selection-end-column="19" />
         </state>
       </provider>
     </entry>
