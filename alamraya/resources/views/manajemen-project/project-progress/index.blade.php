@@ -255,5 +255,9 @@
         function getData(){
 
         }
+
+        function addProgress(kode){
+            window.location = '{{ url('manajemen-project/project-progress/project') }}' + '/' + kode;
+        }
     </script>
 @endsection
