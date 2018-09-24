@@ -168,6 +168,21 @@
                     <div class="modal-body">
                         <form class="form-horizontal">
                             <input type="hidden" name="pf_id" class="pf_id">
+                            <div class="form-group row">
+                                <label for="edit-executor" class="col-2 col-form-label">Eksekutor</label>
+                                <div class="select-executor col-5">
+                                    <select class="form-control executor" name="eksekutor" id="edit-executor"
+                                    @if ($posisi != 'PRJSPV')
+                                        disabled 
+                                    @endif
+                                    >
+                                        <option selected disabled>Pilih Eksekutor</option>
+                                        @foreach($team as $tim)
+                                            <option value="{{ $tim->ct_id }}">{{ $tim->ct_name }} - {{ $tim->pp_detail }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
                             <div class="form-group no-margin">
                                 <label for="edit-target" class="control-label">Target</label>
                                 <textarea class="form-control" id="edit-target" placeholder="Tulis target untuk fitur ini" 
@@ -177,47 +192,38 @@
                                 ></textarea>
                             </div>
                             <div class="form-group no-margin row">
-                                <div class="col-12 form-group row">
-                                    <label for="edit-execution" class="col-form-label col-2">Eksekusi</label>
-                                    <div class="select-executor col-5">
-                                        <select class="form-control executor" name="eksekutor" id="edit-executor"
-                                        @if ($posisi != 'PRJSPV')
-                                            disabled 
-                                        @endif
-                                        >
-                                            <option selected disabled>Pilih Eksekutor</option>
-                                            @foreach($team as $tim)
-                                                <option value="{{ $tim->ct_id }}">{{ $tim->ct_name }} - {{ $tim->pp_detail }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <label for="edit-execution" class="col-form-label col-2" style="text-align: right;">Status</label>
-                                    <div class="select-status col-3">
-                                        <select class="form-control modal-status" name="status" id="edit-status"
-                                        @if ($posisi != 'PRJSPV')
-                                            disabled 
-                                        @endif
-                                        >
-                                            <option selected disabled>Status</option>
-                                            <option value="Entry">Entry</option>
-                                            <option value="Hold">Hold</option>
-                                            <option value="Revision">Revision</option>
-                                            <option value="Closed">Closed</option>
-                                        </select>
-                                    </div>
+                                <label for="edit-execution" class="col-form-label col-2">Eksekusi</label>
+                                <div class="col-12">
+                                    <textarea class="form-control" id="edit-execution" placeholder="Tulis hasil eksekusi untuk fitur ini" readonly></textarea>
                                 </div>
                                 <div class="col-12">
-                                    <textarea class="form-control" id="edit-execution" placeholder="Tulis hasil eksekusi untuk fitur ini"></textarea>
+                                    <div class="pull-right">
+                                        <button type="button" class="btn btn-warning waves-effect waves-light btn-xs">Hold</button>
+                                        <button type="button" class="btn btn-info waves-effect waves-light btn-xs">Revision</button>
+                                        <button type="button" class="btn btn-success waves-effect waves-light btn-xs">Closed</button>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group no-margin">
                                 <label for="edit-note" class="control-label">Catatan</label>
-                                <textarea class="form-control" id="edit-note" placeholder="Tulis catatan untuk fitur ini"></textarea>
+                                <textarea class="form-control" readonly>Shitta | 22 Sep 2018 09:35 | "Fitur Absensi Seperti fitur absensi projek lain"
+Mahmud | 23 Sep 2018 15:45 | "Beda beda mbak"
+                                </textarea>
+                                {{-- <input type="text" class="form-control" name="lastNote" readonly value='Shitta | 22 Sep 2018 | "Fitur Absensi Seperti fitur absensi projek lain"'>
+                                <input type="text" class="form-control" name="lastNote" readonly value='Mahmud | 23 Sep 2018 | "Beda beda mbak"' style="margin-top: 10px;">
+                                <input type="text" class="form-control" name="note" style="margin-top: 10px;" placeholder="Masukan Catatan"> --}}
+                                {{-- <input type="text" class="form-control form-control-success" id="inputSuccess1" style="margin-top: 10px;" placeholder="Masukan Catatan"> --}}
+                                <div class="input-group" style="margin-top: 10px">
+                                    <input type="email" id="example-input2-group2" name="example-input2-group2" class="form-control" placeholder="Catatan">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn waves-effect waves-light btn-primary"><i class="dripicons-checkmark"></i></button>
+                                    </span>
+                                </div>
                             </div>
                             <div class="form-group no-margin">
-                                <div class="pull-right">
+                                {{-- <div class="pull-right">
                                     <button type="button" class="btn btn-info waves-effect waves-light btnUpdate" onclick="updateProgress()">Simpan</button>
-                                </div>
+                                </div> --}}
                             </div>
                         </form>
                     </div>
@@ -282,6 +288,7 @@
             var eksekusi = $('#text-execution').val();
             var note = $('#text-execution').val();
             var eksekutor = $('.executor').val();
+            var fitur = $('.pilih').val();
 
             if (fitur == null || fitur == '') {
                 $.toast({
@@ -307,7 +314,7 @@
                 });
                 return false;
             }
-
+            
             $('#modal-fitur').modal('hide');
             waitingDialog.show();
             $.ajaxSetup({
@@ -385,7 +392,7 @@
                         $('#edit-note').prop('readonly', true);
                         $('.btnUpdate').prop('disabled', true);
                     }
-                    $('.edit-fitur').html('Edit Progress ' + data.pf_detail);
+                    $('.edit-fitur').html('{{ Carbon\Carbon::now('Asia/Jakarta')->format('d M Y') }} - ' + data.pf_detail);
                     $('textarea#edit-target').val(data.pp_target);
                     $('textarea#edit-execution').val(data.pp_execution);
                     $('textarea#edit-note').val(data.pp_note);

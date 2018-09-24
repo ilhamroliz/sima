@@ -15,7 +15,7 @@ class erpController
             ->where('pt_projectcode', '=', $project)
             ->where('pt_teamid', '=', Auth::user()->cl_id)
             ->first();
-
+        
         return $posisi->pt_position;
     }
 }
