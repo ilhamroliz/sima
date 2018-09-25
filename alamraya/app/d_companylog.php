@@ -2,9 +2,9 @@
 
 namespace App;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 
-class d_companylog extends Authenticatable
+class d_companylog extends Model
 {
     protected $table = 'd_companylog';
     protected $primaryKey = 'cl_id';

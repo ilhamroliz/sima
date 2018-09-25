@@ -12,8 +12,8 @@ class ProjectProgressController extends Controller
 {
     public function index()
     {
-        $cl_comp = Auth::user()->cl_comp;
-        $cl_id = Auth::user()->cl_id;
+        $cl_comp = Auth::user()->un_comp;
+        $cl_id = Auth::user()->un_companyteam;
         $project = DB::table('d_projectteam')
             ->join('d_project', function ($q){
                 $q->on('pt_comp', '=', 'p_comp');
@@ -30,8 +30,8 @@ class ProjectProgressController extends Controller
 
     public function projectProgress($kode)
     {
-        $cl_comp = Auth::user()->cl_comp;
-        $cl_id = Auth::user()->cl_id;
+        $cl_comp = Auth::user()->un_comp;
+        $cl_id = Auth::user()->un_company;
         $posisi = erpController::getPosisi($kode);
         $now = Carbon::now('Asia/Jakarta')->format('Y-m-d');
 
@@ -73,8 +73,8 @@ class ProjectProgressController extends Controller
             ->join('d_projectfitur', 'pf_projectcode', '=', 'p_code')
             ->where('pt_projectcode', '=', $kode)
             ->whereNotIn('pf_id', $fitur)
-            ->where('pt_comp', '=', Auth::user()->cl_comp)
-            ->where('pt_teamid', '=', Auth::user()->cl_id)
+            ->where('pt_comp', '=', Auth::user()->un_comp)
+            ->where('pt_teamid', '=', Auth::user()->un_companyteam)
             ->orderBy('pf_detail')
             ->get();
 
@@ -90,8 +90,8 @@ class ProjectProgressController extends Controller
 
     public function getProjectProgress(Request $request)
     {
-        $cl_comp = Auth::user()->cl_comp;
-        $cl_id = Auth::user()->cl_id;
+        $cl_comp = Auth::user()->un_comp;
+        $cl_id = Auth::user()->un_companyteam;
         $start = Carbon::createFromFormat('d/m/Y', $request->awal)->format('Y-m-d');
         $end = Carbon::createFromFormat('d/m/Y', $request->akhir)->format('Y-m-d');
         $project = $request->project;
@@ -218,7 +218,7 @@ class ProjectProgressController extends Controller
             $eksekusi = $request->eksekusi;
             $target = $request->target;
             $fitur = $request->fitur;
-            $comp = Auth::user()->cl_comp;
+            $comp = Auth::user()->un_comp;
             $eksekutor = $request->eksekutor;
             $now = Carbon::now('Asia/Jakarta')->format('Y-m-d');
 
@@ -247,7 +247,7 @@ class ProjectProgressController extends Controller
                         'pp_comp' => $comp,
                         'pp_projectcode' => $project,
                         'pp_id' => $id,
-                        'pp_init' => Auth::user()->cl_id,
+                        'pp_init' => Auth::user()->un_comp,
                         'pp_team' => $eksekutor,
                         'pp_date' => Carbon::now('Asia/Jakarta'),
                         'pp_fitur' => $fitur,
@@ -269,7 +269,7 @@ class ProjectProgressController extends Controller
                         ->where('pp_projectcode', '=', $project)
                         ->where('pp_fitur', '=', $fitur)
                         ->update([
-                            'pp_init' => Auth::user()->cl_id,
+                            'pp_init' => Auth::user()->un_companyteam,
                             'pp_date' => Carbon::now('Asia/Jakarta'),
                             'pp_target' => $target,
                             'pp_team' => $eksekutor,
@@ -296,7 +296,7 @@ class ProjectProgressController extends Controller
                             'pp_comp' => $comp,
                             'pp_projectcode' => $project,
                             'pp_id' => $id,
-                            'pp_init' => Auth::user()->cl_id,
+                            'pp_init' => Auth::user()->un_company,
                             'pp_team' => $eksekutor,
                             'pp_date' => Carbon::now('Asia/Jakarta'),
                             'pp_fitur' => $fitur,
@@ -326,8 +326,8 @@ class ProjectProgressController extends Controller
     public function dataProgress($project)
     {
         $posisi = erpController::getPosisi($project);
-        $cl_comp = Auth::user()->cl_comp;
-        $cl_id = Auth::user()->cl_id;
+        $cl_comp = Auth::user()->un_comp;
+        $cl_id = Auth::user()->un_company;
         $now = Carbon::now('Asia/Jakarta')->format('Y-m-d');
 
         if ($posisi == 'PRJSPV'){
@@ -428,7 +428,7 @@ class ProjectProgressController extends Controller
 
     public function getProgress(Request $request, $project)
     {
-        $cl_comp = Auth::user()->cl_comp;
+        $cl_comp = Auth::user()->un_comp;
         $pp_id = $request->pp_id;
         $data = DB::table('d_projectprogress')
             ->join('d_companyteam as i', function ($w) use ($cl_comp){
@@ -462,8 +462,8 @@ class ProjectProgressController extends Controller
             $eksekusi = $request->eksekusi;
             $target = $request->target;
             $fitur = $request->fitur;
-            $comp = Auth::user()->cl_comp;
-            $cl_id = Auth::user()->cl_id;
+            $comp = Auth::user()->un_comp;
+            $cl_id = Auth::user()->un_companyteam;
             $eksekutor = $request->eksekutor;
             $status = $request->status;
 
@@ -537,7 +537,7 @@ class ProjectProgressController extends Controller
                 $q->on('pp_team', '=', 'team.ct_id');
                 $q->on('pp_comp', '=', 'team.ct_comp');
             })
-            ->where('pp_comp', '=', Auth::user()->cl_comp)
+            ->where('pp_comp', '=', Auth::user()->un_comp)
             ->where(function ($q) use ($keyword){
                 $q->where('init.ct_name', 'like', '%'.$keyword.'%');
                 $q->orWhere('team.ct_name', 'like', '%'.$keyword.'%');

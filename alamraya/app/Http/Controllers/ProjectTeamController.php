@@ -77,7 +77,7 @@ class ProjectTeamController extends Controller
         $project = DB::table('d_project')
             ->join('m_projecttype', 'pt_code', '=', 'p_type')
             ->where('p_code', '=', $kode)
-            ->where('p_comp', '=', Auth::user()->cl_comp)
+            ->where('p_comp', '=', Auth::user()->un_comp)
             ->get();
 
         $posisi = DB::table('m_position')
@@ -128,7 +128,7 @@ class ProjectTeamController extends Controller
                 })
                 ->join('m_position', 'pp_code', '=', 'pt_position')
                 ->select('ct_name', 'pp_detail', 'ct_id')
-                ->where('pt_comp', '=', Auth::user()->cl_comp)
+                ->where('pt_comp', '=', Auth::user()->un_comp)
                 ->where('pt_projectcode', '=', $project)
                 ->get();
 
@@ -153,7 +153,7 @@ class ProjectTeamController extends Controller
             $pp_code = $request->position;
 
             $check = DB::table('d_projectteam')
-                ->where('pt_comp', '=', Auth::user()->cl_comp)
+                ->where('pt_comp', '=', Auth::user()->un_comp)
                 ->where('pt_projectcode', '=', $p_code)
                 ->where('pt_teamid', '=', $ct_id)
                 ->get();
@@ -166,7 +166,7 @@ class ProjectTeamController extends Controller
             }
 
             $getId = DB::table('d_projectteam')
-                ->where('pt_comp', '=', Auth::user()->cl_comp)
+                ->where('pt_comp', '=', Auth::user()->un_comp)
                 ->where('pt_projectcode', '=', $p_code)
                 ->max('pt_id');
 
@@ -174,7 +174,7 @@ class ProjectTeamController extends Controller
 
             DB::table('d_projectteam')
                 ->insert([
-                    'pt_comp' => Auth::user()->cl_comp,
+                    'pt_comp' => Auth::user()->un_comp,
                     'pt_projectcode' => $p_code,
                     'pt_id' => $id,
                     'pt_position' => $pp_code,
@@ -200,7 +200,7 @@ class ProjectTeamController extends Controller
         try {
             $ct_id = $request->ct_id;
             $p_code = $request->p_code;
-            $cl_comp = Auth::user()->cl_comp;
+            $cl_comp = Auth::user()->un_comp;
 
             DB::table('d_projectteam')
                 ->where('pt_comp', '=', $cl_comp)

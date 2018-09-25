@@ -81,7 +81,7 @@ class DaftarProjectController extends Controller
 
     public function projectFitur($project)
     {
-        $cl_comp = Auth::user()->cl_comp;
+        $cl_comp = Auth::user()->un_comp;
 
         $project = DB::table('d_project')
             ->join('m_projecttype', 'pt_code', '=', 'p_type')
@@ -95,7 +95,7 @@ class DaftarProjectController extends Controller
 
     public function getFitur($project)
     {
-        $cl_comp = Auth::user()->cl_comp;
+        $cl_comp = Auth::user()->un_comp;
         $data = DB::table('d_project')
             ->join('d_projectfitur', function ($q){
                 $q->on('p_code', '=', 'pf_projectcode');

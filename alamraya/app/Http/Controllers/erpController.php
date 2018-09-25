@@ -11,9 +11,9 @@ class erpController
     public static function getPosisi($project)
     {
         $posisi = DB::table('d_projectteam')
-            ->where('pt_comp', '=', Auth::user()->cl_comp)
+            ->where('pt_comp', '=', Auth::user()->un_comp)
             ->where('pt_projectcode', '=', $project)
-            ->where('pt_teamid', '=', Auth::user()->cl_id)
+            ->where('pt_teamid', '=', Auth::user()->un_comp)
             ->first();
 
         return $posisi->pt_position;
