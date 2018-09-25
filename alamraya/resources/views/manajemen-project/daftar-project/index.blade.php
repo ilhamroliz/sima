@@ -143,6 +143,8 @@
                 callback: function(key, options) {
                     if (key == 'team') {
                         getTeam(this.attr('id'));
+                    } else if (key == 'detail') {
+                        detail(this);
                     }
                 },
                 items: {
@@ -168,11 +170,12 @@
         }
 
         function detail(data){
-            console.log(data.attr('id'));
+            location.href = baseUrl + '/manajemen-project/daftar-project/'+data.attr('id')+'/fitur';
         }
 
-        $('.list-project').click(function(){
-            console.log(this);
-        })
+        $('#daftar-project').on('click', '.list-project', function (e) {
+            location.href = baseUrl + '/manajemen-project/daftar-project/'+this.id+'/fitur';
+        });
+
     </script>
 @endsection

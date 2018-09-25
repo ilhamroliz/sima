@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use DB;
+use Auth;
 use Yajra\Datatables\Datatables;
 
 class DaftarProjectController extends Controller
@@ -75,6 +76,44 @@ class DaftarProjectController extends Controller
                 }
             ])
             ->rawColumns(['p_state', 'p_kickoff', 'p_deadline'])
+            ->make(true);
+    }
+
+    public function projectFitur($project)
+    {
+        $cl_comp = Auth::user()->cl_comp;
+
+        $project = DB::table('d_project')
+            ->join('m_projecttype', 'pt_code', '=', 'p_type')
+            ->select('p_name', 'pt_detail', 'p_code')
+            ->where('p_code', '=', $project)
+            ->where('p_comp', '=', $cl_comp)
+            ->get();
+
+        return view('manajemen-project/daftar-project/projectfitur', compact('project'));
+    }
+
+    public function getFitur($project)
+    {
+        $cl_comp = Auth::user()->cl_comp;
+        $data = DB::table('d_project')
+            ->join('d_projectfitur', function ($q){
+                $q->on('p_code', '=', 'pf_projectcode');
+                $q->on('p_comp', '=', 'pf_comp');
+            })
+            ->join('m_projecttype', 'pt_code', '=', 'p_type')
+            ->select('p_name', 'p_code', 'p_type', 'pt_detail', 'p_state', 'pf_code', 'pf_id', 'pf_detail', 'pf_progress', 'pf_deadline')
+            ->where('p_code', '=', $project)
+            ->where('p_comp', '=', $cl_comp)
+            ->orderBy('pf_detail')
+            ->get();
+
+        $data = collect($data);
+        return Datatables::of($data)
+            ->addColumn('aksi', function ($data){
+                return '<div class="text-center"><button type="button" title="Lihat Progress" class="btn btn-xs btn-icon waves-effect waves-light btn-custom"> <i class="fa fa-line-chart"></i> </button></div>';
+            })
+            ->rawColumns(['aksi'])
             ->make(true);
     }
 }

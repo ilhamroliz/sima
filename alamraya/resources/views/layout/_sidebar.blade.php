@@ -15,7 +15,7 @@
                 <li class="{{ Request::is('manajemen-project/*') ? 'active' : '' }}">
                     <a href="javascript: void(0);" class="{{ Request::is('manajemen-project/*') ? 'active' : '' }}"><i class="fi-target"></i> <span> Manajemen Project </span> <span class="menu-arrow"></span></a>
                     <ul class="nav-second-level" aria-expanded="false">
-                        <li class="{{ Request::is('manajemen-project/daftar-project') ? 'active' : '' || Request::is('manajemen-project/tambah-project') ? 'active' : '' }}">
+                        <li class="{{ Request::is('manajemen-project/daftar-project') ? 'active' : '' || Request::is('manajemen-project/tambah-project') ? 'active' : '' || Request::is('manajemen-project/daftar-project/*') ? 'active' : ''  }}">
                             <a class="" href="{{ url('manajemen-project/daftar-project') }}">Daftar Project</a>
                         </li>
                         <li class="{{ Request::is('manajemen-project/project-progress') ? 'active' : '' || Request::is('manajemen-project/project-progress/*') ? 'active' : '' }}">

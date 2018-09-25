@@ -64,6 +64,7 @@
                             <table class="table table-xs table-hover" cellspacing="0" width="100%" id="our-team">
                                 <thead>
                                 <th>Nama</th>
+                                <th></th>
                                 </thead>
                                 <tbody>
                                 </tbody>
@@ -159,7 +160,8 @@
                         "data": {kode: 'ourteam', project: project}
                     },
                     columns: [
-                        {data: 'ct_name', name: 'ct_name'}
+                        {data: 'ct_name', name: 'ct_name'},
+                        {data: 'aksi', name: 'aksi'}
                     ],
                     responsive: true,
                     "searching": false,

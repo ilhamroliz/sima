@@ -12,7 +12,64 @@ class ProjectTeamController extends Controller
 {
     public function index()
     {
-        return view('manajemen-project/project-team/project-team');
+        return view('manajemen-project/project-team/index');
+    }
+
+    public function data($status)
+    {
+        if ($status == 'all'){
+            $data = DB::table('d_project')
+                ->join('m_projecttype', 'p_type', '=', 'pt_code')
+                ->select('p_name', 'p_comp', 'p_code', 'p_state', 'pt_detail', DB::raw('date_format(p_kickoff, "%d/%m/%Y") as p_kickoff'), DB::raw('date_format(p_deadline, "%d/%m/%Y") as p_deadline'))
+                ->orderBy('p_code')
+                ->get();
+        } else {
+            $data = DB::table('d_project')
+                ->join('m_projecttype', 'p_type', '=', 'pt_code')
+                ->select('p_name', 'p_comp', 'p_code', 'p_state', 'pt_detail', DB::raw('date_format(p_kickoff, "%d/%m/%Y") as p_kickoff'), DB::raw('date_format(p_deadline, "%d/%m/%Y") as p_deadline'))
+                ->where('p_state', '=', $status)
+                ->orderBy('p_code')
+                ->get();
+        }
+
+        $data = collect($data);
+        return Datatables::of($data)
+            ->editColumn('p_state', function ($data){
+                if ($data->p_state == 'RUNNING'){
+                    return '<div class="text-center"><span class="label label-table label-info">'.$data->p_state.'</span></div>';
+                } elseif ($data->p_state == 'DONE'){
+                    return '<div class="text-center"><span class="label label-table label-success">'.$data->p_state.'</span></div>';
+                } elseif ($data->p_state == 'FAULT'){
+                    return '<div class="text-center"><span class="label label-table label-danger">'.$data->p_state.'</span></div>';
+                }
+            })
+            ->editColumn('p_kickoff', function ($data){
+                return "<div class='text-center'>".Carbon::createFromFormat('d/m/Y', $data->p_kickoff)->format('d M Y')."</div>";
+            })
+            ->editColumn('p_deadline', function ($data){
+                return "<div class='text-center'>".Carbon::createFromFormat('d/m/Y', $data->p_deadline)->format('d M Y')."</div>";
+            })
+            ->setRowId(function ($data) {
+                return $data->p_code;
+            })
+            ->setRowClass(function (){
+                return 'contextMenu list-project';
+            })
+            ->setRowAttr([
+                'style' => function() {
+                    return 'cursor: pointer';
+                },
+                'title' => function() {
+                    return 'Klik kiri untuk menampilkan team project';
+                }
+            ])
+            ->setRowData([
+                'onclick' => function($data) {
+                    return "detail('".$data->p_code."')";
+                }
+            ])
+            ->rawColumns(['p_state', 'p_kickoff', 'p_deadline'])
+            ->make(true);
     }
 
     public function projectTeam($kode)
@@ -37,11 +94,17 @@ class ProjectTeamController extends Controller
     public function getData(Request $request){
         $kode = $request->kode;
         $project = $request->project;
+
         if ($kode == 'ourteam'){
             $team = d_companyteam::where('ct_state', '=', 'Active')->orderBy('ct_id')->get();
             $team = collect($team);
 
             return DataTables::of($team)
+                ->addColumn('aksi', function ($team){
+                    return '<div class="text-center">
+                            <button type="button" title="Masukkan" class="btn btn-icon waves-effect btn-pink btn-xs"> <i class="fa fa-arrow-circle-right"></i> </button>
+                            </div>';
+                })
                 ->setRowClass(function (){
                     return 'row-team';
                 })
@@ -56,6 +119,7 @@ class ProjectTeamController extends Controller
                         return 'Klik untuk menambahkan';
                     }
                 ])
+                ->rawColumns(['aksi'])
                 ->make(true);
         } elseif ($kode == 'projectteam'){
             $data = DB::table('d_companyteam')

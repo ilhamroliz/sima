@@ -35,6 +35,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('manajemen-project/daftar-project', 'DaftarProjectController@index');
 	Route::get('manajemen-project/tambah-project', 'DaftarProjectController@add');
 	Route::post('manajemen-project/get-project/{status}', 'DaftarProjectController@data');
+	Route::get('manajemen-project/daftar-project/{project}/fitur', 'DaftarProjectController@projectFitur');
+	Route::post('manajemen-project/daftar-project/get-fitur/{project}', 'DaftarProjectController@getFitur');
 
 	//==== project team
 	Route::get('manajemen-project/project-team', 'ProjectTeamController@index');
@@ -42,6 +44,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('manajemen-project/project-team/getData', 'ProjectTeamController@getData');
 	Route::post('manajemen-project/project-team/addTeam', 'ProjectTeamController@addTeam');
 	Route::post('manajemen-project/project-team/deleteTeam', 'ProjectTeamController@deleteTeam');
+	Route::get('manajemen-project/project-team/get-data/{status}', 'ProjectTeamController@data');
 
 	//==== project progress
 	Route::get('manajemen-project/project-progress', 'ProjectProgressController@index');
