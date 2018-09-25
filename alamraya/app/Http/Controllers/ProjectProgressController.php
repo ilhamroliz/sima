@@ -523,8 +523,7 @@ class ProjectProgressController extends Controller
 
     public function getTeam(Request $request)
     {
-        $keyword = $request->query;
-        dd($request);
+        $keyword = $request->query->all()['query'];
         $data = DB::table('d_projectprogress')
             ->join('d_projectteam', function ($q){
                 $q->on('pp_projectcode', '=', 'pt_projectcode');
@@ -540,12 +539,22 @@ class ProjectProgressController extends Controller
             })
             ->where('pp_comp', '=', Auth::user()->cl_comp)
             ->where(function ($q) use ($keyword){
-                $q->where('init.ct_name', 'like', $keyword);
-                $q->orWhere('team.ct_name', 'like', $keyword);
+                $q->where('init.ct_name', 'like', '%'.$keyword.'%');
+                $q->orWhere('team.ct_name', 'like', '%'.$keyword.'%');
             })
             ->get();
 
-        return $data;
+        if ($data == null) {
+            $results[] = ['value' => null, 'data' => 'Tidak ditemukan data terkait'];
+        } else {
+
+            foreach ($data as $query) {
+                $results[] = ['value' => $query->ct_id, 'data' => $query->ct_name];
+            }
+        }
+        return response()->json([
+            'sugestion' => $results
+        ]);
     }
 
 }

@@ -166,6 +166,8 @@
 
         $('#cari-team').autocomplete({
             serviceUrl: baseUrl + '/manajemen-project/project-progress/getTeam',
+            type: 'get',
+            dataType: 'json',
             onSelect: function(event) {
                 console.log(event);
             }
