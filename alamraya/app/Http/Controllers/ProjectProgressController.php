@@ -33,6 +33,7 @@ class ProjectProgressController extends Controller
         $cl_comp = Auth::user()->cl_comp;
         $cl_id = Auth::user()->cl_id;
         $posisi = erpController::getPosisi($kode);
+        $now = Carbon::now('Asia/Jakarta')->format('Y-m-d');
 
         $project = DB::table('d_project')
             ->join('m_projecttype', 'pt_code', '=', 'p_type')
@@ -51,6 +52,7 @@ class ProjectProgressController extends Controller
             })
             ->where('pp_projectcode', '=', $kode)
             ->where('pp_comp', '=', $cl_comp)
+            ->where('pp_date', '=', $now)
             ->where(function ($q) use ($cl_id){
                 $q->orWhere('pp_init', '=', $cl_id);
                 $q->orWhere('pp_team', '=', $cl_id);
@@ -218,14 +220,49 @@ class ProjectProgressController extends Controller
             $fitur = $request->fitur;
             $comp = Auth::user()->cl_comp;
             $eksekutor = $request->eksekutor;
+            $now = Carbon::now('Asia/Jakarta')->format('Y-m-d');
 
             $cek = DB::table('d_projectprogress')
                 ->where('pp_comp', '=', $comp)
                 ->where('pp_projectcode', '=', $project)
                 ->where('pp_fitur', '=', $fitur)
+                ->where('pp_date', '=', $now)
                 ->get();
 
             if (count($cek) > 0){
+                DB::rollback();
+                return response()->json([
+                    'status' => 'failed'
+                ]);
+            } else {
+                $id = DB::table('d_projectprogress')
+                    ->where('pp_comp', '=', $comp)
+                    ->where('pp_projectcode', '=', $project)
+                    ->where('pp_fitur', '=', $fitur)
+                    ->max('pp_id');
+                ++$id;
+
+                DB::table('d_projectprogress')
+                    ->insert([
+                        'pp_comp' => $comp,
+                        'pp_projectcode' => $project,
+                        'pp_id' => $id,
+                        'pp_init' => Auth::user()->cl_id,
+                        'pp_team' => $eksekutor,
+                        'pp_date' => Carbon::now('Asia/Jakarta'),
+                        'pp_fitur' => $fitur,
+                        'pp_target' => $target,
+                        'pp_execution' => $eksekusi,
+                        'pp_note' => $note,
+                        'pp_state' => 'Entry',
+                        'pp_entry' => Carbon::now('Asia/Jakarta'),
+                        'pp_update' => Carbon::now('Asia/Jakarta')
+                    ]);
+            }
+
+
+
+            /*if (count($cek) > 0){
                 if (erpController::getPosisi($project) == 'PRJSPV'){
                     DB::table('d_projectprogress')
                         ->where('pp_comp', '=', $comp)
@@ -271,7 +308,7 @@ class ProjectProgressController extends Controller
                             'pp_update' => Carbon::now('Asia/Jakarta')
                         ]);
                 }
-            }
+            }*/
 
             DB::commit();
             return response()->json([
@@ -291,6 +328,7 @@ class ProjectProgressController extends Controller
         $posisi = erpController::getPosisi($project);
         $cl_comp = Auth::user()->cl_comp;
         $cl_id = Auth::user()->cl_id;
+        $now = Carbon::now('Asia/Jakarta')->format('Y-m-d');
 
         if ($posisi == 'PRJSPV'){
             $data = DB::table('d_projectprogress')
@@ -313,6 +351,7 @@ class ProjectProgressController extends Controller
                 ->select('pp_id', 'pf_detail', 'p_name', DB::raw('i.ct_name as init'), DB::raw('t.ct_name as team'), 'pp_date', 'pp_state', 'pf_detail')
                 ->where('pp_projectcode', '=', $project)
                 ->where('pp_init', '=', $cl_id)
+                ->where('pp_date', '=', $now)
                 ->orderBy('pp_date')
                 ->get();
 
@@ -360,6 +399,7 @@ class ProjectProgressController extends Controller
                 ->select('pp_id', 'pf_detail', 'p_name', DB::raw('i.ct_name as init'), DB::raw('t.ct_name as team'), 'pp_date', 'pp_state', 'pf_detail')
                 ->where('pp_projectcode', '=', $project)
                 ->where('pp_team', '=', $cl_id)
+                ->where('pp_date', '=', $now)
                 ->get();
 
             $data = collect($data);

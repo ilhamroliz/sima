@@ -55,11 +55,7 @@
                                     <th style="width: 20%;">Executor</th>
                                     <th style="width: 10%;">Status</th>
                                     <th style="width: 10%;" class="text-center">
-                                        @if ($posisi == 'PRJSPV')
                                         <button type="button" onclick="tambah()" title="Tambah" class="btn btn-icon waves-effect btn-primary btn-sm"> <i class="fa fa-plus"></i> </button>
-                                        @else
-                                        Aksi
-                                        @endif
                                     </th>
                                 </thead>
                                 <tbody>
