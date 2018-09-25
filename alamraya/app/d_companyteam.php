@@ -15,7 +15,7 @@ class d_companyteam extends Authenticatable
 
     public function log()
     {
-        return $this->hasOne('App\d_companylog', 'cl_id');
+        return $this->hasOne('App\d_username', 'un_companyteam');
     }
 
 }

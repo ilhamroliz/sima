@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\d_companylog;
 use App\d_companyteam;
+use App\d_username;
 use Carbon\Carbon;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableCOntract;
@@ -33,20 +34,29 @@ class LoginController extends Controller
             return redirect(url('/'))->with(['gagal' => 'gagal']);
         }
 
-        $user = d_companylog::where(DB::raw('BINARY cl_username'), $request->username)->first();
-        if ($user && $user->cl_password == sha1(md5('لا إله إلاّ الله') . $request->password)) {
+        $user = d_username::where(DB::raw('BINARY un_username'), $request->username)->first();
+        if ($user && $user->un_passwd == sha1(md5('لا إله إلاّ الله') . $request->password)) {
 
-            d_companylog::where('cl_id', '=', $user->cl_id)
+            d_username::where('un_companyteam', '=', $user->un_companyteam)
                 ->update([
-                    'cl_lastlogin' => Carbon::now('Asia/Jakarta')
+                    'un_lastlogin' => Carbon::now('Asia/Jakarta')
                 ]);
 
-            $team = d_companylog::where(DB::raw('BINARY cl_username'), $request->username)
-                ->join('d_companyteam', function ($q){
-                    $q->on('ct_id', '=', 'cl_id');
-                    $q->on('ct_comp', '=', 'cl_comp');
-                })
-                ->first();
+            $id = DB::table('d_usernamelog')
+                ->max('unl_id');
+
+            ++$id;
+
+            DB::table('d_usernamelog')
+                ->insert([
+                    'unl_id' => $id,
+                    'unl_comp' => $user->un_comp,
+                    'unl_username' => $user->un_username,
+                    'unl_type' => 'IN',
+                    'unl_time' => Carbon::now('Asia/Jakarta')->format('Y-m-d')
+                ]);
+
+            $team = d_companyteam::where('ct_id', $user->un_companyteam)->first();
 
             Auth::guard('team')->login($team);
             Auth::login($user);
@@ -59,6 +69,19 @@ class LoginController extends Controller
 
     public function logout()
     {
+        $id = DB::table('d_usernamelog')
+            ->max('unl_id');
+
+        ++$id;
+
+        DB::table('d_usernamelog')
+            ->insert([
+                'unl_id' => $id,
+                'unl_comp' => Auth::user()->un_comp,
+                'unl_username' => Auth::user()->un_username,
+                'unl_type' => 'OUT',
+                'unl_time' => Carbon::now('Asia/Jakarta')->format('Y-m-d')
+            ]);
         session()->flush();
         Auth::logout();
         return redirect(url('/login'));

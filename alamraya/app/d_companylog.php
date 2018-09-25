@@ -15,8 +15,4 @@ class d_companylog extends Authenticatable
 
     protected $fillable = ['cl_comp','cl_id', 'cl_username', 'cl_password', 'cl_lastlogin', 'cl_lastlogout', 'cl_insert', 'cl_update'];
 
-    public function team()
-    {
-        return $this->belongsTo('App\d_companyteam', 'ct_id');
-    }
 }

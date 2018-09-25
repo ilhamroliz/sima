@@ -72,7 +72,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\d_companylog::class,
+            'model' => App\d_username::class,
         ],
         'team' => [
             'driver' => 'eloquent',

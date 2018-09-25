@@ -15,7 +15,7 @@
 
         <ul class="list-inline float-right mb-0">
             <li class="list-inline-item dropdown notification-list">
-                <span style="color: #fff"><strong>{{ Auth::guard('team')->user()->ct_name }}</strong></span>
+                <span style="color: #fff"><strong></strong></span>
             </li>
 
             <li class="list-inline-item dropdown notification-list">
@@ -25,7 +25,7 @@
                 <div class="dropdown-menu dropdown-menu-right profile-dropdown " aria-labelledby="Preview">
                     <!-- item-->
                     <div class="dropdown-item noti-title">
-                        <h5 class="text-overflow"><small>Welcome ! {{ Auth::guard('team')->user()->ct_name }}</small> </h5>
+                        <h5 class="text-overflow"><small>Welcome ! </small> </h5>
                     </div>
 
                     <!-- item-->
