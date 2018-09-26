@@ -635,6 +635,7 @@ class ProjectProgressController extends Controller
             $data = DB::table('d_companyteam')
                 ->select('ct_name', 'ct_id')
                 ->where('ct_state', '=', 'ACTIVE')
+                ->where('ct_name', 'like', '%'.$keyword.'%')
                 ->get();
         } else {
             $data = DB::select("select * from d_projectprogress inner join d_projectteam on pp_projectcode = pt_projectcode and pp_comp = pt_comp inner join d_companyteam as init on pp_init = init.ct_id and pp_comp = init.ct_comp inner join d_companyteam as team on pp_team = team.ct_id and pp_comp = team.ct_comp where pp_comp = '".Auth::user()->un_comp."'and (init.ct_name like '%".$keyword."%' or team.ct_name like '%".$keyword."%') group by init.ct_id, team.ct_id");
