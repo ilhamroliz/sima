@@ -13,18 +13,25 @@ class ProjectProgressController extends Controller
 {
     public function index()
     {
-        $cl_comp = Auth::user()->un_comp;
-        $cl_id = Auth::user()->un_companyteam;
-        $project = DB::table('d_projectteam')
-            ->join('d_project', function ($q){
-                $q->on('pt_comp', '=', 'p_comp');
-                $q->on('pt_projectcode', '=', 'p_code');
-                $q->where('p_state', '=', 'RUNNING');
-            })
-            ->select('p_name', 'p_code')
-            ->where('pt_teamid', '=', $cl_id)
-            ->where('pt_comp', '=', $cl_comp)
-            ->get();
+        if (Auth::user()->un_companyteam == 'AR000000'){
+            $cl_comp = Auth::user()->un_comp;
+            $project = DB::table('d_project')
+                ->where('pt_comp', '=', $cl_comp)
+                ->get();
+        } else {
+            $cl_comp = Auth::user()->un_comp;
+            $cl_id = Auth::user()->un_companyteam;
+            $project = DB::table('d_projectteam')
+                ->join('d_project', function ($q) {
+                    $q->on('pt_comp', '=', 'p_comp');
+                    $q->on('pt_projectcode', '=', 'p_code');
+                    $q->where('p_state', '=', 'RUNNING');
+                })
+                ->select('p_name', 'p_code')
+                ->where('pt_teamid', '=', $cl_id)
+                ->where('pt_comp', '=', $cl_comp)
+                ->get();
+        }
 
         return view('manajemen-project/project-progress/index', compact('project'));
     }
@@ -624,7 +631,14 @@ class ProjectProgressController extends Controller
     public function getTeam(Request $request)
     {
         $keyword = $request->query->all()['query'];
-        $data = DB::select("select * from d_projectprogress inner join d_projectteam on pp_projectcode = pt_projectcode and pp_comp = pt_comp inner join d_companyteam as init on pp_init = init.ct_id and pp_comp = init.ct_comp inner join d_companyteam as team on pp_team = team.ct_id and pp_comp = team.ct_comp where pp_comp = '".Auth::user()->un_comp."'and (init.ct_name like '%".$keyword."%' or team.ct_name like '%".$keyword."%') group by init.ct_id, team.ct_id");
+        if (Auth::user()->un_companyteam == 'AR000000'){
+            $data = DB::table('d_companyteam')
+                ->select('ct_name', 'ct_id')
+                ->where('ct_state', '=', 'ACTIVE')
+                ->get();
+        } else {
+            $data = DB::select("select * from d_projectprogress inner join d_projectteam on pp_projectcode = pt_projectcode and pp_comp = pt_comp inner join d_companyteam as init on pp_init = init.ct_id and pp_comp = init.ct_comp inner join d_companyteam as team on pp_team = team.ct_id and pp_comp = team.ct_comp where pp_comp = '".Auth::user()->un_comp."'and (init.ct_name like '%".$keyword."%' or team.ct_name like '%".$keyword."%') group by init.ct_id, team.ct_id");
+        }
 
         if ($data == null) {
             $in = array(
