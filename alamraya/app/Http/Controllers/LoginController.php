@@ -53,7 +53,7 @@ class LoginController extends Controller
                     'unl_comp' => $user->un_comp,
                     'unl_username' => $user->un_username,
                     'unl_type' => 'IN',
-                    'unl_time' => Carbon::now('Asia/Jakarta')->format('Y-m-d')
+                    'unl_time' => Carbon::now('Asia/Jakarta')
                 ]);
 
             $team = d_companyteam::where('ct_id', $user->un_companyteam)->first();
@@ -80,7 +80,7 @@ class LoginController extends Controller
                 'unl_comp' => Auth::user()->un_comp,
                 'unl_username' => Auth::user()->un_username,
                 'unl_type' => 'OUT',
-                'unl_time' => Carbon::now('Asia/Jakarta')->format('Y-m-d')
+                'unl_time' => Carbon::now('Asia/Jakarta')
             ]);
         session()->flush();
         Auth::logout();
