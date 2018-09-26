@@ -16,7 +16,7 @@ class ProjectProgressController extends Controller
         if (Auth::user()->un_companyteam == 'AR000000'){
             $cl_comp = Auth::user()->un_comp;
             $project = DB::table('d_project')
-                ->where('pt_comp', '=', $cl_comp)
+                ->where('p_comp', '=', $cl_comp)
                 ->get();
         } else {
             $cl_comp = Auth::user()->un_comp;
