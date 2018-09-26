@@ -284,7 +284,7 @@ Mahmud | 23 Sep 2018 15:45 | "Beda beda mbak"
             var eksekusi = $('#text-execution').val();
             var note = $('#text-execution').val();
             var eksekutor = $('.executor').val();
-            var fitur = $('.pilih').val();
+            var fitur = $('input.pilih:checked').val();
 
             if (fitur == null || fitur == '') {
                 $.toast({

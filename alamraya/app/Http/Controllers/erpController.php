@@ -13,7 +13,7 @@ class erpController
         $posisi = DB::table('d_projectteam')
             ->where('pt_comp', '=', Auth::user()->un_comp)
             ->where('pt_projectcode', '=', $project)
-            ->where('pt_teamid', '=', Auth::user()->un_comp)
+            ->where('pt_teamid', '=', Auth::user()->un_companyteam)
             ->first();
 
         return $posisi->pt_position;

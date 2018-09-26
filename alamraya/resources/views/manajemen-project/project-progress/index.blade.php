@@ -41,15 +41,14 @@
                                 </div>
                             </div>
                             <div class="col-4 form-group">
-                                <select class="form-control select2" id="select-project">
-                                    <option selected value="all">Semua</option>
+                                <select class="select2 form-control select2-multiple select2-hidden-accessible" multiple="" data-placeholder="Pilih Project" tabindex="-1" aria-hidden="true" id="select-project">
                                     @foreach($project as $select)
                                     <option value="{{ $select->p_code }}">{{ $select->p_name }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="col-4 form-group">
-                                <input type="text" class="form-control" name="team" id="cari-team">
+                                <input type="text" placeholder="Masukkan Nama" class="form-control" name="team" id="cari-team">
                                 <input type="hidden" class="form-control" name="teamHidden" id="teamHidden">
                             </div>
                             <div class="col-1 pull-right">
@@ -169,7 +168,7 @@
             type: 'get',
             dataType: 'json',
             onSelect: function(event) {
-                console.log(event);
+                $('#teamHidden').val(event.data);
             }
         });
     
@@ -225,7 +224,14 @@
             var awal = document.getElementsByName('start')[0].value;
             var akhir = document.getElementsByName('end')[0].value;
             var project = $('#select-project').val();
-            
+            var team = $('#teamHidden').val();
+            var data = null;
+
+            if (team == null || team == '') {
+                data = {awal: awal, akhir: akhir, project: project};
+            } else {
+                data = {awal: awal, akhir: akhir, project: project, team: team};
+            }
 
             $("#project-progress").dataTable().fnDestroy();
 
@@ -238,7 +244,7 @@
                     "ajax": {
                         "url": baseUrl + '/manajemen-project/project-progress/getProjectProgress',
                         "type": "post",
-                        "data": {awal: awal, akhir: akhir, project: project}
+                        "data": data
                     },
                     columns: [
                         {data: 'p_name', name: 'p_name'},
@@ -261,5 +267,9 @@
         function addProgress(kode){
             window.location = '{{ url('manajemen-project/project-progress/project') }}' + '/' + kode;
         }
+
+        $('#project-progress').on('click', '.list-progress', function (e) {
+            location.href = baseUrl + '/manajemen-project/project-progress/project/'+this.id;
+        });
     </script>
 @endsection
