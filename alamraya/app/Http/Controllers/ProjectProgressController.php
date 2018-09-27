@@ -696,13 +696,13 @@ class ProjectProgressController extends Controller
         $data = collect($data);
         return DataTables::of($data)
             ->editColumn('pp_state', function ($data){
-                if ($data->pp_state == 'Entry'){
+                if ($data->pp_state == 'ENTRY'){
                     return '<div class="text-center"><span class="label label-table label-danger">'.$data->pp_state.'</span></div>';
-                } elseif ($data->pp_state == 'Hold'){
+                } elseif ($data->pp_state == 'HOLD'){
                     return '<div class="text-center"><span class="label label-table label-warning">'.$data->pp_state.'</span></div>';
-                } elseif ($data->pp_state == 'Revision'){
+                } elseif ($data->pp_state == 'REVISION'){
                     return '<div class="text-center"><span class="label label-table label-info">'.$data->pp_state.'</span></div>';
-                } elseif ($data->pp_state == 'Closed'){
+                } elseif ($data->pp_state == 'CLOSED'){
                     return '<div class="text-center"><span class="label label-table label-success">'.$data->pp_state.'</span></div>';
                 }
             })
