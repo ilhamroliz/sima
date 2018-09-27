@@ -270,7 +270,7 @@
       <path value="$PROJECT_DIR$/alamraya/vendor/psr/log" />
     </include_path>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="10" />
     <option name="y" value="20" />
     <option name="width" value="1346" />
@@ -423,7 +423,7 @@
       <workItem from="1538018648655" duration="772000" />
       <workItem from="1538019648010" duration="473000" />
       <workItem from="1538020225119" duration="277000" />
-      <workItem from="1538020526987" duration="4106000" />
+      <workItem from="1538020526987" duration="4406000" />
     </task>
     <task id="LOCAL-00001" summary="roliz">
       <created>1536841189585</created>
@@ -492,10 +492,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="140677000" />
+    <option name="totallyTimeSpent" value="140977000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="754" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.27609682" />

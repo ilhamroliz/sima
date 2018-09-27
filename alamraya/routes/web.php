@@ -52,7 +52,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('manajemen-project/project-progress/getTeam', 'ProjectProgressController@getTeam');
 	Route::get('manajemen-project/project-progress/project/{kode}', 'ProjectProgressController@projectProgress');
 	Route::post('manajemen-project/project-progress/get-progress/{project}', 'ProjectProgressController@dataProgress');
-	Route::post('manajemen-project/project-progress/get-project/{project}/save-progress-init', 'ProjectProgressController@saveInit');
+	Route::get('manajemen-project/project-progress/get-project/{project}/save-progress-init', 'ProjectProgressController@saveInit');
 	Route::post('manajemen-project/project-progress/get-project/{project}/update-progress-init', 'ProjectProgressController@updateProgress');
 	Route::post('manajemen-project/project-progress/get-project/{project}/getProgress', 'ProjectProgressController@getProgress');
 
