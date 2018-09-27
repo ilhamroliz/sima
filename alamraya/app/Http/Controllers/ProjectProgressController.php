@@ -17,6 +17,7 @@ class ProjectProgressController extends Controller
             $cl_comp = Auth::user()->un_comp;
             $project = DB::table('d_project')
                 ->where('p_comp', '=', $cl_comp)
+                ->where('p_state', '=', 'RUNNING')
                 ->get();
         } else {
             $cl_comp = Auth::user()->un_comp;
@@ -97,6 +98,162 @@ class ProjectProgressController extends Controller
     }
 
     public function getProjectProgress(Request $request)
+    {
+        $cl_comp = Auth::user()->un_comp;
+        $start = Carbon::createFromFormat('d/m/Y', $request->awal)->format('Y-m-d');
+        $end = Carbon::createFromFormat('d/m/Y', $request->akhir)->format('Y-m-d');
+        $project = $request->project;
+        $team = $request->team;
+
+        if (Auth::user()->un_companyteam == 'AR000000'){
+            if ($project == 'all'){
+                $data = DB::table('d_projectprogress')
+                    ->join('d_project', function ($q) {
+                        $q->on('pp_projectcode', '=', 'p_code');
+                        $q->on('pp_comp', '=', 'p_comp');
+                        $q->where('p_state', '=', 'RUNNING');
+                    })
+                    ->join('d_projectfitur', function ($q){
+                        $q->on('pf_id', '=', 'pp_fitur');
+                        $q->on('pf_projectcode', '=', 'pp_projectcode');
+                    })
+                    ->join('d_companyteam', function ($q){
+                        $q->on('ct_id', '=', 'pp_team');
+                    })
+                    ->select('p_name', 'pp_date', 'ct_name', 'pf_detail', 'pp_projectcode', 'pf_id')
+                    ->where('pp_comp', '=', $cl_comp)
+                    ->whereDate('pp_update', '<=', $end)
+                    ->whereDate('pp_update', '>=', $start)
+                    ->orderBy('pp_update')
+                    ->get();
+            } else {
+                if ($team != null || $team != ''){
+                    if (count($project) > 0){
+                        // ada team ada project
+                        $data = DB::table('d_projectprogress')
+                            ->join('d_project', function ($q) {
+                                $q->on('pp_projectcode', '=', 'p_code');
+                                $q->on('pp_comp', '=', 'p_comp');
+                                $q->where('p_state', '=', 'RUNNING');
+                            })
+                            ->join('d_projectfitur', function ($q){
+                                $q->on('pf_id', '=', 'pp_fitur');
+                                $q->on('pf_projectcode', '=', 'pp_projectcode');
+                            })
+                            ->join('d_companyteam', function ($q){
+                                $q->on('ct_id', '=', 'pp_team');
+                            })
+                            ->select('p_name', 'pp_date', 'ct_name', 'pf_detail', 'pp_projectcode', 'pf_id')
+                            ->where('pp_comp', '=', $cl_comp)
+                            ->whereDate('pp_update', '<=', $end)
+                            ->whereDate('pp_update', '>=', $start)
+                            ->whereIn('pp_projectcode', $project)
+                            ->where(function ($q) use ($team){
+                                $q->where('pp_team', '=', $team);
+                                $q->orWhere('pp_init', '=', $team);
+                            })
+                            ->orderBy('pp_update')
+                            ->get();
+                    } else {
+                        // ada team gak ada project
+                        $data = DB::table('d_projectprogress')
+                            ->join('d_project', function ($q) {
+                                $q->on('pp_projectcode', '=', 'p_code');
+                                $q->on('pp_comp', '=', 'p_comp');
+                                $q->where('p_state', '=', 'RUNNING');
+                            })
+                            ->join('d_projectfitur', function ($q){
+                                $q->on('pf_id', '=', 'pp_fitur');
+                                $q->on('pf_projectcode', '=', 'pp_projectcode');
+                            })
+                            ->join('d_companyteam', function ($q){
+                                $q->on('ct_id', '=', 'pp_team');
+                            })
+                            ->select('p_name', 'pp_date', 'ct_name', 'pf_detail', 'pp_projectcode', 'pf_id')
+                            ->where('pp_comp', '=', $cl_comp)
+                            ->whereDate('pp_update', '<=', $end)
+                            ->whereDate('pp_update', '>=', $start)
+                            ->where(function ($q) use ($team){
+                                $q->where('pp_team', '=', $team);
+                                $q->orWhere('pp_init', '=', $team);
+                            })
+                            ->orderBy('pp_update')
+                            ->get();
+                    }
+                } else {
+                    if (count($project) > 0){
+                        // gak ada team ada project
+                        $data = DB::table('d_projectprogress')
+                            ->join('d_project', function ($q) {
+                                $q->on('pp_projectcode', '=', 'p_code');
+                                $q->on('pp_comp', '=', 'p_comp');
+                                $q->where('p_state', '=', 'RUNNING');
+                            })
+                            ->join('d_projectfitur', function ($q){
+                                $q->on('pf_id', '=', 'pp_fitur');
+                                $q->on('pf_projectcode', '=', 'pp_projectcode');
+                            })
+                            ->join('d_companyteam', function ($q){
+                                $q->on('ct_id', '=', 'pp_team');
+                            })
+                            ->select('p_name', 'pp_date', 'ct_name', 'pf_detail', 'pp_projectcode', 'pf_id')
+                            ->where('pp_comp', '=', $cl_comp)
+                            ->whereDate('pp_update', '<=', $end)
+                            ->whereDate('pp_update', '>=', $start)
+                            ->whereIn('pp_projectcode', $project)
+                            ->orderBy('pp_update')
+                            ->get();
+                    } else {
+                        // gak ada team gak ada project
+                        $data = DB::table('d_projectprogress')
+                            ->join('d_project', function ($q) {
+                                $q->on('pp_projectcode', '=', 'p_code');
+                                $q->on('pp_comp', '=', 'p_comp');
+                                $q->where('p_state', '=', 'RUNNING');
+                            })
+                            ->join('d_projectfitur', function ($q){
+                                $q->on('pf_id', '=', 'pp_fitur');
+                                $q->on('pf_projectcode', '=', 'pp_projectcode');
+                            })
+                            ->join('d_companyteam', function ($q){
+                                $q->on('ct_id', '=', 'pp_team');
+                            })
+                            ->select('p_name', 'pp_date', 'ct_name', 'pf_detail', 'pp_projectcode', 'pf_id')
+                            ->where('pp_comp', '=', $cl_comp)
+                            ->whereDate('pp_update', '<=', $end)
+                            ->whereDate('pp_update', '>=', $start)
+                            ->orderBy('pp_update')
+                            ->get();
+                    }
+                }
+            }
+
+            $data = collect($data);
+            return Datatables::of($data)
+                ->editColumn('pp_date', function ($data){
+                    return Carbon::createFromFormat('Y-m-d', $data->pp_date)->format('d M Y');
+                })
+                ->setRowId(function ($data) {
+                    return $data->pp_projectcode;
+                })
+                ->setRowClass(function (){
+                    return 'list-progress';
+                })
+                ->setRowAttr([
+                    'style' => function() {
+                        return 'cursor: pointer';
+                    },
+                    'title' => function() {
+                        return 'Klik untuk melihat detail';
+                    }
+                ])
+                ->make(true);
+        } else {
+            $this->getProjectProgressAll($request);
+        }
+    }
+
+    public function getProjectProgressAll(Request $request)
     {
         $cl_comp = Auth::user()->un_comp;
         $cl_id = Auth::user()->un_companyteam;
@@ -267,7 +424,6 @@ class ProjectProgressController extends Controller
                 }
             ])
             ->make(true);
-
     }
 
     public function saveInit(Request $request, $project)

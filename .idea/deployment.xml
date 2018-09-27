@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" serverName="SIMA">
+  <component name="PublishConfigData" serverName="ftp_sima">
     <serverData>
       <paths name="SIMA">
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$" web="SIM Alamraya" />
           </mappings>
+        </serverdata>
+      </paths>
+      <paths name="ftp_sima">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+            <mapping local="" />
+          </mappings>
+          <excludedPaths>
+            <excludedPath local="true" path="$PROJECT_DIR$" />
+          </excludedPaths>
         </serverdata>
       </paths>
     </serverData>
