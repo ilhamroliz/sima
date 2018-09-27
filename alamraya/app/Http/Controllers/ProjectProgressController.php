@@ -249,7 +249,27 @@ class ProjectProgressController extends Controller
                 ])
                 ->make(true);
         } else {
-            $this->getProjectProgressAll($request);
+            $data = $this->getProjectProgressAll($request);
+            $data = collect($data);
+            return Datatables::of($data)
+                ->editColumn('pp_date', function ($data){
+                    return Carbon::createFromFormat('Y-m-d', $data->pp_date)->format('d M Y');
+                })
+                ->setRowId(function ($data) {
+                    return $data->pp_projectcode;
+                })
+                ->setRowClass(function (){
+                    return 'list-progress';
+                })
+                ->setRowAttr([
+                    'style' => function() {
+                        return 'cursor: pointer';
+                    },
+                    'title' => function() {
+                        return 'Klik untuk melihat detail';
+                    }
+                ])
+                ->make(true);
         }
     }
 
@@ -404,26 +424,7 @@ class ProjectProgressController extends Controller
             }
         }
 
-        $data = collect($data);
-        return Datatables::of($data)
-            ->editColumn('pp_date', function ($data){
-                return Carbon::createFromFormat('Y-m-d', $data->pp_date)->format('d M Y');
-            })
-            ->setRowId(function ($data) {
-                return $data->pp_projectcode;
-            })
-            ->setRowClass(function (){
-                return 'list-progress';
-            })
-            ->setRowAttr([
-                'style' => function() {
-                    return 'cursor: pointer';
-                },
-                'title' => function() {
-                    return 'Klik untuk melihat detail';
-                }
-            ])
-            ->make(true);
+        return $data;
     }
 
     public function saveInit(Request $request, $project)
