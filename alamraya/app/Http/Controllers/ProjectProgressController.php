@@ -100,8 +100,8 @@ class ProjectProgressController extends Controller
     public function getProjectProgress(Request $request)
     {
         $cl_comp = Auth::user()->un_comp;
-        $start = Carbon::createFromFormat('d/m/Y', $request->awal)->subDay()->format('Y-m-d');
-        $end = Carbon::createFromFormat('d/m/Y', $request->akhir)->addDay()->format('Y-m-d');
+        $start = Carbon::createFromFormat('d/m/Y', $request->awal)->format('Y-m-d');
+        $end = Carbon::createFromFormat('d/m/Y', $request->akhir)->format('Y-m-d');
         $project = $request->project;
         $team = $request->team;
 
@@ -122,8 +122,8 @@ class ProjectProgressController extends Controller
                     })
                     ->select('p_name', 'pp_date', 'ct_name', 'pf_detail', 'pp_projectcode', 'pf_id')
                     ->where('pp_comp', '=', $cl_comp)
-                    ->whereDate('pp_update', '<', $end)
-                    ->whereDate('pp_update', '>', $start)
+                    ->where('pp_date', '<=', $end)
+                    ->where('pp_date', '>=', $start)
                     ->orderBy('pp_update')
                     ->get();
             } else {
@@ -145,8 +145,8 @@ class ProjectProgressController extends Controller
                             })
                             ->select('p_name', 'pp_date', 'ct_name', 'pf_detail', 'pp_projectcode', 'pf_id')
                             ->where('pp_comp', '=', $cl_comp)
-                            ->whereDate('pp_update', '<', $end)
-                            ->whereDate('pp_update', '>', $start)
+                            ->where('pp_date', '<=', $end)
+                            ->where('pp_date', '>=', $start)
                             ->whereIn('pp_projectcode', $project)
                             ->where(function ($q) use ($team){
                                 $q->where('pp_team', '=', $team);
@@ -171,8 +171,8 @@ class ProjectProgressController extends Controller
                             })
                             ->select('p_name', 'pp_date', 'ct_name', 'pf_detail', 'pp_projectcode', 'pf_id')
                             ->where('pp_comp', '=', $cl_comp)
-                            ->whereDate('pp_date', '<', $end)
-                            ->whereDate('pp_date', '>', $start)
+                            ->where('pp_date', '<=', $end)
+                            ->where('pp_date', '>=', $start)
                             ->where(function ($q) use ($team){
                                 $q->where('pp_team', '=', $team);
                                 $q->orWhere('pp_init', '=', $team);
@@ -198,8 +198,8 @@ class ProjectProgressController extends Controller
                             })
                             ->select('p_name', 'pp_date', 'ct_name', 'pf_detail', 'pp_projectcode', 'pf_id')
                             ->where('pp_comp', '=', $cl_comp)
-                            ->whereDate('pp_update', '<', $end)
-                            ->whereDate('pp_update', '>', $start)
+                            ->where('pp_date', '<=', $end)
+                            ->where('pp_date', '>=', $start)
                             ->whereIn('pp_projectcode', $project)
                             ->orderBy('pp_update')
                             ->get();
@@ -220,8 +220,8 @@ class ProjectProgressController extends Controller
                             })
                             ->select('p_name', 'pp_date', 'ct_name', 'pf_detail', 'pp_projectcode', 'pf_id')
                             ->where('pp_comp', '=', $cl_comp)
-                            ->whereDate('pp_update', '<', $end)
-                            ->whereDate('pp_update', '>', $start)
+                            ->where('pp_date', '<=', $end)
+                            ->where('pp_date', '>=', $start)
                             ->orderBy('pp_update')
                             ->get();
                     }
@@ -277,8 +277,8 @@ class ProjectProgressController extends Controller
     {
         $cl_comp = Auth::user()->un_comp;
         $cl_id = Auth::user()->un_companyteam;
-        $start = Carbon::createFromFormat('d/m/Y', $request->awal)->subDay()->format('Y-m-d');
-        $end = Carbon::createFromFormat('d/m/Y', $request->akhir)->addDay()->format('Y-m-d');
+        $start = Carbon::createFromFormat('d/m/Y', $request->awal)->format('Y-m-d');
+        $end = Carbon::createFromFormat('d/m/Y', $request->akhir)->format('Y-m-d');
         $project = $request->project;
         $team = $request->team;
 
@@ -302,8 +302,8 @@ class ProjectProgressController extends Controller
                     $q->orWhere('pp_init', '=', $cl_id);
                     $q->orWhere('pp_team', '=', $cl_id);
                 })
-                ->whereDate('pp_update', '<', $end)
-                ->whereDate('pp_update', '>', $start)
+                ->where('pp_date', '<=', $end)
+                ->where('pp_date', '>=', $start)
                 ->orderBy('pp_update')
                 ->get();
         } else {
@@ -329,8 +329,8 @@ class ProjectProgressController extends Controller
                             $q->orWhere('pp_init', '=', $cl_id);
                             $q->orWhere('pp_team', '=', $cl_id);
                         })
-                        ->whereDate('pp_update', '<=', $end)
-                        ->whereDate('pp_update', '>=', $start)
+                        ->where('pp_date', '<=', $end)
+                        ->where('pp_date', '>=', $start)
                         ->whereIn('pp_projectcode', $project)
                         ->where(function ($q) use ($team){
                             $q->where('pp_team', '=', $team);
@@ -359,8 +359,8 @@ class ProjectProgressController extends Controller
                             $q->orWhere('pp_init', '=', $cl_id);
                             $q->orWhere('pp_team', '=', $cl_id);
                         })
-                        ->whereDate('pp_update', '<', $end)
-                        ->whereDate('pp_update', '>', $start)
+                        ->where('pp_date', '<=', $end)
+                        ->where('pp_date', '>=', $start)
                         ->where(function ($q) use ($team){
                             $q->where('pp_team', '=', $team);
                             $q->orWhere('pp_init', '=', $team);
@@ -390,8 +390,8 @@ class ProjectProgressController extends Controller
                             $q->orWhere('pp_init', '=', $cl_id);
                             $q->orWhere('pp_team', '=', $cl_id);
                         })
-                        ->whereDate('pp_update', '<', $end)
-                        ->whereDate('pp_update', '>', $start)
+                        ->where('pp_date', '<=', $end)
+                        ->where('pp_date', '>=', $start)
                         ->whereIn('pp_projectcode', $project)
                         ->orderBy('pp_update')
                         ->get();
@@ -416,8 +416,8 @@ class ProjectProgressController extends Controller
                             $q->orWhere('pp_init', '=', $cl_id);
                             $q->orWhere('pp_team', '=', $cl_id);
                         })
-                        ->whereDate('pp_update', '<', $end)
-                        ->whereDate('pp_update', '>', $start)
+                        ->where('pp_date', '<=', $end)
+                        ->where('pp_date', '>=', $start)
                         ->orderBy('pp_update')
                         ->get();
                 }
