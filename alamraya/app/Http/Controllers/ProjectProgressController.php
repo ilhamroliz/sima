@@ -171,8 +171,8 @@ class ProjectProgressController extends Controller
                             })
                             ->select('p_name', 'pp_date', 'ct_name', 'pf_detail', 'pp_projectcode', 'pf_id')
                             ->where('pp_comp', '=', $cl_comp)
-                            ->whereDate('pp_update', '<', $end)
-                            ->whereDate('pp_update', '>', $start)
+                            ->whereDate('pp_date', '<', $end)
+                            ->whereDate('pp_date', '>', $start)
                             ->where(function ($q) use ($team){
                                 $q->where('pp_team', '=', $team);
                                 $q->orWhere('pp_init', '=', $team);

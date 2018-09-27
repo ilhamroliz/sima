@@ -99,8 +99,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/alamraya/app/Http/Controllers/ProjectProgressController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="191">
-              <caret line="103" column="93" selection-start-line="103" selection-start-column="93" selection-end-line="103" selection-end-column="93" />
+            <state relative-caret-position="251">
+              <caret line="169" column="64" lean-forward="true" selection-start-line="169" selection-start-column="64" selection-end-line="169" selection-end-column="64" />
             </state>
           </provider>
         </entry>
@@ -154,9 +154,12 @@
       <find>erpController::getPosisi</find>
       <find>saveinit</find>
       <find>data</find>
+      <find>-&gt;whereDate('pp_update', '&lt;', $end)</find>
+      <find>-&gt;whereDate('pp_update', '&gt;', $start)</find>
     </findStrings>
     <replaceStrings>
       <replace>whereDate('pp_update</replace>
+      <replace>-&gt;whereDate('pp_date', '&gt;', $start)</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -424,7 +427,7 @@
       <workItem from="1538018648655" duration="772000" />
       <workItem from="1538019648010" duration="473000" />
       <workItem from="1538020225119" duration="277000" />
-      <workItem from="1538020526987" duration="5758000" />
+      <workItem from="1538020526987" duration="5862000" />
     </task>
     <task id="LOCAL-00001" summary="roliz">
       <created>1536841189585</created>
@@ -493,7 +496,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="142329000" />
+    <option name="totallyTimeSpent" value="142433000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
@@ -737,8 +740,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/alamraya/app/Http/Controllers/ProjectProgressController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="103" column="93" selection-start-line="103" selection-start-column="93" selection-end-line="103" selection-end-column="93" />
+        <state relative-caret-position="251">
+          <caret line="169" column="64" lean-forward="true" selection-start-line="169" selection-start-column="64" selection-end-line="169" selection-end-column="64" />
         </state>
       </provider>
     </entry>
