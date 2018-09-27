@@ -469,8 +469,8 @@ class ProjectProgressController extends Controller
                         'pp_fitur' => $fitur,
                         'pp_target' => $target,
                         'pp_execution' => $eksekusi,
-                        'pp_note' => $note,
-                        'pp_state' => 'Entry',
+                        'pp_note' => '',
+                        'pp_state' => 'ENTRY',
                         'pp_entry' => Carbon::now('Asia/Jakarta'),
                         'pp_update' => Carbon::now('Asia/Jakarta')
                     ]);
