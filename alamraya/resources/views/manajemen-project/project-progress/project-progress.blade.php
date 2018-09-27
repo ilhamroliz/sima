@@ -321,7 +321,7 @@ Mahmud | 23 Sep 2018 15:45 | "Beda beda mbak"
 
             $.ajax({
                 url: baseUrl + '/manajemen-project/project-progress/get-project/{{ $kode }}/save-progress-init',
-                type: 'get',
+                type: 'post',
                 data: {fitur: fitur, target: target, eksekusi: eksekusi, note: note, eksekutor: eksekutor},
                 dataType: 'json',
                 success: function (response) {

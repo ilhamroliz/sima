@@ -188,7 +188,7 @@
                     serverSide: true,
                     "ajax": {
                         "url": baseUrl + '/manajemen-project/project-progress/getProjectProgress',
-                        "type": "get",
+                        "type": "post",
                         "data": {awal: start, akhir: end, project: 'all'}
                     },
                     columns: [
@@ -243,7 +243,7 @@
                     serverSide: true,
                     "ajax": {
                         "url": baseUrl + '/manajemen-project/project-progress/getProjectProgress',
-                        "type": "get",
+                        "type": "post",
                         "data": data
                     },
                     columns: [
