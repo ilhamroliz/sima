@@ -10,12 +10,16 @@ class erpController
 {
     public static function getPosisi($project)
     {
-        $posisi = DB::table('d_projectteam')
-            ->where('pt_comp', '=', Auth::user()->un_comp)
-            ->where('pt_projectcode', '=', $project)
-            ->where('pt_teamid', '=', Auth::user()->un_companyteam)
-            ->first();
+        if (Auth::user()->un_companyteam == 'AR000000'){
+            return 'COMDIR';
+        } else {
+            $posisi = DB::table('d_projectteam')
+                ->where('pt_comp', '=', Auth::user()->un_comp)
+                ->where('pt_projectcode', '=', $project)
+                ->where('pt_teamid', '=', Auth::user()->un_companyteam)
+                ->first();
 
-        return $posisi->pt_position;
+            return $posisi->pt_position;
+        }
     }
 }
