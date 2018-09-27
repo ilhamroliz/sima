@@ -19,6 +19,11 @@
             max-height: calc(100vh - 210px);
             overflow-y: auto;
         }
+
+        #list-fitur_filter {
+           float: left !important;
+           margin-left: -150px;
+        }
     </style>
 @endsection
 @section('content')
@@ -82,9 +87,9 @@
                         <form class="form-horizontal">
                             <div class="row">
                                 <div class="col-4" style="overflow: auto;" id="content-table">
-                                    <table class="table table-colored table-pink table-striped table-hover table-bordered" id="list-fitur">
+                                    <table class="table table-colored table-pink table-striped table-hover table-bordered" id="list-fitur" cellspacing="0" style="width: 100%;">
                                         <thead>
-                                            <th>No</th>
+                                            <th>Code</th>
                                             <th>Nama Fitur</th>
                                             <th></th>
                                         </thead>
@@ -92,7 +97,7 @@
                                             @if(count($projectFitur) > 0)
                                             @foreach($projectFitur as $index=>$modal)
                                                 <tr style="cursor: pointer;" onclick="check({{ $modal->pf_id }}, this)">
-                                                    <td>{{ $index + 1 }}</td>
+                                                    <td>{{ $modal->pf_code }}</td>
                                                     <td>{{ $modal->pf_detail }}</td>
                                                     <td>
                                                         <div class="text-center">
@@ -267,6 +272,20 @@ Mahmud | 23 Sep 2018 15:45 | "Beda beda mbak"
                     "language": dataTableLanguage,
                 });
             }, 500);
+
+            $("#list-fitur").DataTable({
+                "search": {
+                    "caseInsensitive": true
+                },
+                fixedColumns: true,
+                responsive: true,
+                "paging": false,
+                "ordering": false,
+                "aaSorting": [],
+                "info": false,
+                "language": dataTableLanguage,
+            });
+
         });
 
         function tambah(){

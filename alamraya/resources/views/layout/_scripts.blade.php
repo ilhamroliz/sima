@@ -25,12 +25,14 @@
 <script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/datatables/dataTables.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/datatables/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables/dataTables.fixedColumns.min.js') }}"></script>
 <script type="text/javascript">
 	var dataTableLanguage = {
 		"emptyTable": "Tidak ada data",
 		"sInfo": "Menampilkan _START_ - _END_ Dari _TOTAL_ Data",
 		"sSearch": 'Pencarian',
 		"sLengthMenu": "Menampilkan &nbsp; _MENU_ &nbsp; Data",
+		"sZeroRecords:": "Tidak ditemukan",
 		"infoEmpty": "",
 		"paginate": {
 			"previous": "Sebelumnya",
