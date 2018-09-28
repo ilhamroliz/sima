@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bd568f0fa23c4323e9a0801e190ac069",
+    "content-hash": "68bfe1c5dd30e70e2e5100644d50623c",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -365,6 +365,81 @@
                 "trusted proxy"
             ],
             "time": "2018-02-07T20:20:57+00:00"
+        },
+        {
+            "name": "geniusts/hijri-dates",
+            "version": "1.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/GeniusTS/hijri-dates.git",
+                "reference": "ae885c2d06ef9d15344f4adeb3cb8d1c0c9be84c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/GeniusTS/hijri-dates/zipball/ae885c2d06ef9d15344f4adeb3cb8d1c0c9be84c",
+                "reference": "ae885c2d06ef9d15344f4adeb3cb8d1c0c9be84c",
+                "shasum": ""
+            },
+            "require": {
+                "nesbot/carbon": "^1.22",
+                "php": ">=7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "GeniusTS\\HijriDate\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Abdul-Kader Zein-Eddin",
+                    "email": "aboudeh1987@gmail.com"
+                }
+            ],
+            "description": "PHP library to convert Gregorian date to Hijri date and vice versa",
+            "time": "2018-02-07T11:27:52+00:00"
+        },
+        {
+            "name": "geniusts/laravel-hijri-dates",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/GeniusTS/laravel-hijri-dates.git",
+                "reference": "8a34b732f9e1f330d1a61e39695f9347d69b57ce"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/GeniusTS/laravel-hijri-dates/zipball/8a34b732f9e1f330d1a61e39695f9347d69b57ce",
+                "reference": "8a34b732f9e1f330d1a61e39695f9347d69b57ce",
+                "shasum": ""
+            },
+            "require": {
+                "geniusts/hijri-dates": "~1.1.0",
+                "illuminate/support": "^5.0",
+                "php": ">=7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "GeniusTS\\LaravelHijri\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Abdul-Kader Zein-Eddin",
+                    "email": "aboudeh1987@gmail.com"
+                }
+            ],
+            "description": "Hijri dates package for Laravel",
+            "time": "2017-05-30T19:24:09+00:00"
         },
         {
             "name": "jakub-onderka/php-console-color",

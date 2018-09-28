@@ -1,6 +1,6 @@
 <div class="topbar">
     <!-- LOGO -->
-    <div class="topbar-left">
+    <div class="topbar-left form-group">
         <a href="{{ url('home') }}" class="logo">
             <span>
                 <img src="http://127.0.0.1/alamraya_adminox/assets/images/logo.png" alt="" height="30">
@@ -9,6 +9,12 @@
                 <img src="http://127.0.0.1/alamraya_adminox/assets/images/logo_sm.png" alt="" height="28">
             </i>
         </a>
+    
+        <div style="margin-top: -20px;">
+            <span class="col-12" style="color: #8E9BA3;">
+                {{ \GeniusTS\HijriDate\Hijri::convertToHijri(Carbon\Carbon::now('Asia/Jakarta'))->format('l d F o') }}
+            </span>
+        </div>
     </div>
 
     <nav class="navbar-custom">
@@ -59,6 +65,12 @@
                     <i class="dripicons-menu"></i>
                 </button>
             </li>
+            {{-- <li class="hide-phone app-search">
+                <div role="search" class="form-group">
+                    <span style="color: #fff"><strong></strong>
+                    </span>
+                </div>
+            </li> --}}
         </ul>
 
     </nav>

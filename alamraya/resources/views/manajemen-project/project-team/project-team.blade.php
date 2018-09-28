@@ -2,7 +2,10 @@
 @section('title', 'Project Team')
 @section('extra_styles')
     <style type="text/css">
-
+        #our-team_filter {
+           float: left !important;
+           margin-left: -140px;
+        }
     </style>
 @endsection
 @section('content')
@@ -164,7 +167,6 @@
                         {data: 'aksi', name: 'aksi'}
                     ],
                     responsive: true,
-                    "searching": false,
                     "paging": false,
                     "info": false,
                     "pageLength": 10,
@@ -334,6 +336,10 @@
                     }
                 }
             });
+        }
+
+        function gantiPosisi(kode){
+            
         }
 
         function progress(kode){

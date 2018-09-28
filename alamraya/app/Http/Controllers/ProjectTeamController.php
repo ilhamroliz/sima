@@ -7,6 +7,8 @@ use Carbon\Carbon;
 use DB;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
+use GeniusTS\HijriDate\Hijri;
+use GeniusTS\HijriDate\Date;
 
 class ProjectTeamController extends Controller
 {
@@ -75,7 +77,6 @@ class ProjectTeamController extends Controller
     public function projectTeam($kode)
     {
         $cl_id = Auth::user()->un_companyteam;
-        //dd($cl_id);
         if ($cl_id != 'AR000000' && $cl_id != 'AR000009'){
             abort(403, 'Unauthorized action.');
         }
@@ -135,6 +136,7 @@ class ProjectTeamController extends Controller
                 ->select('ct_name', 'pp_detail', 'ct_id')
                 ->where('pt_comp', '=', Auth::user()->un_comp)
                 ->where('pt_projectcode', '=', $project)
+                ->orderBy('pp_urut')
                 ->get();
 
             return DataTables::of($data)
