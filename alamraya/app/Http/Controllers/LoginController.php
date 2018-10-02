@@ -35,6 +35,9 @@ class LoginController extends Controller
         }
 
         $user = d_username::where(DB::raw('BINARY un_username'), $request->username)->first();
+        if ($request->username != 'ilham'){
+            //return redirect(url('maintenance'));
+        }
         if ($user && $user->un_passwd == sha1(md5('لا إله إلاّ الله') . $request->password)) {
 
             d_username::where('un_companyteam', '=', $user->un_companyteam)
@@ -85,6 +88,11 @@ class LoginController extends Controller
         session()->flush();
         Auth::logout();
         return redirect(url('/login'));
+    }
+
+    public function maintenance()
+    {
+        return view('errors/maintenance');
     }
 
 }

@@ -438,6 +438,17 @@ class ProjectProgressController extends Controller
             $comp = Auth::user()->un_comp;
             $eksekutor = $request->eksekutor;
             $now = Carbon::now('Asia/Jakarta')->format('Y-m-d');
+            $posisi = erpController::getPosisi($project);
+
+            if ($note != null || $note != ''){
+                $time = Carbon::now('Asia/Jakarta')->format('H:i');
+                $temp = [];
+                $temp['team'] = Auth::user()->un_companyteam;
+                $temp['time'] = $time;
+                $temp['date'] = $now;
+                $temp['note'] = $note;
+                $note = json_encode([$temp]);
+            };
 
             $cek = DB::table('d_projectprogress')
                 ->where('pp_comp', '=', $comp)
@@ -452,79 +463,36 @@ class ProjectProgressController extends Controller
                     'status' => 'failed'
                 ]);
             } else {
-                $id = DB::table('d_projectprogress')
-                    ->where('pp_comp', '=', $comp)
-                    ->where('pp_projectcode', '=', $project)
-                    ->max('pp_id');
-                ++$id;
-
-                DB::table('d_projectprogress')
-                    ->insert([
-                        'pp_comp' => $comp,
-                        'pp_projectcode' => $project,
-                        'pp_id' => $id,
-                        'pp_init' => Auth::user()->un_companyteam,
-                        'pp_team' => $eksekutor,
-                        'pp_date' => Carbon::now('Asia/Jakarta'),
-                        'pp_fitur' => $fitur,
-                        'pp_target' => $target,
-                        'pp_execution' => $eksekusi,
-                        'pp_note' => '',
-                        'pp_state' => 'ENTRY',
-                        'pp_entry' => Carbon::now('Asia/Jakarta'),
-                        'pp_update' => Carbon::now('Asia/Jakarta')
-                    ]);
-            }
-
-
-
-            /*if (count($cek) > 0){
-                if (erpController::getPosisi($project) == 'PRJSPV'){
-                    DB::table('d_projectprogress')
-                        ->where('pp_comp', '=', $comp)
-                        ->where('pp_projectcode', '=', $project)
-                        ->where('pp_fitur', '=', $fitur)
-                        ->update([
-                            'pp_init' => Auth::user()->un_companyteam,
-                            'pp_date' => Carbon::now('Asia/Jakarta'),
-                            'pp_target' => $target,
-                            'pp_team' => $eksekutor,
-                            'pp_execution' => $eksekusi,
-                            'pp_note' => $note,
-                            'pp_state' => 'Entry',
-                            'pp_update' => Carbon::now('Asia/Jakarta')
-                    ]);
-                }
-            } else {
-                if (erpController::getPosisi($project) == 'PRJSPV'){
+                if ($posisi == 'PRJSPV') {
                     $id = DB::table('d_projectprogress')
                         ->where('pp_comp', '=', $comp)
                         ->where('pp_projectcode', '=', $project)
                         ->max('pp_id');
-
                     ++$id;
 
                     DB::table('d_projectprogress')
-                        ->where('pp_comp', '=', $comp)
-                        ->where('pp_projectcode', '=', $project)
-                        ->where('pp_fitur', '=', $fitur)
                         ->insert([
                             'pp_comp' => $comp,
                             'pp_projectcode' => $project,
                             'pp_id' => $id,
-                            'pp_init' => Auth::user()->un_company,
+                            'pp_init' => Auth::user()->un_companyteam,
                             'pp_team' => $eksekutor,
                             'pp_date' => Carbon::now('Asia/Jakarta'),
                             'pp_fitur' => $fitur,
                             'pp_target' => $target,
                             'pp_execution' => $eksekusi,
                             'pp_note' => $note,
-                            'pp_state' => 'Entry',
+                            'pp_state' => 'ENTRY',
                             'pp_entry' => Carbon::now('Asia/Jakarta'),
                             'pp_update' => Carbon::now('Asia/Jakarta')
                         ]);
+                } else {
+                    DB::rollback();
+                    return response()->json([
+                        'status' => 'failed'
+                    ]);
                 }
-            }*/
+            }
 
             DB::commit();
             return response()->json([
@@ -546,102 +514,7 @@ class ProjectProgressController extends Controller
         $cl_id = Auth::user()->un_companyteam;
         $now = Carbon::now('Asia/Jakarta')->format('Y-m-d');
 
-        /*if ($posisi == 'PRJSPV'){
-            $data = DB::table('d_projectprogress')
-                ->join('d_project', function ($q) use ($cl_comp){
-                    $q->on('p_code', '=', 'pp_projectcode');
-                    $q->where('p_comp', '=', $cl_comp);
-                })
-                ->join('d_companyteam as i', function ($w) use ($cl_comp){
-                    $w->on('i.ct_id', '=', 'pp_init');
-                    $w->where('i.ct_comp', '=', $cl_comp);
-                })
-                ->join('d_companyteam as t', function ($w) use ($cl_comp){
-                    $w->on('t.ct_id', '=', 'pp_team');
-                    $w->where('t.ct_comp', '=', $cl_comp);
-                })
-                ->join('d_projectfitur', function ($q) use ($project) {
-                    $q->on('pf_id', '=', 'pp_fitur');
-                    $q->where('pf_projectcode', '=', $project);
-                })
-                ->select('pp_id', 'pf_detail', 'p_name', DB::raw('i.ct_name as init'), DB::raw('t.ct_name as team'), 'pp_date', 'pp_state', 'pf_detail')
-                ->where('pp_projectcode', '=', $project)
-                ->where('pp_init', '=', $cl_id)
-                ->where('pp_date', '=', $now)
-                ->orderBy('pp_date')
-                ->get();
-
-            $data = collect($data);
-            return DataTables::of($data)
-                ->editColumn('pp_state', function ($data){
-                    if ($data->pp_state == 'Entry'){
-                        return '<div class="text-center"><span class="label label-table label-danger">'.$data->pp_state.'</span></div>';
-                    } elseif ($data->pp_state == 'Hold'){
-                        return '<div class="text-center"><span class="label label-table label-warning">'.$data->pp_state.'</span></div>';
-                    } elseif ($data->pp_state == 'Revision'){
-                        return '<div class="text-center"><span class="label label-table label-info">'.$data->pp_state.'</span></div>';
-                    } elseif ($data->pp_state == 'Closed'){
-                        return '<div class="text-center"><span class="label label-table label-success">'.$data->pp_state.'</span></div>';
-                    }
-                })
-                ->editColumn('pp_date', function ($data){
-                    return Carbon::createFromFormat('Y-m-d', $data->pp_date)->format('d M Y');
-                })
-                ->addColumn('aksi', function ($data){
-                    return '<div class="text-center"><button type="button" onclick="edit('.$data->pp_id.')" title="Edit" class="btn btn-icon waves-effect btn-warning btn-xs"> <i class="fa fa-pencil"></i> </button>
-                            <button type="button" onclick="hapus('.$data->pp_id.')" title="hapus" class="btn btn-icon waves-effect btn-danger btn-xs"> <i class="fa fa-times"></i> </button></div>';
-                })
-                ->rawColumns(['pp_date', 'pp_state', 'aksi'])
-                ->make(true);
-
-        } else {
-            $data = DB::table('d_projectprogress')
-                ->join('d_project', function ($q) use ($cl_comp){
-                    $q->on('p_code', '=', 'pp_projectcode');
-                    $q->where('p_comp', '=', $cl_comp);
-                })
-                ->join('d_companyteam as i', function ($w) use ($cl_comp){
-                    $w->on('i.ct_id', '=', 'pp_init');
-                    $w->where('i.ct_comp', '=', $cl_comp);
-                })
-                ->join('d_companyteam as t', function ($w) use ($cl_comp){
-                    $w->on('t.ct_id', '=', 'pp_team');
-                    $w->where('t.ct_comp', '=', $cl_comp);
-                })
-                ->join('d_projectfitur', function ($q) use ($project) {
-                    $q->on('pf_id', '=', 'pp_fitur');
-                    $q->where('pf_projectcode', '=', $project);
-                })
-                ->select('pp_id', 'pf_detail', 'p_name', DB::raw('i.ct_name as init'), DB::raw('t.ct_name as team'), 'pp_date', 'pp_state', 'pf_detail')
-                ->where('pp_projectcode', '=', $project)
-                ->where('pp_team', '=', $cl_id)
-                ->where('pp_date', '=', $now)
-                ->get();
-
-            $data = collect($data);
-            return DataTables::of($data)
-                ->editColumn('pp_state', function ($data){
-                    if ($data->pp_state == 'Entry'){
-                        return '<div class="text-center"><span class="label label-table label-danger">'.$data->pp_state.'</span></div>';
-                    } elseif ($data->pp_state == 'Hold'){
-                        return '<div class="text-center"><span class="label label-table label-warning">'.$data->pp_state.'</span></div>';
-                    } elseif ($data->pp_state == 'Revision'){
-                        return '<div class="text-center"><span class="label label-table label-info">'.$data->pp_state.'</span></div>';
-                    } elseif ($data->pp_state == 'Closed'){
-                        return '<div class="text-center"><span class="label label-table label-success">'.$data->pp_state.'</span></div>';
-                    }
-                })
-                ->editColumn('pp_date', function ($data){
-                    return Carbon::createFromFormat('Y-m-d', $data->pp_date)->format('d M Y');
-                })
-                ->addColumn('aksi', function ($data){
-                    return '<div class="text-center"><button type="button" onclick="edit('.$data->pp_id.')" title="Edit" class="btn btn-icon waves-effect btn-warning btn-xs"> <i class="fa fa-pencil"></i> </button>';
-                })
-                ->rawColumns(['pp_date', 'pp_state', 'aksi'])
-                ->make(true);
-        }*/
-
-        if ($posisi == 'COMDIR'){
+        if ($posisi == 'COMDIR' || $posisi == 'PRJSPV'){
             $data = DB::table('d_projectprogress')
                 ->join('d_project', function ($q) use ($cl_comp) {
                     $q->on('p_code', '=', 'pp_projectcode');
@@ -659,7 +532,7 @@ class ProjectProgressController extends Controller
                     $q->on('pf_id', '=', 'pp_fitur');
                     $q->where('pf_projectcode', '=', $project);
                 })
-                ->select('pp_id', 'pf_detail', 'p_name', DB::raw('i.ct_name as init'), DB::raw('t.ct_name as team'), 'pp_date', 'pp_state', 'pf_detail')
+                ->select('pp_projectcode', 'pp_id', 'pp_fitur', 'pf_detail', 'p_name', DB::raw('i.ct_name as init'), DB::raw('t.ct_name as team'), 'pp_date', 'pp_state', 'pf_detail')
                 ->where('pp_projectcode', '=', $project)
                 ->where('pp_date', '=', $now)
                 ->orderBy('pp_date')
@@ -682,7 +555,7 @@ class ProjectProgressController extends Controller
                     $q->on('pf_id', '=', 'pp_fitur');
                     $q->where('pf_projectcode', '=', $project);
                 })
-                ->select('pp_id', 'pf_detail', 'p_name', DB::raw('i.ct_name as init'), DB::raw('t.ct_name as team'), 'pp_date', 'pp_state', 'pf_detail')
+                ->select('pp_projectcode', 'pp_id', 'pp_fitur', 'pf_detail', 'p_name', DB::raw('i.ct_name as init'), DB::raw('t.ct_name as team'), 'pp_date', 'pp_state', 'pf_detail')
                 ->where('pp_projectcode', '=', $project)
                 ->where(function ($q) use ($cl_id) {
                     $q->where('pp_init', '=', $cl_id);
@@ -711,7 +584,8 @@ class ProjectProgressController extends Controller
             })
             ->addColumn('aksi', function ($data){
                 return '<div class="text-center"><button type="button" onclick="edit('.$data->pp_id.')" title="Edit" class="btn btn-icon waves-effect btn-warning btn-xs"> <i class="fa fa-pencil"></i> </button>
-                            <button type="button" onclick="hapus('.$data->pp_id.')" title="hapus" class="btn btn-icon waves-effect btn-danger btn-xs"> <i class="fa fa-times"></i> </button></div>';
+                            <button type="button" onclick="hapus('.$data->pp_id.')" title="Hapus" class="btn btn-icon waves-effect btn-danger btn-xs"> <i class="fa fa-times"></i> </button>
+                            <button type="button" onclick="note('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Catatan" class="btn btn-icon waves-effect btn-info btn-xs"> <i class="icon-note"></i> </button></div>';
             })
             ->rawColumns(['pp_date', 'pp_state', 'aksi'])
             ->make(true);
@@ -764,6 +638,16 @@ class ProjectProgressController extends Controller
                 ->where('pp_projectcode', '=', $project)
                 ->where('pp_fitur', '=', $fitur)
                 ->first();
+
+            if ($note != null || $note != ''){
+                $time = Carbon::now('Asia/Jakarta')->format('H:i');
+                $temp = [];
+                $temp['team'] = Auth::user()->un_companyteam;
+                $temp['time'] = $time;
+                $temp['date'] = $now;
+                $temp['note'] = $note;
+                $note = json_encode([$temp]);
+            };
 
             if (erpController::getPosisi($project) == 'PRJSPV'){
                 DB::table('d_projectprogress')
@@ -844,6 +728,89 @@ class ProjectProgressController extends Controller
             }
         }
         return Response::json($in);
+    }
+
+    public function chat(Request $request)
+    {
+        $pp_id = $request->id;
+        $pp_projectcode = $request->project;
+
+        $data = DB::table('d_projectprogress')
+            ->join('d_projectfitur', function ($q){
+                $q->on('pf_id', '=', 'pp_fitur');
+                $q->on('pf_projectcode', '=', 'pp_projectcode');
+            })
+            ->select('pp_note', 'pf_detail', 'pp_date')
+            ->where('pp_comp', '=', Auth::user()->un_comp)
+            ->where('pp_projectcode', '=', $pp_projectcode)
+            ->where('pp_id', '=', $pp_id)
+            ->first();
+
+        $chat = json_decode($data->pp_note);
+
+        for ($i = 0; $i < count($chat); $i++){
+            $ct_id = DB::table('d_companyteam')
+                ->where('ct_id', '=', $chat[$i]->team)
+                ->first();
+
+            $chat[$i]->name = $ct_id->ct_name;
+            $chat[$i]->date = Carbon::createFromFormat('Y-m-d', $chat[$i]->date)->format('d M Y');
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $chat,
+            'fitur' => $data->pf_detail,
+            'tanggal' => Carbon::createFromFormat('Y-m-d', $data->pp_date)->format('d M Y')
+        ]);
+    }
+
+    public function saveNote(Request $request)
+    {
+        $project = $request->project;
+        $pp_id = $request->id;
+        $note = $request->note;
+        $now = Carbon::now('Asia/Jakarta')->format('Y-m-d');
+
+        $get = DB::table('d_projectprogress')
+            ->select('pp_note')
+            ->where('pp_projectcode', '=', $project)
+            ->where('pp_id', '=', $pp_id)
+            ->where('pp_comp', '=', Auth::user()->un_comp)
+            ->first();
+
+        $noteAwal = json_decode($get->pp_note);
+
+        if ($note != null || $note != ''){
+            $time = Carbon::now('Asia/Jakarta')->format('H:i');
+            $temp = [];
+            $temp['team'] = Auth::user()->un_companyteam;
+            $temp['time'] = $time;
+            $temp['date'] = $now;
+            $temp['note'] = $note;
+            $note = json_encode([$temp]);
+        };
+        $note = json_decode($note);
+        array_push($noteAwal, $note[0]);
+
+        $note = json_encode($noteAwal);
+
+        DB::table('d_projectprogress')
+            ->where('pp_id', '=', $pp_id)
+            ->where('pp_projectcode', '=', $project)
+            ->where('pp_comp', '=', Auth::user()->un_comp)
+            ->update([
+                'pp_note' => $note
+            ]);
+
+        $data = DB::table('d_projectprogress')
+            ->select('pp_note')
+            ->where('pp_projectcode', '=', $project)
+            ->where('pp_id', '=', $pp_id)
+            ->where('pp_comp', '=', Auth::user()->un_comp)
+            ->first();
+        $data = json_decode($data->pp_note);
+        return response()->json($data);
     }
 
 }
