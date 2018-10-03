@@ -120,7 +120,7 @@ class ProjectProgressController extends Controller
                     ->join('d_companyteam', function ($q){
                         $q->on('ct_id', '=', 'pp_team');
                     })
-                    ->select('p_name', 'pp_date', 'ct_name', 'pf_detail', 'pp_projectcode', 'pf_id')
+                    ->select('p_name', 'pp_date', 'ct_name', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id')
                     ->where('pp_comp', '=', $cl_comp)
                     ->where('pp_date', '<=', $end)
                     ->where('pp_date', '>=', $start)
@@ -143,7 +143,7 @@ class ProjectProgressController extends Controller
                             ->join('d_companyteam', function ($q){
                                 $q->on('ct_id', '=', 'pp_team');
                             })
-                            ->select('p_name', 'pp_date', 'ct_name', 'pf_detail', 'pp_projectcode', 'pf_id')
+                            ->select('p_name', 'pp_date', 'ct_name', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id')
                             ->where('pp_comp', '=', $cl_comp)
                             ->where('pp_date', '<=', $end)
                             ->where('pp_date', '>=', $start)
@@ -169,7 +169,7 @@ class ProjectProgressController extends Controller
                             ->join('d_companyteam', function ($q){
                                 $q->on('ct_id', '=', 'pp_team');
                             })
-                            ->select('p_name', 'pp_date', 'ct_name', 'pf_detail', 'pp_projectcode', 'pf_id')
+                            ->select('p_name', 'pp_date', 'ct_name', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id')
                             ->where('pp_comp', '=', $cl_comp)
                             ->where('pp_date', '<=', $end)
                             ->where('pp_date', '>=', $start)
@@ -196,7 +196,7 @@ class ProjectProgressController extends Controller
                             ->join('d_companyteam', function ($q){
                                 $q->on('ct_id', '=', 'pp_team');
                             })
-                            ->select('p_name', 'pp_date', 'ct_name', 'pf_detail', 'pp_projectcode', 'pf_id')
+                            ->select('p_name', 'pp_date', 'ct_name', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id')
                             ->where('pp_comp', '=', $cl_comp)
                             ->where('pp_date', '<=', $end)
                             ->where('pp_date', '>=', $start)
@@ -218,7 +218,7 @@ class ProjectProgressController extends Controller
                             ->join('d_companyteam', function ($q){
                                 $q->on('ct_id', '=', 'pp_team');
                             })
-                            ->select('p_name', 'pp_date', 'ct_name', 'pf_detail', 'pp_projectcode', 'pf_id')
+                            ->select('p_name', 'pp_date', 'ct_name', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id')
                             ->where('pp_comp', '=', $cl_comp)
                             ->where('pp_date', '<=', $end)
                             ->where('pp_date', '>=', $start)
@@ -230,6 +230,10 @@ class ProjectProgressController extends Controller
 
             $data = collect($data);
             return Datatables::of($data)
+                ->addColumn('aksi', function ($data){
+                    return '<div class="text-center"><button type="button" onclick="edit('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Edit" class="btn btn-icon waves-effect btn-warning btn-xs"> <i class="fa fa-pencil"></i> </button>
+                            <button type="button" onclick="note('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Catatan" class="btn btn-icon waves-effect btn-info btn-xs"> <i class="icon-note"></i> </button></div>';
+                })
                 ->editColumn('pp_date', function ($data){
                     return Carbon::createFromFormat('Y-m-d', $data->pp_date)->format('d M Y');
                 })
@@ -239,19 +243,16 @@ class ProjectProgressController extends Controller
                 ->setRowClass(function (){
                     return 'list-progress';
                 })
-                ->setRowAttr([
-                    'style' => function() {
-                        return 'cursor: pointer';
-                    },
-                    'title' => function() {
-                        return 'Klik untuk melihat detail';
-                    }
-                ])
+                ->rawColumns(['aksi'])
                 ->make(true);
         } else {
             $data = $this->getProjectProgressAll($request);
             $data = collect($data);
             return Datatables::of($data)
+                ->addColumn('aksi', function ($data){
+                    return '<div class="text-center"><button type="button" onclick="edit('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Edit" class="btn btn-icon waves-effect btn-warning btn-xs"> <i class="fa fa-pencil"></i> </button>
+                            <button type="button" onclick="note('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Catatan" class="btn btn-icon waves-effect btn-info btn-xs"> <i class="icon-note"></i> </button></div>';
+                })
                 ->editColumn('pp_date', function ($data){
                     return Carbon::createFromFormat('Y-m-d', $data->pp_date)->format('d M Y');
                 })
@@ -261,14 +262,7 @@ class ProjectProgressController extends Controller
                 ->setRowClass(function (){
                     return 'list-progress';
                 })
-                ->setRowAttr([
-                    'style' => function() {
-                        return 'cursor: pointer';
-                    },
-                    'title' => function() {
-                        return 'Klik untuk melihat detail';
-                    }
-                ])
+                ->rawColumns(['aksi'])
                 ->make(true);
         }
     }
@@ -281,6 +275,10 @@ class ProjectProgressController extends Controller
         $end = Carbon::createFromFormat('d/m/Y', $request->akhir)->format('Y-m-d');
         $project = $request->project;
         $team = $request->team;
+        $data = [];
+        if ($project == null){
+            $project = [];
+        }
 
         if ($project == 'all'){
             $data = DB::table('d_projectprogress')
@@ -296,7 +294,7 @@ class ProjectProgressController extends Controller
                 ->join('d_companyteam', function ($q){
                     $q->on('ct_id', '=', 'pp_team');
                 })
-                ->select('p_name', 'pp_date', 'ct_name', 'pf_detail', 'pp_projectcode', 'pf_id')
+                ->select('p_name', 'pp_date', 'ct_name', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id')
                 ->where('pp_comp', '=', $cl_comp)
                 ->where(function ($q) use ($cl_id){
                     $q->orWhere('pp_init', '=', $cl_id);
@@ -323,7 +321,7 @@ class ProjectProgressController extends Controller
                         ->join('d_companyteam', function ($q){
                             $q->on('ct_id', '=', 'pp_team');
                         })
-                        ->select('p_name', 'pp_date', 'ct_name', 'pf_detail', 'pp_projectcode', 'pf_id')
+                        ->select('p_name', 'pp_date', 'ct_name', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id')
                         ->where('pp_comp', '=', $cl_comp)
                         ->where(function ($q) use ($cl_id){
                             $q->orWhere('pp_init', '=', $cl_id);
@@ -353,7 +351,7 @@ class ProjectProgressController extends Controller
                         ->join('d_companyteam', function ($q){
                             $q->on('ct_id', '=', 'pp_team');
                         })
-                        ->select('p_name', 'pp_date', 'ct_name', 'pf_detail', 'pp_projectcode', 'pf_id')
+                        ->select('p_name', 'pp_date', 'ct_name', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id')
                         ->where('pp_comp', '=', $cl_comp)
                         ->where(function ($q) use ($cl_id){
                             $q->orWhere('pp_init', '=', $cl_id);
@@ -384,7 +382,7 @@ class ProjectProgressController extends Controller
                         ->join('d_companyteam', function ($q){
                             $q->on('ct_id', '=', 'pp_team');
                         })
-                        ->select('p_name', 'pp_date', 'ct_name', 'pf_detail', 'pp_projectcode', 'pf_id')
+                        ->select('p_name', 'pp_date', 'ct_name', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id')
                         ->where('pp_comp', '=', $cl_comp)
                         ->where(function ($q) use ($cl_id){
                             $q->orWhere('pp_init', '=', $cl_id);
@@ -410,7 +408,7 @@ class ProjectProgressController extends Controller
                         ->join('d_companyteam', function ($q){
                             $q->on('ct_id', '=', 'pp_team');
                         })
-                        ->select('p_name', 'pp_date', 'ct_name', 'pf_detail', 'pp_projectcode', 'pf_id')
+                        ->select('p_name', 'pp_date', 'ct_name', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id')
                         ->where('pp_comp', '=', $cl_comp)
                         ->where(function ($q) use ($cl_id){
                             $q->orWhere('pp_init', '=', $cl_id);
@@ -609,11 +607,17 @@ class ProjectProgressController extends Controller
                 $q->on('pf_id', '=', 'pp_fitur');
                 $q->where('pf_projectcode', '=', $project);
             })
-            ->select('pf_id', 'pf_detail', 't.ct_name as team', 'i.ct_name as init', 'pp_target', 'pp_execution', 'pp_note', 'pp_team', 'pp_state')
+            ->select('pp_date', 'pp_id', 'pf_id', 'pf_detail', 't.ct_name as team', 'i.ct_name as init', 'pp_target', 'pp_execution', 'pp_team', 'pp_state')
             ->where('pp_id', '=', $pp_id)
             ->where('pp_comp', '=', $cl_comp)
             ->where('pp_projectcode', '=', $project)
             ->get();
+
+            if ($data != null){
+                if (count($data) > 0){
+                    $data[0]->pp_date = Carbon::createFromFormat('Y-m-d', $data[0]->pp_date)->format('d M Y');
+                }
+            }
 
         return response()->json([
             'data' => $data
@@ -624,62 +628,39 @@ class ProjectProgressController extends Controller
     {
         DB::beginTransaction();
         try {
-            $note = $request->note;
             $eksekusi = $request->eksekusi;
             $target = $request->target;
-            $fitur = $request->fitur;
+            $pp_id = $request->pp_id;
             $comp = Auth::user()->un_comp;
             $cl_id = Auth::user()->un_companyteam;
             $eksekutor = $request->eksekutor;
-            $status = $request->status;
 
             $info = DB::table('d_projectprogress')
                 ->where('pp_comp', '=', $comp)
                 ->where('pp_projectcode', '=', $project)
-                ->where('pp_fitur', '=', $fitur)
+                ->where('pp_id', '=', $pp_id)
                 ->first();
 
-            if ($note != null || $note != ''){
-                $time = Carbon::now('Asia/Jakarta')->format('H:i');
-                $temp = [];
-                $temp['team'] = Auth::user()->un_companyteam;
-                $temp['time'] = $time;
-                $temp['date'] = $now;
-                $temp['note'] = $note;
-                $note = json_encode([$temp]);
-            };
-
-            if (erpController::getPosisi($project) == 'PRJSPV'){
+            if (erpController::getPosisi($project) == 'PRJSPV' || erpController::getPosisi($project) == 'COMDIR'){
+                $status = $request->status;
                 DB::table('d_projectprogress')
                     ->where('pp_comp', '=', $comp)
                     ->where('pp_projectcode', '=', $project)
-                    ->where('pp_fitur', '=', $fitur)
+                    ->where('pp_id', '=', $pp_id)
                     ->update([
-                        'pp_date' => Carbon::now('Asia/Jakarta'),
                         'pp_target' => $target,
                         'pp_team' => $eksekutor,
-                        'pp_execution' => $eksekusi,
-                        'pp_note' => $note,
                         'pp_state' => $status,
                         'pp_update' => Carbon::now('Asia/Jakarta')
                     ]);
             } else {
-                if ($info->pp_state == 'Entry'){
-                    $status = 'Hold';
-                } elseif ($info->pp_state == 'Revision'){
-                    $status = 'Entry';
-                }
                 DB::table('d_projectprogress')
                     ->where('pp_comp', '=', $comp)
                     ->where('pp_projectcode', '=', $project)
-                    ->where('pp_fitur', '=', $fitur)
+                    ->where('pp_id', '=', $pp_id)
                     ->update([
-                        'pp_date' => Carbon::now('Asia/Jakarta'),
-                        'pp_target' => $target,
                         'pp_team' => $cl_id,
                         'pp_execution' => $eksekusi,
-                        'pp_note' => $note,
-                        'pp_state' => $status,
                         'pp_update' => Carbon::now('Asia/Jakarta')
                     ]);
             }
@@ -748,13 +729,15 @@ class ProjectProgressController extends Controller
 
         $chat = json_decode($data->pp_note);
 
-        for ($i = 0; $i < count($chat); $i++){
-            $ct_id = DB::table('d_companyteam')
-                ->where('ct_id', '=', $chat[$i]->team)
-                ->first();
+        if ($chat != null) {
+            for ($i = 0; $i < count($chat); $i++) {
+                $ct_id = DB::table('d_companyteam')
+                    ->where('ct_id', '=', $chat[$i]->team)
+                    ->first();
 
-            $chat[$i]->name = $ct_id->ct_name;
-            $chat[$i]->date = Carbon::createFromFormat('Y-m-d', $chat[$i]->date)->format('d M Y');
+                $chat[$i]->name = $ct_id->ct_name;
+                $chat[$i]->date = Carbon::createFromFormat('Y-m-d', $chat[$i]->date)->format('d M Y');
+            }
         }
 
         return response()->json([
@@ -780,6 +763,9 @@ class ProjectProgressController extends Controller
             ->first();
 
         $noteAwal = json_decode($get->pp_note);
+        if ($noteAwal == null){
+            $noteAwal = [];
+        }
 
         if ($note != null || $note != ''){
             $time = Carbon::now('Asia/Jakarta')->format('H:i');
@@ -792,7 +778,6 @@ class ProjectProgressController extends Controller
         };
         $note = json_decode($note);
         array_push($noteAwal, $note[0]);
-
         $note = json_encode($noteAwal);
 
         DB::table('d_projectprogress')
@@ -814,4 +799,3 @@ class ProjectProgressController extends Controller
     }
 
 }
-

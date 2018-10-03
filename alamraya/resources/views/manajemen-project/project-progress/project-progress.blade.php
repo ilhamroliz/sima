@@ -407,7 +407,7 @@
                     <div class="modal-body">
                         <div id="content-note">
                             <form class="form-horizontal">
-                                <input type="hidden" name="pf_id" class="pf_id">
+                                <input type="hidden" name="pp_id" class="pp_id">
                                 <div class="form-group row">
                                     <label for="edit-executor" class="col-2 col-form-label">Eksekutor</label>
                                     <div class="select-executor col-6">
@@ -442,14 +442,12 @@
                                     @if($posisi == 'PRJSPV')
                                         <div class="col-12">
                                             <div class="pull-right">
-                                                <button type="button"
-                                                        class="btn btn-warning waves-effect waves-light btn-xs">Hold
+                                                <button type="button" title="Hold" class="btn btn-warning waves-effect waves-light btn-xs" onclick="updateStatus('HOLD')">Hold
                                                 </button>
-                                                <button type="button" class="btn btn-info waves-effect waves-light btn-xs">
+                                                <button type="button" title="Revision" class="btn btn-info waves-effect waves-light btn-xs" onclick="updateStatus('REVISION')">
                                                     Revision
                                                 </button>
-                                                <button type="button"
-                                                        class="btn btn-success waves-effect waves-light btn-xs">Closed
+                                                <button type="button" title="Closed" class="btn btn-success waves-effect waves-light btn-xs" onclick="updateStatus('CLOSED')">Closed
                                                 </button>
                                             </div>
                                         </div>
@@ -490,32 +488,6 @@
                                         <input type="hidden" name="id_pp" id="id_pp">
                                         <input type="hidden" name="id_project" id="id_project">
                                         <div class="msg_history" id="konten-chat" style="width: 100%">
-                                            {{-- <div class="incoming_msg">
-                                                <div class="received_msg form-group">
-                                                    <label for="">Nama</label>
-                                                    <div class="received_withd_msg">
-                                                        <p>Test, which is a new approach to have</p>
-                                                        <span class="time_date"> 11:01 AM    |    Yesterday</span></div>
-                                                </div>
-                                            </div>
-                                            <div class="outgoing_msg">
-                                                <div class="sent_msg">
-                                                    <p>Test which is a new approach to have all
-                                                        solutions</p>
-                                                    <span class="time_date"> 11:01 AM    |    June 9</span></div>
-                                            </div>
-                                            <div class="incoming_msg">
-                                                <div class="received_msg">
-                                                    <div class="received_withd_msg">
-                                                        <p>Test, which is a new approach to have</p>
-                                                        <span class="time_date"> 11:01 AM    |    Yesterday</span></div>
-                                                </div>
-                                            </div>
-                                            <div class="outgoing_msg">
-                                                <div class="sent_msg">
-                                                    <p>Apollo University, Delhi, India Test</p>
-                                                    <span class="time_date"> 11:01 AM    |    Today</span></div>
-                                            </div> --}}
                                             
                                         </div>
                                         <div class="type_msg">
@@ -526,8 +498,6 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-group no-margin">
                             </div>
                         </div>
                     </div>
@@ -543,6 +513,7 @@
         var table;
         var id_team = '{{ Auth::user()->un_companyteam }}';
         var posisi = '{{ $posisi }}';
+        var statusGlobal = '';
         $(document).ready(function () {
             setTimeout(function () {
                 $.ajaxSetup({
@@ -709,7 +680,6 @@
                 success: function (response) {
                     $('#modal-progress').modal('show');
                     var data = response.data[0];
-                    console.log(data);
                     if (posisi == 'PRJPRG' && (data.pp_state == 'ENTRY' || data.pp_state == 'REVISION')) {
                         $('#edit-target').prop('readonly', true);
                         $('#edit-execution').prop('readonly', false);
@@ -720,7 +690,7 @@
                     $('textarea#edit-note').val(data.pp_note);
                     $('div .select-executor select').val(data.pp_team);
                     $('div .select-status select').val(data.pp_state);
-                    $('.pf_id').val(data.pf_id);
+                    $('.pp_id').val(data.pp_id);
                 },
                 error: function (xhr, status) {
                     if (status == 'timeout') {
@@ -740,12 +710,12 @@
         }
 
         function updateProgress() {
-            var fitur = $('.pf_id').val();
+            var fitur = $('.pp_id').val();
             var target = $('#edit-target').val();
             var eksekusi = $('#edit-execution').val();
             var note = $('#edit-note').val();
             var eksekutor = $('#edit-executor').val();
-            var status = $('.modal-status').val();
+            var status = statusGlobal;
 
             $('#modal-progress').modal('hide');
             waitingDialog.show();
@@ -757,9 +727,9 @@
 
             $.ajax({
                 url: baseUrl + '/manajemen-project/project-progress/get-project/{{ $kode }}/update-progress-init',
-                type: 'get',
+                type: 'post',
                 data: {
-                    fitur: fitur,
+                    pp_id: fitur,
                     target: target,
                     eksekusi: eksekusi,
                     note: note,
@@ -824,7 +794,7 @@
 
             $.ajax({
                 url: baseUrl + '/manajemen-project/project-progress/get-chat',
-                type: 'get',
+                type: 'post',
                 data: {
                     id: id,
                     project: project
@@ -837,16 +807,20 @@
                         $('#id_project').val(project);
                         $('#modal-title').html('Catatan fitur ' + response.fitur + ' - ' + response.tanggal);
                         $('#konten-chat').empty();
-                        for(var i = 0, length1 = hasil.length; i < length1; i++){
-                            if (hasil[i].team == id_team) {
-                                var chat = '<div class="outgoing_msg"><div class="sent_msg form-group"><label for="">'+hasil[i].name+'</label><p>'+hasil[i].note+'</p><span class="time_date"> '+hasil[i].time+'    |    '+hasil[i].date+'</span></div></div>';
-                                $('#konten-chat').append(chat);
-                            } else {
-                                var chat = '<div class="incoming_msg"><div class="received_msg form-group"><label for="">'+hasil[i].name+'</label><div class="received_withd_msg"><p>'+hasil[i].note+'</p><span class="time_date"> '+hasil[i].time+'    |    '+hasil[i].date+'</span></div></div>';
-                                $('#konten-chat').append(chat);
+                        if (hasil != null) {
+                            for(var i = 0, length1 = hasil.length; i < length1; i++){
+                                if (hasil[i].team == id_team) {
+                                    var chat = '<div class="outgoing_msg"><div class="sent_msg form-group"><label for="">'+hasil[i].name+'</label><p>'+hasil[i].note+'</p><span class="time_date"> '+hasil[i].time+'    |    '+hasil[i].date+'</span></div></div>';
+                                    $('#konten-chat').append(chat);
+                                } else {
+                                    var chat = '<div class="incoming_msg"><div class="received_msg form-group"><label for="">'+hasil[i].name+'</label><div class="received_withd_msg"><p>'+hasil[i].note+'</p><span class="time_date"> '+hasil[i].time+'    |    '+hasil[i].date+'</span></div></div>';
+                                    $('#konten-chat').append(chat);
+                                }
                             }
+                            $("#konten-chat").animate({ scrollTop: $('#konten-chat').prop("scrollHeight")}, 500);
                         }
                         $('#modal-catatan').modal('show');
+                        $("#konten-chat").animate({ scrollTop: $('#konten-chat').prop("scrollHeight")}, 500);
                     } else if (response.status == 'failed') {
                         
                     }
@@ -884,7 +858,7 @@
             waitingDialog.show();
             $.ajax({
                 url: baseUrl + '/manajemen-project/project-progress/save-note',
-                type: 'get',
+                type: 'post',
                 data: {
                     note: msg,
                     project: project,
@@ -924,5 +898,10 @@
                 document.getElementById("msg_send_btn").click();
             }
         });
+
+        function updateStatus(status){
+            statusGlobal = status;
+            updateProgress();
+        }
     </script>
 @endsection
