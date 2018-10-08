@@ -228,4 +228,48 @@ class ProjectTeamController extends Controller
         }
     }
 
+    public function projectPosition()
+    {
+        return view('manajemen-project/project-team/project-position');
+    }
+
+    public function getPosition()
+    {
+        $id = Auth::user()->un_companyteam;
+        $data = [];
+        if ($id == 'AR000000'){
+            $data = DB::table('d_projectteam')
+                ->join('d_project', function ($q){
+                    $q->on('p_code', '=', 'pt_projectcode');
+                    $q->on('p_comp', '=', 'pt_comp');
+                })
+                ->join('m_position', 'pp_code', 'pt_position')
+                ->join('d_companyteam', function ($q){
+                    $q->on('pt_teamid', '=', 'ct_id');
+                    $q->on('pt_comp', '=', 'ct_comp');
+                })
+                ->select('p_name', 'p_state', 'pp_detail', 'ct_name')
+                ->where('pt_teamid', '=', $id)
+                ->get();
+        } else {
+            $data = DB::table('d_projectteam')
+                ->join('d_project', function ($q){
+                    $q->on('p_code', '=', 'pt_projectcode');
+                    $q->on('p_comp', '=', 'pt_comp');
+                })
+                ->join('m_position', 'pp_code', 'pt_position')
+                ->select('p_name', 'p_state', 'pp_detail')
+                ->where('pt_teamid', '=', $id)
+                ->get();
+        }
+        return DataTables::of($data)
+            ->addColumn('aksi', function ($data){
+                return '<div class="text-center">
+                            <button type="button" class="btn btn-icon waves-effect btn-primary btn-xs"> <i class="fa fa-exchange"></i> </button>
+                            <button type="button" class="btn btn-icon waves-effect btn-danger btn-xs"> <i class="fa fa-times"></i> </button>
+                            </div>';
+            })
+            ->rawColumns(['aksi'])
+            ->make(true);
+    }
 }

@@ -28,6 +28,9 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card-box">
+                        <button type="button" onclick="projectPosition()" class="btn btn-sm btn-info waves-effect w-md waves-light pull-right"><i
+                                class="fa fa-list-ul"></i> Project Position
+                        </button>
                         <h4 class="header-title m-b-15 m-t-0 pull-left">Daftar Project</h4>
                         <div class="col-12" style="margin-top: 50px;">
                             <div class="form-group row">
@@ -79,7 +82,7 @@
                     serverSide: true,
                     "ajax": {
                         "url": baseUrl + '/manajemen-project/project-team/get-data/RUNNING',
-                        "type": "get"
+                        "type": "post"
                     },
                     columns: [
                         {data: 'p_name', name: 'p_name'},
@@ -115,7 +118,7 @@
                 serverSide: true,
                 "ajax": {
                     "url": baseUrl + '/manajemen-project/project-team/get-data/'+status,
-                    "type": "get"
+                    "type": "post"
                 },
                 columns: [
                     {data: 'p_name', name: 'p_name'},
@@ -132,6 +135,10 @@
                 //"scrollCollapse": true,
                 "language": dataTableLanguage,
             });
+        }
+
+        function projectPosition(){
+            location.href = baseUrl + '/manajemen-project/project-team/project-position';
         }
     </script>
 @endsection

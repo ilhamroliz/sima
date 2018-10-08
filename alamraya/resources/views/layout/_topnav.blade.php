@@ -3,10 +3,10 @@
     <div class="topbar-left form-group">
         <a href="{{ url('home') }}" class="logo">
             <span>
-                <img src="http://127.0.0.1/alamraya_adminox/assets/images/logo.png" alt="" height="30">
+                <img src="{{ asset('assets/images/logo.png') }}" alt="" height="30">
             </span>
             <i>
-                <img src="http://127.0.0.1/alamraya_adminox/assets/images/logo_sm.png" alt="" height="28">
+                <img src="{{ asset('assets/images/logo_sm.png') }}" alt="" height="28">
             </i>
         </a>
     
