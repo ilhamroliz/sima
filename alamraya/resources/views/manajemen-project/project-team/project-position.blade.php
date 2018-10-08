@@ -72,10 +72,9 @@
                     },
                     columns: [
                         {data: 'p_name', name: 'p_name'},
-                        {data: 'pt_detail', name: 'pt_detail'},
-                        {data: 'p_kickoff', name: 'p_kickoff'},
-                        {data: 'p_deadline', name: 'p_deadline'},
-                        {data: 'p_state', name: 'p_state'}
+                        {data: 'p_state', name: 'p_state'},
+                        {data: 'pp_detail', name: 'pp_detail'},
+                        {data: 'aksi', name: 'aksi'}
                     ],
                     responsive: true,
                     "pageLength": 10,
@@ -85,7 +84,7 @@
                     //"scrollCollapse": true,
                     "language": dataTableLanguage,
                 });
-                $('#daftar-project').css('width', '100%').dataTable().fnAdjustColumnSizing();
+                $('#table-position').css('width', '100%').dataTable().fnAdjustColumnSizing();
             }, 500);
         });
     </script>

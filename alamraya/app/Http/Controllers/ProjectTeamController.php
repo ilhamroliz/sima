@@ -237,7 +237,7 @@ class ProjectTeamController extends Controller
     {
         $id = Auth::user()->un_companyteam;
         $data = [];
-        if ($id == 'AR000000'){
+        if ($id == 'AR00000042534'){
             $data = DB::table('d_projectteam')
                 ->join('d_project', function ($q){
                     $q->on('p_code', '=', 'pt_projectcode');
