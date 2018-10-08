@@ -230,14 +230,35 @@ class ProjectTeamController extends Controller
 
     public function projectPosition()
     {
-        return view('manajemen-project/project-team/project-position');
+        $project = [];
+        if (Auth::user()->un_companyteam == 'AR000000'){
+            $cl_comp = Auth::user()->un_comp;
+            $project = DB::table('d_project')
+                ->where('p_comp', '=', $cl_comp)
+                ->where('p_state', '=', 'RUNNING')
+                ->get();
+        } else {
+            $cl_comp = Auth::user()->un_comp;
+            $cl_id = Auth::user()->un_companyteam;
+            $project = DB::table('d_projectteam')
+                ->join('d_project', function ($q) {
+                    $q->on('pt_comp', '=', 'p_comp');
+                    $q->on('pt_projectcode', '=', 'p_code');
+                    $q->where('p_state', '=', 'RUNNING');
+                })
+                ->select('p_name', 'p_code')
+                ->where('pt_teamid', '=', $cl_id)
+                ->where('pt_comp', '=', $cl_comp)
+                ->get();
+        }
+        return view('manajemen-project/project-team/project-position', compact('project'));
     }
 
     public function getPosition()
     {
         $id = Auth::user()->un_companyteam;
         $data = [];
-        if ($id == 'AR00000042534'){
+        if ($id == 'AR000000'){
             $data = DB::table('d_projectteam')
                 ->join('d_project', function ($q){
                     $q->on('p_code', '=', 'pt_projectcode');
@@ -249,7 +270,6 @@ class ProjectTeamController extends Controller
                     $q->on('pt_comp', '=', 'ct_comp');
                 })
                 ->select('p_name', 'p_state', 'pp_detail', 'ct_name')
-                ->where('pt_teamid', '=', $id)
                 ->get();
         } else {
             $data = DB::table('d_projectteam')
@@ -265,8 +285,7 @@ class ProjectTeamController extends Controller
         return DataTables::of($data)
             ->addColumn('aksi', function ($data){
                 return '<div class="text-center">
-                            <button type="button" class="btn btn-icon waves-effect btn-primary btn-xs"> <i class="fa fa-exchange"></i> </button>
-                            <button type="button" class="btn btn-icon waves-effect btn-danger btn-xs"> <i class="fa fa-times"></i> </button>
+                            <button type="button" class="btn btn-icon waves-effect btn-primary btn-xs"> <i class="fa fa-folder-open-o"></i> </button>
                             </div>';
             })
             ->rawColumns(['aksi'])
