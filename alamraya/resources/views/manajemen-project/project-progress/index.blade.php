@@ -497,7 +497,7 @@
             });
             $.ajax({
                 url: baseUrl + '/manajemen-project/project-progress/get-project/'+kode+'/getProgress',
-                type: 'get',
+                type: 'post',
                 data: {pp_id: id},
                 dataType: 'json',
                 success: function (response) {

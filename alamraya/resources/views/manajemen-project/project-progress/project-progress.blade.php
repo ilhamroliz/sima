@@ -680,7 +680,7 @@
                 success: function (response) {
                     $('#modal-progress').modal('show');
                     var data = response.data[0];
-                    if (posisi == 'PRJPRG' && (data.pp_state == 'ENTRY' || data.pp_state == 'REVISION')) {
+                    if ((posisi == 'PRJPRG' || posisi == 'PRJLED') && (data.pp_state == 'ENTRY' || data.pp_state == 'REVISION')) {
                         $('#edit-target').prop('readonly', true);
                         $('#edit-execution').prop('readonly', false);
                     }
