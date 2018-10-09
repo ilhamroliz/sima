@@ -31,7 +31,6 @@
                     <div class="card-box">
                         <h4 class="header-title m-b-15 m-t-0 pull-left">Project Position</h4>
                         <div class="col-12 row" style="margin-top: 50px;">
-                            @if(Auth::user()->un_companyteam == 'AR000000')
                             <div class="col-7 form-group">
                                 <select class="select2 form-control select2-multiple select2-hidden-accessible" multiple="" data-placeholder="Pilih Project" tabindex="-1" aria-hidden="true" id="select-project">
                                     @foreach($project as $select)
@@ -46,7 +45,6 @@
                             <div class="col-1 pull-right">
                                 <button type="button" onclick="updateData()" class="btn btn-icon waves-effect waves-light btn-primary pull-right" style="margin-left: 10px;"><i class="fa fa-search"></i></button>
                             </div>
-                            @endif
                             <div class="col-12">
                                 @if(Auth::user()->un_companyteam == 'AR000000')
                                 <table class="table table-hover table-bordered table-colored table-custom table-striped"

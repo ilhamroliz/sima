@@ -2,183 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e5413198-c071-49c8-8a12-3c47bba6ea88" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.htaccess" beforeDir="false" afterPath="$PROJECT_DIR$/.htaccess" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/Ilham_Rolis.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/Ilham_Rolis.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sima.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sima.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/webServers.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webServers.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/css/icons.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/icons.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/css/icons.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/icons.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/css/style.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/style.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/css/theme-contextmenu.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/theme-contextmenu.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/css/typicons.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/typicons.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/css/typicons.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/typicons.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/file_icons/3ds.svg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/file_icons/3ds.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/file_icons/aac.svg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/file_icons/aac.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/file_icons/ai.svg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/file_icons/ai.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/file_icons/avi.svg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/file_icons/avi.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/file_icons/bmp.svg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/file_icons/bmp.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/file_icons/cad.svg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/file_icons/cad.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/file_icons/cdr.svg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/file_icons/cdr.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/file_icons/css.svg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/file_icons/css.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/file_icons/dat.svg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/file_icons/dat.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/file_icons/dll.svg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/file_icons/dll.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/file_icons/dmg.svg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/file_icons/dmg.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/file_icons/doc.svg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/file_icons/doc.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/file_icons/eps.svg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/file_icons/eps.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/file_icons/fla.svg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/file_icons/fla.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/file_icons/flv.svg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/file_icons/flv.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/file_icons/gif.svg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/file_icons/gif.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/file_icons/html.svg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/file_icons/html.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/file_icons/indd.svg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/file_icons/indd.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/file_icons/iso.svg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/file_icons/iso.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/file_icons/jpg.svg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/file_icons/jpg.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/file_icons/js.svg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/file_icons/js.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/file_icons/midi.svg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/file_icons/midi.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/file_icons/mov.svg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/file_icons/mov.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/file_icons/mp3.svg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/file_icons/mp3.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/file_icons/mpg.svg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/file_icons/mpg.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/file_icons/pdf.svg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/file_icons/pdf.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/file_icons/php.svg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/file_icons/php.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/file_icons/png.svg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/file_icons/png.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/file_icons/ppt.svg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/file_icons/ppt.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/file_icons/ps.svg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/file_icons/ps.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/file_icons/psd.svg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/file_icons/psd.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/file_icons/raw.svg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/file_icons/raw.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/file_icons/sql.svg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/file_icons/sql.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/file_icons/svg.svg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/file_icons/svg.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/file_icons/tif.svg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/file_icons/tif.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/file_icons/txt.svg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/file_icons/txt.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/file_icons/wmv.svg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/file_icons/wmv.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/file_icons/xls.svg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/file_icons/xls.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/file_icons/xml.svg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/file_icons/xml.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/file_icons/zip.svg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/file_icons/zip.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/js/contextmenu.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/contextmenu.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/js/jquery.app.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/jquery.app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/js/jquery.core.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/jquery.core.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/js/wow.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/wow.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/pages/jquery.c3-chart.init.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/pages/jquery.c3-chart.init.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/pages/jquery.chartist.init.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/pages/jquery.chartist.init.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/pages/jquery.dashboard-2.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/pages/jquery.dashboard-2.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/pages/jquery.dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/pages/jquery.dashboard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/pages/jquery.echart.init.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/pages/jquery.echart.init.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/pages/jquery.fileuploads.init.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/pages/jquery.fileuploads.init.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/pages/jquery.flot.init.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/pages/jquery.flot.init.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/pages/jquery.form-advanced.init.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/pages/jquery.form-advanced.init.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/pages/jquery.form-pickers.init.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/pages/jquery.form-pickers.init.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/pages/jquery.google-charts.init.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/pages/jquery.google-charts.init.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/pages/jquery.justgage.init.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/pages/jquery.justgage.init.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/pages/jquery.mapael-map.init.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/pages/jquery.mapael-map.init.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/pages/jquery.nestable.init.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/pages/jquery.nestable.init.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/pages/jquery.profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/pages/jquery.profile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/pages/jquery.rating.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/pages/jquery.rating.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/pages/jquery.scrollbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/pages/jquery.scrollbar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/pages/jquery.slider.init.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/pages/jquery.slider.init.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/pages/jquery.sweet-alert.init.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/pages/jquery.sweet-alert.init.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/pages/jquery.toastr.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/pages/jquery.toastr.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/pages/jquery.tree.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/pages/jquery.tree.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/pages/jquery.typehead.init.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/pages/jquery.typehead.init.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/pages/jquery.xeditable.init.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/pages/jquery.xeditable.init.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/plugins/bootstrap-select/js/i18n/defaults-bg_BG.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/bootstrap-select/js/i18n/defaults-bg_BG.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/plugins/bootstrap-select/js/i18n/defaults-bg_BG.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/bootstrap-select/js/i18n/defaults-bg_BG.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/plugins/bootstrap-select/js/i18n/defaults-da_DK.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/bootstrap-select/js/i18n/defaults-da_DK.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/plugins/bootstrap-select/js/i18n/defaults-da_DK.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/bootstrap-select/js/i18n/defaults-da_DK.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/plugins/bootstrap-select/js/i18n/defaults-fa_IR.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/bootstrap-select/js/i18n/defaults-fa_IR.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/plugins/bootstrap-select/js/i18n/defaults-fa_IR.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/bootstrap-select/js/i18n/defaults-fa_IR.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/plugins/bootstrap-select/js/i18n/defaults-ko_KR.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/bootstrap-select/js/i18n/defaults-ko_KR.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/plugins/bootstrap-select/js/i18n/defaults-ko_KR.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/bootstrap-select/js/i18n/defaults-ko_KR.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/plugins/bootstrap-select/js/i18n/defaults-pt_PT.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/bootstrap-select/js/i18n/defaults-pt_PT.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/plugins/bootstrap-select/js/i18n/defaults-pt_PT.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/bootstrap-select/js/i18n/defaults-pt_PT.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/plugins/bootstrap-select/js/i18n/defaults-sk_SK.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/bootstrap-select/js/i18n/defaults-sk_SK.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/plugins/bootstrap-select/js/i18n/defaults-sk_SK.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/bootstrap-select/js/i18n/defaults-sk_SK.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/plugins/bootstrap-select/js/i18n/defaults-sl_SI.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/bootstrap-select/js/i18n/defaults-sl_SI.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/plugins/bootstrap-select/js/i18n/defaults-sl_SI.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/bootstrap-select/js/i18n/defaults-sl_SI.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/plugins/counterup/jquery.counterup.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/counterup/jquery.counterup.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/plugins/datatables/dataTables.fixedColumns.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/datatables/dataTables.fixedColumns.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/plugins/flot-chart/curvedLines.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/flot-chart/curvedLines.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/plugins/flot-chart/jquery.flot.orderBars.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/flot-chart/jquery.flot.orderBars.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/plugins/jquery-validation/js/jquery.validate.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/jquery-validation/js/jquery.validate.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/plugins/jquery.stepy/jquery.stepy.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/jquery.stepy/jquery.stepy.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/plugins/jstree/ajax_roots.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/jstree/ajax_roots.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/plugins/nestable/jquery.nestable.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/nestable/jquery.nestable.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/plugins/nestable/jquery.nestable.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/nestable/jquery.nestable.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_aboutus.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_aboutus.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_account-pages.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_account-pages.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_alerts.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_alerts.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_bootstrap-reset.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_bootstrap-reset.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_buttons.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_buttons.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_calendar.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_calendar.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_carousel.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_carousel.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_charts.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_charts.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_checkbox-radios.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_checkbox-radios.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_common.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_common.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_companies.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_companies.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_contactus.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_contactus.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_count-down.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_count-down.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_email.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_email.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_extra-helper.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_extra-helper.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_faq.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_faq.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_file-manager.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_file-manager.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_form-elements.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_form-elements.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_form-upload.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_form-upload.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_form-wizard.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_form-wizard.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_helper.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_helper.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_lightbox.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_lightbox.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_maintenance.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_maintenance.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_maps.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_maps.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_members.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_members.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_menu.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_menu.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_modal.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_modal.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_nestable-list.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_nestable-list.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_popover-tooltips.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_popover-tooltips.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_portlets.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_portlets.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_pricing.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_pricing.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_print.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_print.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_profile.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_profile.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_progress.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_progress.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_ratings.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_ratings.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_responsive.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_responsive.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_ribbons.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_ribbons.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_search-result.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_search-result.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_sitemap.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_sitemap.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_slick-slider.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_slick-slider.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_spinners.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_spinners.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_summernote.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_summernote.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_sweet-alert.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_sweet-alert.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_tables.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_tables.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_tabs.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_tabs.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_taskboard.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_taskboard.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_tickets.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_tickets.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_timeline.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_timeline.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_todo.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_todo.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_treeview.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_treeview.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_typeahead.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_typeahead.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_variables.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_variables.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_waves.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_waves.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_widgets.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_widgets.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/_wysiwig.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/_wysiwig.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/icons.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/icons.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/icons/css/dripicons.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/icons/css/dripicons.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/icons/css/dripicons.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/icons/css/dripicons.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/icons/css/feather.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/icons/css/feather.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/icons/css/feather.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/icons/css/feather.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/icons/css/materialdesignicons.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/icons/css/materialdesignicons.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/icons/css/materialdesignicons.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/icons/css/materialdesignicons.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/icons/css/pe-icon-7-stroke.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/icons/css/pe-icon-7-stroke.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/icons/css/pe-icon-7-stroke.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/icons/css/pe-icon-7-stroke.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/icons/css/typicons.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/icons/css/typicons.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/icons/css/typicons.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/icons/css/typicons.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/style.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/note meet" beforeDir="false" afterPath="$PROJECT_DIR$/note meet" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/alamraya/app/Http/Controllers/ProjectProgressController.php" beforeDir="false" afterPath="$PROJECT_DIR$/alamraya/app/Http/Controllers/ProjectProgressController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/alamraya/resources/views/manajemen-project/project-team/project-position.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/alamraya/resources/views/manajemen-project/project-team/project-position.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -217,7 +43,7 @@
           <entry key="project.open.time.13" value="4" />
           <entry key="project.open.time.14" value="1" />
           <entry key="project.open.time.17" value="1" />
-          <entry key="project.open.time.20" value="2" />
+          <entry key="project.open.time.20" value="3" />
           <entry key="project.open.time.29" value="1" />
           <entry key="project.open.time.3" value="1" />
           <entry key="project.open.time.34" value="1" />
@@ -236,12 +62,12 @@
           <entry key="project.open.time.52" value="1" />
           <entry key="project.open.time.6" value="1" />
           <entry key="project.open.time.64" value="1" />
-          <entry key="project.opened" value="38" />
+          <entry key="project.opened" value="39" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="php" value="24148" />
+          <entry key="php" value="24176" />
           <entry key="sql" value="24" />
           <entry key="txt" value="21" />
           <entry key="vmoptions" value="7" />
@@ -251,7 +77,7 @@
         <counts>
           <entry key="Blade" value="2" />
           <entry key="HTML" value="17" />
-          <entry key="PHP" value="24129" />
+          <entry key="PHP" value="24157" />
           <entry key="PLAIN_TEXT" value="28" />
           <entry key="Scratch" value="24" />
         </counts>
@@ -277,7 +103,7 @@
     <session id="1767537221">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="1" />
+          <entry key="project.closed" value="2" />
           <entry key="project.open.time.11" value="1" />
           <entry key="project.open.time.31" value="1" />
           <entry key="project.opened" value="2" />
@@ -287,20 +113,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/alamraya/app/Http/Controllers/ProjectTeamController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="179">
-              <caret line="16" column="20" lean-forward="true" selection-start-line="16" selection-start-column="20" selection-end-line="16" selection-end-column="20" />
+            <state relative-caret-position="142">
+              <caret line="131" column="54" selection-start-line="131" selection-start-column="54" selection-end-line="131" selection-end-column="54" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/alamraya/app/Http/Controllers/ProjectProgressController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret line="34" column="9" selection-start-line="15" selection-start-column="8" selection-end-line="34" selection-end-column="9" />
+            <state relative-caret-position="347">
+              <caret line="455" column="50" selection-start-line="455" selection-start-column="50" selection-end-line="455" selection-end-column="50" />
             </state>
           </provider>
         </entry>
@@ -308,7 +134,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/alamraya/app/Http/Controllers/erpController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
+            <state relative-caret-position="240">
               <caret line="12" column="53" selection-start-line="12" selection-start-column="45" selection-end-line="12" selection-end-column="53" />
             </state>
           </provider>
@@ -318,7 +144,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>erpController::getPosisi</find>
       <find>saveinit</find>
       <find>data</find>
       <find>-&gt;whereDate('pp_update', '&lt;', $end)</find>
@@ -348,6 +173,7 @@
       <find>hold</find>
       <find>getprogress</find>
       <find>projectteam</find>
+      <find>saveIni</find>
     </findStrings>
     <replaceStrings>
       <replace>whereDate('pp_update</replace>
@@ -381,8 +207,8 @@
         <option value="$PROJECT_DIR$/alamraya/resources/views/layout/_topnav.blade.php" />
         <option value="$PROJECT_DIR$/alamraya/app/Http/Controllers/LoginController.php" />
         <option value="$PROJECT_DIR$/alamraya/resources/views/manajemen-project/project-progress/project-progress.blade.php" />
-        <option value="$PROJECT_DIR$/alamraya/app/Http/Controllers/ProjectProgressController.php" />
         <option value="$PROJECT_DIR$/alamraya/app/Http/Controllers/ProjectTeamController.php" />
+        <option value="$PROJECT_DIR$/alamraya/app/Http/Controllers/ProjectProgressController.php" />
       </list>
     </option>
   </component>
@@ -486,7 +312,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -678,6 +503,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -752,7 +578,8 @@
       <workItem from="1538994694402" duration="914000" />
       <workItem from="1538899986906" duration="5679000" />
       <workItem from="1539013331066" duration="544000" />
-      <workItem from="1539044778822" duration="105000" />
+      <workItem from="1539044778822" duration="382000" />
+      <workItem from="1539082742452" duration="1253000" />
     </task>
     <task id="LOCAL-00001" summary="roliz">
       <created>1536841189585</created>
@@ -821,12 +648,13 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="195854000" />
+    <option name="totallyTimeSpent" value="197384000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1366" height="727" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19242424" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19515885" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -1170,22 +998,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/alamraya/app/Http/Controllers/ProjectTeamController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
-          <caret line="16" column="20" lean-forward="true" selection-start-line="16" selection-start-column="20" selection-end-line="16" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/alamraya/app/Http/Controllers/ProjectProgressController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="34" column="9" selection-start-line="15" selection-start-column="8" selection-end-line="34" selection-end-column="9" />
+        <state relative-caret-position="142">
+          <caret line="131" column="54" selection-start-line="131" selection-start-column="54" selection-end-line="131" selection-end-column="54" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/alamraya/app/Http/Controllers/erpController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
+        <state relative-caret-position="240">
           <caret line="12" column="53" selection-start-line="12" selection-start-column="45" selection-end-line="12" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/alamraya/app/Http/Controllers/ProjectProgressController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="347">
+          <caret line="455" column="50" selection-start-line="455" selection-start-column="50" selection-end-line="455" selection-end-column="50" />
         </state>
       </provider>
     </entry>

@@ -453,6 +453,7 @@ class ProjectProgressController extends Controller
                 ->where('pp_projectcode', '=', $project)
                 ->where('pp_fitur', '=', $fitur)
                 ->where('pp_date', '=', $now)
+                ->where('pp_team', '=', $eksekutor)
                 ->get();
 
             if (count($cek) > 0){
