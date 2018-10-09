@@ -1,26 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" serverName="ftp_sima" uploadOnCheckin="183870e9-de35-4249-865b-879e4ffd3cfc">
+  <component name="PublishConfigData" serverName="Sima">
     <serverData>
-      <paths name="SIMA">
+      <paths name="Sima">
         <serverdata>
           <mappings>
-            <mapping local="$PROJECT_DIR$" web="SIM Alamraya" />
+            <mapping local="$PROJECT_DIR$" web="sima" />
           </mappings>
-        </serverdata>
-      </paths>
-      <paths name="ftp_sima">
-        <serverdata>
-          <mappings>
-            <mapping local="$PROJECT_DIR$" web="/" />
-            <mapping local="" />
-          </mappings>
-          <excludedPaths>
-            <excludedPath local="true" path="$PROJECT_DIR$" />
-          </excludedPaths>
         </serverdata>
       </paths>
     </serverData>
-    <option name="myUploadOnCheckinName" value="ftp_sima" />
   </component>
 </project>
