@@ -429,7 +429,7 @@ File: Components
   display: block;
   padding: 14px 20px;
   margin: 2px 0;
-  font-size: 1rem;
+  font-size: 0.9375rem;
   position: relative; }
   #sidebar-menu > ul > li > a:hover, #sidebar-menu > ul > li > a:focus, #sidebar-menu > ul > li > a:active {
     color: #ffffff;
