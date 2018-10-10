@@ -2,7 +2,7 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="183870e9-de35-4249-865b-879e4ffd3cfc" name="ftp_sima" url="http://alamraya.club">
+      <webServer id="183870e9-de35-4249-865b-879e4ffd3cfc" name="ftp_sima" url="http://erp.alamraya.club">
         <fileTransfer host="alamraya.club" port="21" rootFolder="/public_html/sub_erp">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" shareSSLContext="true" />
