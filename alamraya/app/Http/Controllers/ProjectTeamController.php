@@ -270,6 +270,7 @@ class ProjectTeamController extends Controller
                     $q->on('pt_comp', '=', 'ct_comp');
                 })
                 ->select('p_name', 'p_state', 'pp_detail', 'ct_name')
+                ->where('p_state', '=', 'RUNNING')
                 ->get();
         } else {
             $data = DB::table('d_projectteam')
@@ -280,6 +281,7 @@ class ProjectTeamController extends Controller
                 ->join('m_position', 'pp_code', 'pt_position')
                 ->select('p_name', 'p_state', 'pp_detail')
                 ->where('pt_teamid', '=', $id)
+                ->where('p_state', '=', 'RUNNING')
                 ->get();
         }
         return DataTables::of($data)

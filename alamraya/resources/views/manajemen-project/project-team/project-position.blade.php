@@ -43,7 +43,7 @@
                                 <input type="hidden" class="form-control" name="teamHidden" id="teamHidden">
                             </div>
                             <div class="col-1 pull-right">
-                                <button type="button" onclick="updateData()" class="btn btn-icon waves-effect waves-light btn-primary pull-right" style="margin-left: 10px;"><i class="fa fa-search"></i></button>
+                                <button type="button" onclick="getData()" class="btn btn-icon waves-effect waves-light btn-primary pull-right" style="margin-left: 10px;"><i class="fa fa-search"></i></button>
                             </div>
                             <div class="col-12">
                                 @if(Auth::user()->un_companyteam == 'AR000000')
@@ -133,5 +133,43 @@
 
             $(".select2").select2();
         });
+
+        function getData(){
+            var select = $('#select-project').val();
+
+            $("#table-position").dataTable().fnDestroy();
+            table = $("#table-position").DataTable({
+                    "search": {
+                        "caseInsensitive": true
+                    },
+                    processing: true,
+                    serverSide: true,
+                    "ajax": {
+                        "url": baseUrl + '/manajemen-project/project-team/get-position',
+                        "type": "get"
+                    },
+                    @if(Auth::user()->un_companyteam == 'AR000000')
+                    columns: [
+                        {data: 'p_name', name: 'p_name'},
+                        {data: 'ct_name', name: 'ct_name'},
+                        {data: 'pp_detail', name: 'pp_detail'},
+                        {data: 'aksi', name: 'aksi'}
+                    ],
+                    @else
+                    columns: [
+                        {data: 'p_name', name: 'p_name'},
+                        {data: 'pp_detail', name: 'pp_detail'}
+                    ],
+                    @endif
+                    responsive: true,
+                    "pageLength": 10,
+                    "aaSorting": [],
+                    "lengthMenu": [[10, 20, 50, -1], [10, 20, 50, "All"]],
+                    //"scrollY": '50vh',
+                    //"scrollCollapse": true,
+                    "language": dataTableLanguage,
+                });
+                $('#table-position').css('width', '100%').dataTable().fnAdjustColumnSizing();
+        }
     </script>
 @endsection
