@@ -41,11 +41,11 @@
                                 </select>
                             </div>
                             <div class="col-3 form-group">
-                                <input type="text" placeholder="Masukkan Nama" class="form-control" name="team" id="cari-team">
+                                <input type="text" placeholder="Masukkan Nama" onkeyup="setNull('teamHidden')" class="form-control" name="team" id="cari-team">
                                 <input type="hidden" class="form-control" name="teamHidden" id="teamHidden">
                             </div>
                             <div class="col-3 form-group">
-                                <input type="text" placeholder="Masukkan Posisi" class="form-control" name="posisi" id="cari-posisi">
+                                <input type="text" placeholder="Masukkan Posisi" onkeyup="setNull('posisiHidden')" class="form-control" name="posisi" id="cari-posisi">
                                 <input type="hidden" class="form-control" name="posisiHidden" id="posisiHidden">
                             </div>
 
@@ -117,7 +117,7 @@
                     serverSide: true,
                     "ajax": {
                         "url": baseUrl + '/manajemen-project/project-team/get-position',
-                        "type": "get"
+                        "type": "post"
                     },
                     @if(Auth::user()->un_companyteam == 'AR000000')
                     columns: [
@@ -186,7 +186,7 @@
                     serverSide: true,
                     "ajax": {
                         "url": baseUrl + '/manajemen-project/project-team/get-position',
-                        "type": "get",
+                        "type": "post",
                         "data": data
                     },
                     @if(Auth::user()->un_companyteam == 'AR000000')
@@ -211,6 +211,10 @@
                     "language": dataTableLanguage,
                 });
                 $('#table-position').css('width', '100%').dataTable().fnAdjustColumnSizing();
+        }
+
+        function setNull(id){
+            $('#'+id).val('');
         }
 
         function detail(kode){

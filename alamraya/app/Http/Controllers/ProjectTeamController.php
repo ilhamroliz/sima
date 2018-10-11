@@ -257,7 +257,6 @@ class ProjectTeamController extends Controller
     {
         $id = Auth::user()->un_companyteam;
         $data = [];
-
         if ($request->filter == null){
             if ($id == 'AR000000'){
                 $data = DB::table('d_projectteam')
