@@ -279,7 +279,7 @@ class ProjectTeamController extends Controller
                         $q->on('p_comp', '=', 'pt_comp');
                     })
                     ->join('m_position', 'pp_code', 'pt_position')
-                    ->select('p_name', 'p_state', 'pp_detail', 'ct_name', 'p_code')
+                    ->select('p_name', 'p_state', 'pp_detail', 'p_code')
                     ->where('pt_teamid', '=', $id)
                     ->where('p_state', '=', 'RUNNING')
                     ->get();
@@ -437,6 +437,18 @@ class ProjectTeamController extends Controller
                         ->where('pt_teamid', '=', $id)
                         ->where('p_state', '=', 'RUNNING')
                         ->where('pt_position', $posisi)
+                        ->get();
+                } elseif ($project != null && $posisi == null){
+                    $data = DB::table('d_projectteam')
+                        ->join('d_project', function ($q){
+                            $q->on('p_code', '=', 'pt_projectcode');
+                            $q->on('p_comp', '=', 'pt_comp');
+                        })
+                        ->join('m_position', 'pp_code', 'pt_position')
+                        ->select('p_name', 'p_state', 'pp_detail', 'p_code')
+                        ->where('pt_teamid', '=', $id)
+                        ->where('p_state', '=', 'RUNNING')
+                        ->whereIn('p_code', $project)
                         ->get();
                 } elseif ($project != null && $posisi != null){
                     $data = DB::table('d_projectteam')
