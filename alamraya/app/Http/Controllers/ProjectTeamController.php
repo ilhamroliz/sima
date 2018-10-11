@@ -7,8 +7,7 @@ use Carbon\Carbon;
 use DB;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
-use GeniusTS\HijriDate\Hijri;
-use GeniusTS\HijriDate\Date;
+use Response;
 
 class ProjectTeamController extends Controller
 {
@@ -254,43 +253,242 @@ class ProjectTeamController extends Controller
         return view('manajemen-project/project-team/project-position', compact('project'));
     }
 
-    public function getPosition()
+    public function getPosition(Request $request)
     {
         $id = Auth::user()->un_companyteam;
         $data = [];
-        if ($id == 'AR000000'){
-            $data = DB::table('d_projectteam')
-                ->join('d_project', function ($q){
-                    $q->on('p_code', '=', 'pt_projectcode');
-                    $q->on('p_comp', '=', 'pt_comp');
-                })
-                ->join('m_position', 'pp_code', 'pt_position')
-                ->join('d_companyteam', function ($q){
-                    $q->on('pt_teamid', '=', 'ct_id');
-                    $q->on('pt_comp', '=', 'ct_comp');
-                })
-                ->select('p_name', 'p_state', 'pp_detail', 'ct_name')
-                ->where('p_state', '=', 'RUNNING')
-                ->get();
+
+        if ($request->filter == null){
+            if ($id == 'AR000000'){
+                $data = DB::table('d_projectteam')
+                    ->join('d_project', function ($q){
+                        $q->on('p_code', '=', 'pt_projectcode');
+                        $q->on('p_comp', '=', 'pt_comp');
+                    })
+                    ->join('m_position', 'pp_code', 'pt_position')
+                    ->join('d_companyteam', function ($q){
+                        $q->on('pt_teamid', '=', 'ct_id');
+                        $q->on('pt_comp', '=', 'ct_comp');
+                    })
+                    ->select('p_name', 'p_state', 'pp_detail', 'ct_name', 'p_code')
+                    ->where('p_state', '=', 'RUNNING')
+                    ->get();
+            } else {
+                $data = DB::table('d_projectteam')
+                    ->join('d_project', function ($q){
+                        $q->on('p_code', '=', 'pt_projectcode');
+                        $q->on('p_comp', '=', 'pt_comp');
+                    })
+                    ->join('m_position', 'pp_code', 'pt_position')
+                    ->select('p_name', 'p_state', 'pp_detail', 'ct_name', 'p_code')
+                    ->where('pt_teamid', '=', $id)
+                    ->where('p_state', '=', 'RUNNING')
+                    ->get();
+            }
         } else {
-            $data = DB::table('d_projectteam')
-                ->join('d_project', function ($q){
-                    $q->on('p_code', '=', 'pt_projectcode');
-                    $q->on('p_comp', '=', 'pt_comp');
-                })
-                ->join('m_position', 'pp_code', 'pt_position')
-                ->select('p_name', 'p_state', 'pp_detail')
-                ->where('pt_teamid', '=', $id)
-                ->where('p_state', '=', 'RUNNING')
-                ->get();
+            if ($id == 'AR000000'){
+                $project = $request->project;
+                $posisi = $request->posisi;
+                $nama = $request->nama;
+                //=== tidak ada filter
+                if ($project == null && $posisi == null && $nama == null){
+                    $data = DB::table('d_projectteam')
+                        ->join('d_project', function ($q){
+                            $q->on('p_code', '=', 'pt_projectcode');
+                            $q->on('p_comp', '=', 'pt_comp');
+                        })
+                        ->join('m_position', 'pp_code', 'pt_position')
+                        ->join('d_companyteam', function ($q){
+                            $q->on('pt_teamid', '=', 'ct_id');
+                            $q->on('pt_comp', '=', 'ct_comp');
+                        })
+                        ->select('p_name', 'p_state', 'pp_detail', 'ct_name', 'p_code')
+                        ->where('p_state', '=', 'RUNNING')
+                        ->get();
+
+                //=== filter nama
+                } elseif ($project == null && $posisi == null && $nama != null){
+                    $data = DB::table('d_projectteam')
+                        ->join('d_project', function ($q){
+                            $q->on('p_code', '=', 'pt_projectcode');
+                            $q->on('p_comp', '=', 'pt_comp');
+                        })
+                        ->join('m_position', 'pp_code', 'pt_position')
+                        ->join('d_companyteam', function ($q){
+                            $q->on('pt_teamid', '=', 'ct_id');
+                            $q->on('pt_comp', '=', 'ct_comp');
+                        })
+                        ->select('p_name', 'p_state', 'pp_detail', 'ct_name', 'p_code')
+                        ->where('p_state', '=', 'RUNNING')
+                        ->where('pt_teamid', $nama)
+                        ->get();
+
+                //=== filter posisi
+                } elseif ($project == null && $posisi != null && $nama == null){
+                    $data = DB::table('d_projectteam')
+                        ->join('d_project', function ($q){
+                            $q->on('p_code', '=', 'pt_projectcode');
+                            $q->on('p_comp', '=', 'pt_comp');
+                        })
+                        ->join('m_position', 'pp_code', 'pt_position')
+                        ->join('d_companyteam', function ($q){
+                            $q->on('pt_teamid', '=', 'ct_id');
+                            $q->on('pt_comp', '=', 'ct_comp');
+                        })
+                        ->select('p_name', 'p_state', 'pp_detail', 'ct_name', 'p_code')
+                        ->where('p_state', '=', 'RUNNING')
+                        ->where('pt_position', $posisi)
+                        ->get();
+
+                //=== filter project
+                } elseif ($project != null && $posisi == null && $nama == null){
+                    $data = DB::table('d_projectteam')
+                        ->join('d_project', function ($q){
+                            $q->on('p_code', '=', 'pt_projectcode');
+                            $q->on('p_comp', '=', 'pt_comp');
+                        })
+                        ->join('m_position', 'pp_code', 'pt_position')
+                        ->join('d_companyteam', function ($q){
+                            $q->on('pt_teamid', '=', 'ct_id');
+                            $q->on('pt_comp', '=', 'ct_comp');
+                        })
+                        ->select('p_name', 'p_state', 'pp_detail', 'ct_name', 'p_code')
+                        ->where('p_state', '=', 'RUNNING')
+                        ->whereIn('pt_projectcode', $project)
+                        ->get();
+
+                //=== filter project & posisi
+                } elseif ($project != null && $posisi != null && $nama == null){
+                    $data = DB::table('d_projectteam')
+                        ->join('d_project', function ($q){
+                            $q->on('p_code', '=', 'pt_projectcode');
+                            $q->on('p_comp', '=', 'pt_comp');
+                        })
+                        ->join('m_position', 'pp_code', 'pt_position')
+                        ->join('d_companyteam', function ($q){
+                            $q->on('pt_teamid', '=', 'ct_id');
+                            $q->on('pt_comp', '=', 'ct_comp');
+                        })
+                        ->select('p_name', 'p_state', 'pp_detail', 'ct_name', 'p_code')
+                        ->where('p_state', '=', 'RUNNING')
+                        ->whereIn('pt_projectcode', $project)
+                        ->where('pt_position', $posisi)
+                        ->get();
+
+                //=== filter project & nama
+                } elseif ($project != null && $posisi == null && $nama != null){
+                    $data = DB::table('d_projectteam')
+                        ->join('d_project', function ($q){
+                            $q->on('p_code', '=', 'pt_projectcode');
+                            $q->on('p_comp', '=', 'pt_comp');
+                        })
+                        ->join('m_position', 'pp_code', 'pt_position')
+                        ->join('d_companyteam', function ($q){
+                            $q->on('pt_teamid', '=', 'ct_id');
+                            $q->on('pt_comp', '=', 'ct_comp');
+                        })
+                        ->select('p_name', 'p_state', 'pp_detail', 'ct_name', 'p_code')
+                        ->where('p_state', '=', 'RUNNING')
+                        ->whereIn('pt_projectcode', $project)
+                        ->where('pt_teamid', $nama)
+                        ->get();
+
+                //=== filter project & posisi & nama
+                } elseif ($project != null && $posisi != null && $nama != null){
+                    $data = DB::table('d_projectteam')
+                        ->join('d_project', function ($q){
+                            $q->on('p_code', '=', 'pt_projectcode');
+                            $q->on('p_comp', '=', 'pt_comp');
+                        })
+                        ->join('m_position', 'pp_code', 'pt_position')
+                        ->join('d_companyteam', function ($q){
+                            $q->on('pt_teamid', '=', 'ct_id');
+                            $q->on('pt_comp', '=', 'ct_comp');
+                        })
+                        ->select('p_name', 'p_state', 'pp_detail', 'ct_name', 'p_code')
+                        ->where('p_state', '=', 'RUNNING')
+                        ->whereIn('pt_projectcode', $project)
+                        ->where('pt_position', $posisi)
+                        ->where('pt_teamid', $nama)
+                        ->get();
+                }
+            } else {
+                $project = $request->project;
+                $posisi = $request->posisi;
+
+                if ($project == null && $posisi == null){
+                    $data = DB::table('d_projectteam')
+                        ->join('d_project', function ($q){
+                            $q->on('p_code', '=', 'pt_projectcode');
+                            $q->on('p_comp', '=', 'pt_comp');
+                        })
+                        ->join('m_position', 'pp_code', 'pt_position')
+                        ->select('p_name', 'p_state', 'pp_detail', 'p_code')
+                        ->where('pt_teamid', '=', $id)
+                        ->where('p_state', '=', 'RUNNING')
+                        ->get();
+                } elseif ($project == null && $posisi != null){
+                    $data = DB::table('d_projectteam')
+                        ->join('d_project', function ($q){
+                            $q->on('p_code', '=', 'pt_projectcode');
+                            $q->on('p_comp', '=', 'pt_comp');
+                        })
+                        ->join('m_position', 'pp_code', 'pt_position')
+                        ->select('p_name', 'p_state', 'pp_detail', 'p_code')
+                        ->where('pt_teamid', '=', $id)
+                        ->where('p_state', '=', 'RUNNING')
+                        ->where('pt_position', $posisi)
+                        ->get();
+                } elseif ($project != null && $posisi != null){
+                    $data = DB::table('d_projectteam')
+                        ->join('d_project', function ($q){
+                            $q->on('p_code', '=', 'pt_projectcode');
+                            $q->on('p_comp', '=', 'pt_comp');
+                        })
+                        ->join('m_position', 'pp_code', 'pt_position')
+                        ->select('p_name', 'p_state', 'pp_detail', 'p_code')
+                        ->where('pt_teamid', '=', $id)
+                        ->where('p_state', '=', 'RUNNING')
+                        ->where('pt_position', $posisi)
+                        ->whereIn('pt_projectcode', $project)
+                        ->get();
+                }
+            }
         }
         return DataTables::of($data)
             ->addColumn('aksi', function ($data){
                 return '<div class="text-center">
-                            <button type="button" class="btn btn-icon waves-effect btn-primary btn-xs"> <i class="fa fa-folder-open-o"></i> </button>
+                            <button type="button" onclick="detail(\''.$data->p_code.'\')" class="btn btn-icon waves-effect btn-primary btn-xs"> <i class="fa fa-folder-open-o"></i> </button>
                             </div>';
             })
             ->rawColumns(['aksi'])
             ->make(true);
+    }
+
+    public function getPosisi(Request $request)
+    {
+        $keyword = $request->query->all()['query'];
+        $data = DB::table('m_position')
+            ->where('pp_detail', 'like', '%'.$keyword.'%')
+            ->get();
+
+        if ($data == null) {
+            $in = array(
+                "suggestions" => array(
+                    array("value" => "Tidak ditemukan", "data" => null)
+                )
+            );
+        } else {
+            $in = array(
+                "suggestions" => array(
+
+                )
+            );
+            foreach ($data as $query) {
+                $temp = array("value" => $query->pp_detail, "data" => $query->pp_code);
+                array_push($in['suggestions'], $temp);
+            }
+        }
+        return Response::json($in);
     }
 }

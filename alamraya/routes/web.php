@@ -48,6 +48,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('manajemen-project/project-team/get-data/{status}', 'ProjectTeamController@data');
 	Route::get('manajemen-project/project-team/project-position', 'ProjectTeamController@projectPosition');
 	Route::get('manajemen-project/project-team/get-position', 'ProjectTeamController@getPosition');
+	Route::get('manajemen-project/get-position', 'ProjectTeamController@getPosisi');
 
 	//==== project progress
 	Route::get('manajemen-project/project-progress', 'ProjectProgressController@index');

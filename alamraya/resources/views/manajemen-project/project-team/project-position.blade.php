@@ -31,6 +31,25 @@
                     <div class="card-box">
                         <h4 class="header-title m-b-15 m-t-0 pull-left">Project Position</h4>
                         <div class="col-12 row" style="margin-top: 50px;">
+
+                            @if(Auth::user()->un_companyteam == 'AR000000')
+                            <div class="col-5 form-group">
+                                <select class="select2 form-control select2-multiple select2-hidden-accessible" multiple="" data-placeholder="Pilih Project" tabindex="-1" aria-hidden="true" id="select-project">
+                                    @foreach($project as $select)
+                                    <option value="{{ $select->p_code }}">{{ $select->p_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-3 form-group">
+                                <input type="text" placeholder="Masukkan Nama" class="form-control" name="team" id="cari-team">
+                                <input type="hidden" class="form-control" name="teamHidden" id="teamHidden">
+                            </div>
+                            <div class="col-3 form-group">
+                                <input type="text" placeholder="Masukkan Posisi" class="form-control" name="posisi" id="cari-posisi">
+                                <input type="hidden" class="form-control" name="posisiHidden" id="posisiHidden">
+                            </div>
+
+                            @else
                             <div class="col-7 form-group">
                                 <select class="select2 form-control select2-multiple select2-hidden-accessible" multiple="" data-placeholder="Pilih Project" tabindex="-1" aria-hidden="true" id="select-project">
                                     @foreach($project as $select)
@@ -39,9 +58,11 @@
                                 </select>
                             </div>
                             <div class="col-4 form-group">
-                                <input type="text" placeholder="Masukkan Nama" class="form-control" name="team" id="cari-team">
+                                <input type="text" placeholder="Masukkan Posisi" class="form-control" name="team" id="cari-team">
                                 <input type="hidden" class="form-control" name="teamHidden" id="teamHidden">
                             </div>
+                            @endif
+                            
                             <div class="col-1 pull-right">
                                 <button type="button" onclick="getData()" class="btn btn-icon waves-effect waves-light btn-primary pull-right" style="margin-left: 10px;"><i class="fa fa-search"></i></button>
                             </div>
@@ -131,11 +152,30 @@
                 }
             });
 
+            $('#cari-posisi').autocomplete({
+                serviceUrl: baseUrl + '/manajemen-project/get-position',
+                type: 'get',
+                dataType: 'json',
+                onSelect: function(event) {
+                    $('#posisiHidden').val(event.data);
+                }
+            });
+
             $(".select2").select2();
         });
 
         function getData(){
             var select = $('#select-project').val();
+            @if(Auth::user()->un_companyteam == 'AR000000')
+            var posisi = $('#posisiHidden').val();
+            @endif
+            var nama = $('#teamHidden').val();
+
+            @if(Auth::user()->un_companyteam == 'AR000000')
+            var data = {project: select, posisi: posisi, nama: nama, filter: true};
+            @else
+            var data = {project: select, nama: nama, filter: true};
+            @endif
 
             $("#table-position").dataTable().fnDestroy();
             table = $("#table-position").DataTable({
@@ -146,7 +186,8 @@
                     serverSide: true,
                     "ajax": {
                         "url": baseUrl + '/manajemen-project/project-team/get-position',
-                        "type": "get"
+                        "type": "get",
+                        "data": data
                     },
                     @if(Auth::user()->un_companyteam == 'AR000000')
                     columns: [
@@ -170,6 +211,10 @@
                     "language": dataTableLanguage,
                 });
                 $('#table-position').css('width', '100%').dataTable().fnAdjustColumnSizing();
+        }
+
+        function detail(kode){
+            window.location = '{{ url('manajemen-project/project-team/project') }}' + '/' + kode;
         }
     </script>
 @endsection
