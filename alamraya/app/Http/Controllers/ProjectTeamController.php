@@ -76,7 +76,8 @@ class ProjectTeamController extends Controller
     public function projectTeam($kode)
     {
         $cl_id = Auth::user()->un_companyteam;
-        if ($cl_id != 'AR000000' && $cl_id != 'AR000009'){
+        $posisi = erpController::getPosisi($kode);
+        if ($cl_id != 'AR000000' && $cl_id != 'AR000009' && $posisi != 'PRJSPV'){
             abort(403, 'Unauthorized action.');
         }
         $project = DB::table('d_project')
