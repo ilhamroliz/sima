@@ -31,6 +31,7 @@ Route::group(['middleware' => 'auth'], function () {
 	]);
 
 	Route::get('/', 'DashboardController@index');
+	Route::get('profile', 'DashboardController@profile');
 
 	//==== daftar project
 	Route::get('manajemen-project/daftar-project', 'DaftarProjectController@index');
