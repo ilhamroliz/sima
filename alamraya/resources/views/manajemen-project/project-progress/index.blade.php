@@ -356,6 +356,7 @@
                                     </div>
                                 </div>
                                 <div class="col-12 tombol-simpan" style="margin-top: 10px; display: none;">
+                                    <input type="hidden" name="projectcode" class="projectcode" id="projectcode">
                                     <div class="pull-right">
                                         <button type="button"
                                                 class="btn btn-info waves-effect waves-light btnUpdate"
@@ -414,6 +415,7 @@
         var end = '{{ Carbon\Carbon::now('Asia/Jakarta')->format('d/m/Y') }}';
         var id_team = '{{ Auth::user()->un_companyteam }}';
         var sekarang = '{{ Carbon\Carbon::now('Asia/Jakarta')->format('d M Y') }}';
+        var statusGlobal = '';
 
         $('#cari-team').autocomplete({
             serviceUrl: baseUrl + '/manajemen-project/project-progress/getTeam',
@@ -535,10 +537,13 @@
                     $('.pp_id').val(data.pp_id);
                     $('.loading-circle').hide();
                     $('#content-note').show();
+                    statusGlobal = data.pp_state;
                     if (sekarang == data.pp_date && data.pp_state == 'ENTRY') {
                         $('#edit-execution').prop('readonly', false);
                         $('.tombol-simpan').show();
+                        $('#projectcode').val(kode);
                     } else {
+                        $('#projectcode').val('');
                         $('#edit-execution').prop('readonly', true);
                         $('.tombol-simpan').hide();
                     }
@@ -606,6 +611,81 @@
                         $("#konten-chat").animate({ scrollTop: $('#konten-chat').prop("scrollHeight")}, 500);
                     } else if (response.status == 'failed') {
                         
+                    }
+                },
+                error: function (xhr, status) {
+                    setTimeout(function () {
+                        waitingDialog.hide();
+                    }, 500);
+                    if (status == 'timeout') {
+                        $('.error-load').css('visibility', 'visible');
+                        $('.error-load small').text('Ups. Terjadi Kesalahan, Coba Lagi Nanti');
+                    }
+                    else if (xhr.status == 0) {
+                        $('.error-load').css('visibility', 'visible');
+                        $('.error-load small').text('Ups. Koneksi Internet Bemasalah, Coba Lagi Nanti');
+                    }
+                    else if (xhr.status == 500) {
+                        $('.error-load').css('visibility', 'visible');
+                        $('.error-load small').text('Ups. Server Bemasalah, Coba Lagi Nanti');
+                    }
+                }
+            });
+        }
+
+        function updateProgress() {
+            var fitur = $('.pp_id').val();
+            var target = $('#edit-target').val();
+            var eksekusi = $('#edit-execution').val();
+            var note = $('#edit-note').val();
+            var eksekutor = $('#edit-executor').val();
+            var status = statusGlobal;
+            var projectcode = $('#projectcode').val();
+            $('#modal-progress').modal('hide');
+            waitingDialog.show();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                url: baseUrl + '/manajemen-project/project-progress/get-project/'+projectcode+'/update-progress-init',
+                type: 'post',
+                data: {
+                    pp_id: fitur,
+                    target: target,
+                    eksekusi: eksekusi,
+                    note: note,
+                    eksekutor: eksekutor,
+                    status: status
+                },
+                dataType: 'json',
+                success: function (response) {
+                    setTimeout(function () {
+                        waitingDialog.hide();
+                    }, 500);
+                    if (response.status == 'success') {
+                        projectProgress.ajax.reload();
+                        $.toast({
+                            heading: 'Sukses!',
+                            text: 'Data berhasil disimpan.',
+                            position: 'top-right',
+                            loaderBg: '#5ba035',
+                            icon: 'success',
+                            hideAfter: 3000,
+                            stack: 1
+                        });
+                    } else if (response.status == 'failed') {
+                        $.toast({
+                            heading: 'Gagal!',
+                            text: 'Data gagal disimpan, hubungi admin.',
+                            position: 'top-right',
+                            loaderBg: '#bf441d',
+                            icon: 'error',
+                            hideAfter: 3000,
+                            stack: 1
+                        });
                     }
                 },
                 error: function (xhr, status) {

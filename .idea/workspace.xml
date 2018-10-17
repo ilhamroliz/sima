@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e5413198-c071-49c8-8a12-3c47bba6ea88" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/alamraya/app/Http/Controllers/ProjectProgressController.php" beforeDir="false" afterPath="$PROJECT_DIR$/alamraya/app/Http/Controllers/ProjectProgressController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/alamraya/resources/views/manajemen-project/project-progress/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/alamraya/resources/views/manajemen-project/project-progress/index.blade.php" afterDir="false" />
-    </list>
+    <list default="true" id="e5413198-c071-49c8-8a12-3c47bba6ea88" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,7 +109,7 @@
     <session id="241155738">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="24" />
+          <entry key="project.closed" value="25" />
           <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.10" value="1" />
           <entry key="project.open.time.11" value="3" />
@@ -552,7 +548,7 @@
       <workItem from="1539322978795" duration="2496000" />
       <workItem from="1539672034074" duration="36000" />
       <workItem from="1539744695381" duration="166000" />
-      <workItem from="1539747814618" duration="1075000" />
+      <workItem from="1539747814618" duration="1494000" />
     </task>
     <task id="LOCAL-00001" summary="roliz">
       <created>1536841189585</created>
@@ -670,11 +666,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="217009000" />
+    <option name="totallyTimeSpent" value="217428000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1366" height="727" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23030303" />
       <window_info id="Structure" order="1" weight="0.25" />
