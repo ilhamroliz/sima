@@ -103,6 +103,9 @@ class ProjectProgressController extends Controller
         $start = Carbon::createFromFormat('d/m/Y', $request->awal)->format('Y-m-d');
         $end = Carbon::createFromFormat('d/m/Y', $request->akhir)->format('Y-m-d');
         $project = $request->project;
+        if ($project == null){
+            $project = [];
+        }
         $team = $request->team;
 
         if (Auth::user()->un_companyteam == 'AR000000'){

@@ -355,6 +355,14 @@
                                         <textarea class="form-control" id="edit-execution" placeholder="Tulis hasil eksekusi untuk fitur ini" readonly></textarea>
                                     </div>
                                 </div>
+                                <div class="col-12 tombol-simpan" style="margin-top: 10px; display: none;">
+                                    <div class="pull-right">
+                                        <button type="button"
+                                                class="btn btn-info waves-effect waves-light btnUpdate"
+                                                onclick="updateProgress()">Simpan
+                                        </button>
+                                    </div>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -405,6 +413,7 @@
         var start = '{{ Carbon\Carbon::now('Asia/Jakarta')->format('d/m/Y') }}';
         var end = '{{ Carbon\Carbon::now('Asia/Jakarta')->format('d/m/Y') }}';
         var id_team = '{{ Auth::user()->un_companyteam }}';
+        var sekarang = '{{ Carbon\Carbon::now('Asia/Jakarta')->format('d M Y') }}';
 
         $('#cari-team').autocomplete({
             serviceUrl: baseUrl + '/manajemen-project/project-progress/getTeam',
@@ -526,6 +535,13 @@
                     $('.pp_id').val(data.pp_id);
                     $('.loading-circle').hide();
                     $('#content-note').show();
+                    if (sekarang == data.pp_date && data.pp_state == 'ENTRY') {
+                        $('#edit-execution').prop('readonly', false);
+                        $('.tombol-simpan').show();
+                    } else {
+                        $('#edit-execution').prop('readonly', true);
+                        $('.tombol-simpan').hide();
+                    }
                 },
                 error: function (xhr, status) {
                     setTimeout(function () {
