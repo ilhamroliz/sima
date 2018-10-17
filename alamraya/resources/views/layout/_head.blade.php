@@ -12,6 +12,8 @@
 <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
 <!-- C3 charts css -->
 <link href="{{ asset('assets/plugins/c3/c3.min.css') }}" rel="stylesheet" type="text/css"/>
+<!-- Spinkit css -->
+<link href="{{ asset('assets/plugins/spinkit/spinkit.css') }}" rel="stylesheet" />
 <!-- Jquery filer css -->
 <link href="{{ asset('assets/plugins/jquery.filer/css/jquery.filer.css') }}" rel="stylesheet" />
 <link href="{{ asset('assets/plugins/jquery.filer/css/themes/jquery.filer-dragdropbox-theme.css') }}" rel="stylesheet" />

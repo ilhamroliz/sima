@@ -10,6 +10,8 @@
 <link href="{{ asset('assets/plugins/footable/css/footable.core.css') }}" rel="stylesheet">
 <!-- App favicon -->
 <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
+<!-- Spinkit css -->
+<link href="{{ asset('assets/plugins/spinkit/spinkit.css') }}" rel="stylesheet" />
 <!-- C3 charts css -->
 <link href="{{ asset('assets/plugins/c3/c3.min.css') }}" rel="stylesheet" type="text/css"/>
 <!-- Jquery filer css -->

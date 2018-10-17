@@ -320,7 +320,23 @@
                         <h4 class="modal-title edit-fitur" id="myLargeModalLabel">Edit Progress</h4>
                     </div>
                     <div class="modal-body">
-                        <div id="content-note">
+                        <div class="loading-circle">
+                            <div class="sk-circle">
+                                <div class="sk-circle1 sk-child"></div>
+                                <div class="sk-circle2 sk-child"></div>
+                                <div class="sk-circle3 sk-child"></div>
+                                <div class="sk-circle4 sk-child"></div>
+                                <div class="sk-circle5 sk-child"></div>
+                                <div class="sk-circle6 sk-child"></div>
+                                <div class="sk-circle7 sk-child"></div>
+                                <div class="sk-circle8 sk-child"></div>
+                                <div class="sk-circle9 sk-child"></div>
+                                <div class="sk-circle10 sk-child"></div>
+                                <div class="sk-circle11 sk-child"></div>
+                                <div class="sk-circle12 sk-child"></div>
+                            </div>
+                        </div>
+                        <div id="content-note" style="display: none;">
                             <form class="form-horizontal">
                                 <input type="hidden" name="pp_id" class="pp_id">
                                 <div class="form-group row">
@@ -490,6 +506,7 @@
         }
 
         function edit(id, kode) {
+            $('#modal-progress').modal('show');
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -501,15 +518,19 @@
                 data: {pp_id: id},
                 dataType: 'json',
                 success: function (response) {
-                    $('#modal-progress').modal('show');
                     var data = response.data[0];
                     $('.edit-fitur').html(data.pp_date + ' - ' + data.pf_detail);
                     $('textarea#edit-target').val(data.pp_target);
                     $('textarea#edit-execution').val(data.pp_execution);
                     $('#edit-executor').val(data.team);
                     $('.pp_id').val(data.pp_id);
+                    $('.loading-circle').hide();
+                    $('#content-note').show();
                 },
                 error: function (xhr, status) {
+                    setTimeout(function () {
+                        waitingDialog.hide();
+                    }, 500);
                     if (status == 'timeout') {
                         $('.error-load').css('visibility', 'visible');
                         $('.error-load small').text('Ups. Terjadi Kesalahan, Coba Lagi Nanti');
