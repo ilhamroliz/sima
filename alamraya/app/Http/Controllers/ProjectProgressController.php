@@ -120,10 +120,13 @@ class ProjectProgressController extends Controller
                         $q->on('pf_id', '=', 'pp_fitur');
                         $q->on('pf_projectcode', '=', 'pp_projectcode');
                     })
-                    ->join('d_companyteam', function ($q){
-                        $q->on('ct_id', '=', 'pp_team');
+                    ->join('d_companyteam as team', function ($q){
+                        $q->on('team.ct_id', '=', 'pp_team');
                     })
-                    ->select('p_name', 'pp_date', 'ct_name', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id')
+                    ->join('d_companyteam as init', function ($q){
+                        $q->on('init.ct_id', '=', 'pp_init');
+                    })
+                    ->select('p_name', 'pp_date', 'team.ct_name as eksekutor', 'init.ct_name as inisiator', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id')
                     ->where('pp_comp', '=', $cl_comp)
                     ->where('pp_date', '<=', $end)
                     ->where('pp_date', '>=', $start)
@@ -143,10 +146,13 @@ class ProjectProgressController extends Controller
                                 $q->on('pf_id', '=', 'pp_fitur');
                                 $q->on('pf_projectcode', '=', 'pp_projectcode');
                             })
-                            ->join('d_companyteam', function ($q){
-                                $q->on('ct_id', '=', 'pp_team');
+                            ->join('d_companyteam as team', function ($q){
+                                $q->on('team.ct_id', '=', 'pp_team');
                             })
-                            ->select('p_name', 'pp_date', 'ct_name', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id')
+                            ->join('d_companyteam as init', function ($q){
+                                $q->on('init.ct_id', '=', 'pp_init');
+                            })
+                            ->select('p_name', 'pp_date', 'team.ct_name as eksekutor', 'init.ct_name as inisiator', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id')
                             ->where('pp_comp', '=', $cl_comp)
                             ->where('pp_date', '<=', $end)
                             ->where('pp_date', '>=', $start)
@@ -169,10 +175,13 @@ class ProjectProgressController extends Controller
                                 $q->on('pf_id', '=', 'pp_fitur');
                                 $q->on('pf_projectcode', '=', 'pp_projectcode');
                             })
-                            ->join('d_companyteam', function ($q){
-                                $q->on('ct_id', '=', 'pp_team');
+                            ->join('d_companyteam as team', function ($q){
+                                $q->on('team.ct_id', '=', 'pp_team');
                             })
-                            ->select('p_name', 'pp_date', 'ct_name', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id')
+                            ->join('d_companyteam as init', function ($q){
+                                $q->on('init.ct_id', '=', 'pp_init');
+                            })
+                            ->select('p_name', 'pp_date', 'team.ct_name as eksekutor', 'init.ct_name as inisiator', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id')
                             ->where('pp_comp', '=', $cl_comp)
                             ->where('pp_date', '<=', $end)
                             ->where('pp_date', '>=', $start)
@@ -196,10 +205,13 @@ class ProjectProgressController extends Controller
                                 $q->on('pf_id', '=', 'pp_fitur');
                                 $q->on('pf_projectcode', '=', 'pp_projectcode');
                             })
-                            ->join('d_companyteam', function ($q){
-                                $q->on('ct_id', '=', 'pp_team');
+                            ->join('d_companyteam as team', function ($q){
+                                $q->on('team.ct_id', '=', 'pp_team');
                             })
-                            ->select('p_name', 'pp_date', 'ct_name', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id')
+                            ->join('d_companyteam as init', function ($q){
+                                $q->on('init.ct_id', '=', 'pp_init');
+                            })
+                            ->select('p_name', 'pp_date', 'team.ct_name as eksekutor', 'init.ct_name as inisiator', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id')
                             ->where('pp_comp', '=', $cl_comp)
                             ->where('pp_date', '<=', $end)
                             ->where('pp_date', '>=', $start)
@@ -218,10 +230,13 @@ class ProjectProgressController extends Controller
                                 $q->on('pf_id', '=', 'pp_fitur');
                                 $q->on('pf_projectcode', '=', 'pp_projectcode');
                             })
-                            ->join('d_companyteam', function ($q){
-                                $q->on('ct_id', '=', 'pp_team');
+                            ->join('d_companyteam as team', function ($q){
+                                $q->on('team.ct_id', '=', 'pp_team');
                             })
-                            ->select('p_name', 'pp_date', 'ct_name', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id')
+                            ->join('d_companyteam as init', function ($q){
+                                $q->on('init.ct_id', '=', 'pp_init');
+                            })
+                            ->select('p_name', 'pp_date', 'team.ct_name as eksekutor', 'init.ct_name as inisiator', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id')
                             ->where('pp_comp', '=', $cl_comp)
                             ->where('pp_date', '<=', $end)
                             ->where('pp_date', '>=', $start)
@@ -294,10 +309,13 @@ class ProjectProgressController extends Controller
                     $q->on('pf_id', '=', 'pp_fitur');
                     $q->on('pf_projectcode', '=', 'pp_projectcode');
                 })
-                ->join('d_companyteam', function ($q){
-                    $q->on('ct_id', '=', 'pp_team');
+                ->join('d_companyteam as team', function ($q){
+                    $q->on('team.ct_id', '=', 'pp_team');
                 })
-                ->select('p_name', 'pp_date', 'ct_name', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id')
+                ->join('d_companyteam as init', function ($q){
+                    $q->on('init.ct_id', '=', 'pp_init');
+                })
+                ->select('p_name', 'pp_date', 'team.ct_name as eksekutor', 'init.ct_name as inisiator', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id')
                 ->where('pp_comp', '=', $cl_comp)
                 ->where(function ($q) use ($cl_id){
                     $q->orWhere('pp_init', '=', $cl_id);
@@ -321,10 +339,13 @@ class ProjectProgressController extends Controller
                             $q->on('pf_id', '=', 'pp_fitur');
                             $q->on('pf_projectcode', '=', 'pp_projectcode');
                         })
-                        ->join('d_companyteam', function ($q){
-                            $q->on('ct_id', '=', 'pp_team');
+                        ->join('d_companyteam as team', function ($q){
+                            $q->on('team.ct_id', '=', 'pp_team');
                         })
-                        ->select('p_name', 'pp_date', 'ct_name', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id')
+                        ->join('d_companyteam as init', function ($q){
+                            $q->on('init.ct_id', '=', 'pp_init');
+                        })
+                        ->select('p_name', 'pp_date', 'team.ct_name as eksekutor', 'init.ct_name as inisiator', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id')
                         ->where('pp_comp', '=', $cl_comp)
                         ->where(function ($q) use ($cl_id){
                             $q->orWhere('pp_init', '=', $cl_id);
@@ -351,10 +372,13 @@ class ProjectProgressController extends Controller
                             $q->on('pf_id', '=', 'pp_fitur');
                             $q->on('pf_projectcode', '=', 'pp_projectcode');
                         })
-                        ->join('d_companyteam', function ($q){
-                            $q->on('ct_id', '=', 'pp_team');
+                        ->join('d_companyteam as team', function ($q){
+                            $q->on('team.ct_id', '=', 'pp_team');
                         })
-                        ->select('p_name', 'pp_date', 'ct_name', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id')
+                        ->join('d_companyteam as init', function ($q){
+                            $q->on('init.ct_id', '=', 'pp_init');
+                        })
+                        ->select('p_name', 'pp_date', 'team.ct_name as eksekutor', 'init.ct_name as inisiator', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id')
                         ->where('pp_comp', '=', $cl_comp)
                         ->where(function ($q) use ($cl_id){
                             $q->orWhere('pp_init', '=', $cl_id);
@@ -382,10 +406,13 @@ class ProjectProgressController extends Controller
                             $q->on('pf_id', '=', 'pp_fitur');
                             $q->on('pf_projectcode', '=', 'pp_projectcode');
                         })
-                        ->join('d_companyteam', function ($q){
-                            $q->on('ct_id', '=', 'pp_team');
+                        ->join('d_companyteam as team', function ($q){
+                            $q->on('team.ct_id', '=', 'pp_team');
                         })
-                        ->select('p_name', 'pp_date', 'ct_name', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id')
+                        ->join('d_companyteam as init', function ($q){
+                            $q->on('init.ct_id', '=', 'pp_init');
+                        })
+                        ->select('p_name', 'pp_date', 'team.ct_name as eksekutor', 'init.ct_name as inisiator', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id')
                         ->where('pp_comp', '=', $cl_comp)
                         ->where(function ($q) use ($cl_id){
                             $q->orWhere('pp_init', '=', $cl_id);
@@ -408,10 +435,13 @@ class ProjectProgressController extends Controller
                             $q->on('pf_id', '=', 'pp_fitur');
                             $q->on('pf_projectcode', '=', 'pp_projectcode');
                         })
-                        ->join('d_companyteam', function ($q){
-                            $q->on('ct_id', '=', 'pp_team');
+                        ->join('d_companyteam as team', function ($q){
+                            $q->on('team.ct_id', '=', 'pp_team');
                         })
-                        ->select('p_name', 'pp_date', 'ct_name', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id')
+                        ->join('d_companyteam as init', function ($q){
+                            $q->on('init.ct_id', '=', 'pp_init');
+                        })
+                        ->select('p_name', 'pp_date', 'team.ct_name as eksekutor', 'init.ct_name as inisiator', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id')
                         ->where('pp_comp', '=', $cl_comp)
                         ->where(function ($q) use ($cl_id){
                             $q->orWhere('pp_init', '=', $cl_id);

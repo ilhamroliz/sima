@@ -261,11 +261,12 @@
                             <div style="overflow: auto;" id="content-table1">
                                 <table class="table table-hover table-bordered table-colored table-custom table-striped" cellspacing="0" width="100%" id="project-progress">
                                     <thead>
-                                        <th style="width: 32%;">Nama Project</th>
+                                        <th style="width: 25%;">Nama Project</th>
                                         <th style="width: 15%;">Tanggal</th>
-                                        <th style="width: 20%;">Team</th>
-                                        <th style="width: 22%;">Fitur</th>
-                                        <th style="width: 11%;">Aksi</th>
+                                        <th style="width: 17%;">Inisiator</th>
+                                        <th style="width: 17%;">Team</th>
+                                        <th style="width: 17%;">Fitur</th>
+                                        <th style="width: 9%;">Aksi</th>
                                     </thead>
                                     <tbody>
 
@@ -448,7 +449,8 @@
                     columns: [
                         {data: 'p_name', name: 'p_name'},
                         {data: 'pp_date', name: 'pp_date'},
-                        {data: 'ct_name', name: 'ct_name'},
+                        {data: 'inisiator', name: 'inisiator'},
+                        {data: 'eksekutor', name: 'eksekutor'},
                         {data: 'pf_detail', name: 'pf_detail'},
                         {data: 'aksi', name: 'aksi'}
                     ],
@@ -504,7 +506,8 @@
                     columns: [
                         {data: 'p_name', name: 'p_name'},
                         {data: 'pp_date', name: 'pp_date'},
-                        {data: 'ct_name', name: 'ct_name'},
+                        {data: 'inisiator', name: 'inisiator'},
+                        {data: 'eksekutor', name: 'eksekutor'},
                         {data: 'pf_detail', name: 'pf_detail'},
                         {data: 'aksi', name: 'aksi'}
                     ],
