@@ -207,6 +207,14 @@
         .msg_history {
             overflow: auto;
         }
+        .noti-icon-badge{
+            top: -8px !important;
+            right: -10px !important;
+            position: absolute !important;
+        }
+        .badge{
+            padding: 3px !important;
+        }
     </style>
 @endsection
 @section('content')
