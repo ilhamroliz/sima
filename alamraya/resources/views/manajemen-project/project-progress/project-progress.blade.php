@@ -239,6 +239,15 @@
             overflow: auto;
         }
 
+        .noti-icon-badge{
+            top: -8px !important;
+            right: -10px !important;
+            position: absolute !important;
+        }
+        .badge{
+            padding: 3px !important;
+        }
+
     </style>
 @endsection
 @section('content')
@@ -534,8 +543,8 @@
                     columns: [
                         {data: 'pf_detail', name: 'pf_detail'},
                         {data: 'pp_date', name: 'pp_date'},
-                        {data: 'init', name: 'init'},
-                        {data: 'team', name: 'team'},
+                        {data: 'inisiator', name: 'inisiator'},
+                        {data: 'eksekutor', name: 'eksekutor'},
                         {data: 'pp_state', name: 'pp_state'},
                         {data: 'aksi', name: 'aksi'}
                     ],
@@ -899,6 +908,10 @@
                 document.getElementById("msg_send_btn").click();
             }
         });
+
+        $('#modal-catatan').on('hidden.bs.modal', function () {
+          table.ajax.reload();
+        })
 
         function updateStatus(status){
             statusGlobal = status;
