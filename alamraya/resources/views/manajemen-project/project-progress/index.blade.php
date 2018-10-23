@@ -401,7 +401,12 @@
                                         <div class="msg_history" id="konten-chat" style="width: 100%">
                                             
                                         </div>
-                                        
+                                        <div class="type_msg">
+                                            <div class="input_msg_write">
+                                                <input type="text" id="write_msg" class="write_msg" placeholder="Type a message"/>
+                                                <button class="msg_send_btn" id="msg_send_btn" type="button" onclick="writeNote()"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -618,6 +623,11 @@
                             }
                             $("#konten-chat").animate({ scrollTop: $('#konten-chat').prop("scrollHeight")}, 500);
                         }
+                        if (response.tanggal == '{{ Carbon\Carbon::now('Asia/Jakarta')->format('d M Y') }}') {
+                            $('.type_msg').show();
+                        } else {
+                            $('.type_msg').hide();
+                        }
                         $('#modal-catatan').modal('show');
                         $("#konten-chat").animate({ scrollTop: $('#konten-chat').prop("scrollHeight")}, 500);
                     } else if (response.status == 'failed') {
@@ -703,6 +713,64 @@
                     setTimeout(function () {
                         waitingDialog.hide();
                     }, 500);
+                    if (status == 'timeout') {
+                        $('.error-load').css('visibility', 'visible');
+                        $('.error-load small').text('Ups. Terjadi Kesalahan, Coba Lagi Nanti');
+                    }
+                    else if (xhr.status == 0) {
+                        $('.error-load').css('visibility', 'visible');
+                        $('.error-load small').text('Ups. Koneksi Internet Bemasalah, Coba Lagi Nanti');
+                    }
+                    else if (xhr.status == 500) {
+                        $('.error-load').css('visibility', 'visible');
+                        $('.error-load small').text('Ups. Server Bemasalah, Coba Lagi Nanti');
+                    }
+                }
+            });
+        }
+
+        $('#modal-catatan').on('hidden.bs.modal', function () {
+          projectProgress.ajax.reload();
+        })
+
+        document.getElementById("write_msg").addEventListener("keyup", function(event) {
+          // Cancel the default action, if needed
+            event.preventDefault();
+          // Number 13 is the "Enter" key on the keyboard
+            if (event.keyCode === 13) {
+            // Trigger the button element with a click
+                document.getElementById("msg_send_btn").click();
+            }
+        });
+
+        function writeNote(){
+            var msg = $('#write_msg').val();
+            var id = $('#id_pp').val();
+            project = $('#id_project').val();
+            $('#write_msg').val('');
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            waitingDialog.show();
+            $.ajax({
+                url: baseUrl + '/manajemen-project/project-progress/save-note',
+                type: 'post',
+                data: {
+                    note: msg,
+                    project: project,
+                    id: id
+                },
+                dataType: 'json',
+                success: function (response) {
+                    note(id, project);
+                    setTimeout(function () {
+                        waitingDialog.hide();
+                    }, 500);
+                },
+                error: function (xhr, status) {
+                    
                     if (status == 'timeout') {
                         $('.error-load').css('visibility', 'visible');
                         $('.error-load small').text('Ups. Terjadi Kesalahan, Coba Lagi Nanti');
