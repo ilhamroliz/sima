@@ -18,6 +18,10 @@ Route::group(['middleware' => 'guest'], function () {
 	]);
 	Route::get('maintenance', 'LoginController@maintenance');
 	Route::post('authe', 'LoginController@authenticate');
+	//==== Ticket
+	Route::get('bantuan', 'ticketController@index');
+	Route::get('bantuan/getFitur', 'ticketController@getFitur');
+	Route::post('bantuan/submit', 'ticketController@save');
 });
 
 //================================================================
@@ -66,4 +70,6 @@ Route::group(['middleware' => 'auth'], function () {
 	//==== daftar team
 	Route::get('manajemen-team/daftar-team', 'DaftarTeamController@index');
 	Route::get('manajemen-team/get-team/{status}', 'DaftarTeamController@data');
+
+	
 });
