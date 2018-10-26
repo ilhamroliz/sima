@@ -92,7 +92,7 @@ class ticketController extends Controller
                     'pt_comp' => 'ASB0000001',
                     'pt_projectcode' => $projectcode,
                     'pt_number' => $tiket,
-                    'pt_asktime' => $tgl->format('Y-m-d'),
+                    'pt_asktime' => $tgl,
                     'pt_client' => 1,
                     'pt_clientteam' => 1,
                     'pt_status' => 'ENTRY',
