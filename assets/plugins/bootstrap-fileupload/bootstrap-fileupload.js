@@ -83,8 +83,10 @@
         var element = this.$element
 
         reader.onload = function(e) {
-          preview.html('<img src="' + e.target.result + '" ' + (preview.css('max-height') != 'none' ? 'style="max-height: ' + preview.css('max-height') + ';"' : '') + ' />')
-          element.addClass('fileupload-exists').removeClass('fileupload-new')
+          /*preview.html('<img src="' + e.target.result + '" ' + (preview.css('max-height') != 'none' ? 'style="max-height: ' + preview.css('max-height') + ';"' : '') + ' />')
+          element.addClass('fileupload-exists').removeClass('fileupload-new')*/
+          preview.html('<input type="file" name="image" src="' + e.target.result + '" ' + (preview.css('max-height') != 'none' ? 'style="max-height: ' + preview.css('max-height') + ';"' : '') + ' />')
+          element.addClass('fileupload-exists image-sima').removeClass('fileupload-new')
         }
 
         reader.readAsDataURL(file)

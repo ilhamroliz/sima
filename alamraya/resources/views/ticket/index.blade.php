@@ -76,10 +76,11 @@
                                             <p class="text-muted" style="text-align: left;"> Fitur ini disediakan oleh Alamraya untuk menampung semua pertanyaan klien kami</p>
                                         </div>
                                         <form class="form-horizontal" role="form" method="post" action="{{ url('bantuan/submit') }}" id="form-tiket" enctype="multipart/form-data" accept-charset="UTF-8">
+                                            @csrf
                                             <div class="form-group row">
                                                 <label class="col-1 col-form-label" for="projectcode">Project</label>
                                                 <div class="col-5">
-                                                    <select class="form-control select2" id="projectcode" onchange="getFitur()">
+                                                    <select class="form-control select2" name="projectcode" id="projectcode" onchange="getFitur()">
                                                         <option value="" disabled selected>Pilih Project</option>
                                                         @foreach($project as $list)
                                                         <option value="{{ $list->p_code }}">{{ $list->p_name }}</option>
@@ -88,7 +89,7 @@
                                                 </div>
                                                 <label class="col-1 col-form-label" for="fitur">Fitur</label>
                                                 <div class="col-5 fitur-select">
-                                                    <select class="form-control select2" id="fitur" readonly='true'>
+                                                    <select class="form-control select2" name="fitur" id="fitur" readonly='true'>
                                                         
                                                     </select>
                                                 </div>
@@ -96,7 +97,7 @@
                                             <div class="form-group row">
                                                 <label class="col-1 col-form-label" for="error">Error</label>
                                                 <div class="col-5">
-                                                    <select class="form-control select2" id="error">
+                                                    <select class="form-control select2" name="error" id="error">
                                                         <option value="" disabled selected>Pilih Jenis Error</option>
                                                         <option value="SERVER">SERVER</option>
                                                         <option value="MISSUNDERSTANDING">MISSUNDERSTANDING</option>
@@ -107,7 +108,7 @@
                                                 </div>
                                                 <label class="col-1 col-form-label" for="prioritas">Prioritas</label>
                                                 <div class="col-5">
-                                                    <select class="form-control select2" id="prioritas">
+                                                    <select class="form-control select2" name="prioritas" id="prioritas">
                                                         <option value="" disabled selected>Pilih Jenis Prioritas</option>
                                                         <option value="NORMAL">NORMAL</option>
                                                         <option value="MEDIUM">MEDIUM</option>
@@ -120,22 +121,8 @@
                                                 <textarea id="pesan" name="area"></textarea>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-1 col-form-label">Foto</label>
-                                                <div class="col-11">
-                                                    <div class="fileupload fileupload-new" data-provides="fileupload">
-
-                                                        <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
-                                                        <div>
-                                                            <button type="button" class="btn btn-secondary btn-file">
-                                                                <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Pilih Foto</span>
-                                                                <span class="fileupload-exists"><i class="fa fa-undo"></i> Ganti</span>
-                                                                <input type="file" class="btn-secondary" />
-                                                            </button>
-                                                            <a href="#" class="btn btn-danger fileupload-exists" data-dismiss="fileupload"><i class="fa fa-trash"></i> Hapus</a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="alert alert-info alert-white"><strong>Perhatian!</strong> Foto akan tampil jika anda menggunakan browser IE10+, FF3.6+, Chrome6.0+ dan Opera11.1+.</div>
-                                                </div>
+                                                <label class="col-1 col-form-label" for="image-upload">Foto</label>
+                                                <input type="file" name="image-upload" class="form-control-file col-11" id="image-upload">
                                             </div>
                                             <div class="form-group text-center">
                                                 <button onclick="validasi()" type="button" class="btn btn-primary waves-effect w-md waves-light">Simpan</button>
@@ -327,7 +314,7 @@
                         });
                     return false;
                 }
-
+                $('#form-tiket').submit();
             }
 
         </script>

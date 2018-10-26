@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use DB;
+use File;
 
 class ticketController extends Controller
 {
@@ -48,6 +50,90 @@ class ticketController extends Controller
 
     public function save(Request $request)
     {
-        dd($request);
+        DB::beginTransaction();
+        try {
+            $projectcode = $request->projectcode;
+            $fitur = $request->fitur;
+            $error = $request->error;
+            $prioritas = $request->prioritas;
+            $area = $request->area;
+
+            $idTicket = DB::table('d_projectticket')
+                ->max('pt_id');
+            ++$idTicket;
+
+            $imgPath = null;
+            $tgl = Carbon::now('Asia/Jakarta');
+            $folder = $tgl->timestamp . $tgl->year . $tgl->month;
+            $dir = 'images/uploads/ticket/' . $idTicket;
+            $this->deleteDir($dir);
+            $childPath = $dir . '/';
+            $path = $childPath;
+            $file = $request->file('image-upload');
+            $name = null;
+            if ($file != null){
+                $name = $folder . '.' . $file->getClientOriginalExtension();
+                if (!File::exists($path)) {
+                    if (File::makeDirectory($path, 0777, true)) {
+                        $file->move($path, $name);
+                        $imgPath = $childPath . $name;
+                    } else
+                        $imgPath = null;
+                } else {
+                    return 'already exist';
+                }
+            }
+
+            $tiket = $tgl->timestamp;
+
+            DB::table('d_projectticket')
+                ->insert([
+                    'pt_id' => $idTicket,
+                    'pt_comp' => 'ASB0000001',
+                    'pt_projectcode' => $projectcode,
+                    'pt_number' => $tiket,
+                    'pt_asktime' => $tgl->format('Y-m-d'),
+                    'pt_client' => 1,
+                    'pt_clientteam' => 1,
+                    'pt_status' => 'ENTRY',
+                    'pt_error' => $error,
+                    'pt_fitur' => $fitur,
+                    'pt_urgency' => $prioritas,
+                    'pt_ask' => $area,
+                    'pt_attachment' => $imgPath
+                ]);
+
+            DB::commit();
+            return view('sukses/success_ticket', compact('tiket'));
+
+        } catch (\Exception $e){
+            DB::rollback();
+            return view('error/error_ticket');
+        }
     }
+
+    public function deleteDir($dirPath)
+    {
+        if (!is_dir($dirPath)) {
+            return false;
+        }
+        if (substr($dirPath, strlen($dirPath) - 1, 1) != '/') {
+            $dirPath .= '/';
+        }
+        $files = glob($dirPath . '*', GLOB_MARK);
+        foreach ($files as $file) {
+            if (is_dir($file)) {
+                self::deleteDir($file);
+            } else {
+                unlink($file);
+            }
+        }
+        rmdir($dirPath);
+    }
+
+    public function sukses()
+    {
+        
+    }
+
 }
