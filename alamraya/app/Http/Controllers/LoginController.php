@@ -38,6 +38,7 @@ class LoginController extends Controller
         if ($request->username != 'ilham'){
             //return redirect(url('maintenance'));
         }
+
         if ($user && $user->un_passwd == sha1(md5('لا إله إلاّ الله') . $request->password)) {
 
             d_username::where('un_companyteam', '=', $user->un_companyteam)

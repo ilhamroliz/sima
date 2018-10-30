@@ -12,6 +12,8 @@ class erpController
     {
         if (Auth::user()->un_companyteam == 'AR000000'){
             return 'COMDIR';
+        } elseif (Auth::user()->un_companyteam == 'AR000031') {
+            return 'ADMIN';
         } else {
             $posisi = DB::table('d_projectteam')
                 ->where('pt_comp', '=', Auth::user()->un_comp)
