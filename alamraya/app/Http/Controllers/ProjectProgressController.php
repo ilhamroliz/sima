@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use function foo\func;
 use Illuminate\Http\Request;
 use Auth;
 use DB;
@@ -971,6 +972,37 @@ class ProjectProgressController extends Controller
             ->first();
         $data = json_decode($data->pp_note);
         return response()->json($data);
+    }
+
+    public function controllProgress()
+    {
+        $data = DB::select("select prj.p_name, team.ct_name as eksekutor, spv.ct_name as supervisor,
+(select 'oke' from d_projectprogress where pp_projectcode = prj.p_code and pp_comp = prj.p_comp and pp_team = team.ct_id and pp_date = CURDATE()) as status
+from d_companyteam team
+JOIN d_projectteam pt on pt.pt_comp = team.ct_comp and team.ct_id = pt.pt_teamid
+join d_project prj on prj.p_comp = pt.pt_comp and prj.p_code = pt.pt_projectcode
+left join 
+	(SELECT super.ct_comp, super.ct_id, super.ct_name, ptspv.pt_comp, ptspv.pt_position, ptspv.pt_projectcode, ptspv.pt_teamid from d_companyteam super 
+	join d_projectteam ptspv 
+	on ptspv.pt_comp = super.ct_comp 
+	and super.ct_id = ptspv.pt_teamid 
+	where ptspv.pt_position = 'PRJSPV') spv 
+	on (spv.ct_comp = pt.pt_comp and spv.pt_projectcode = prj.p_code) 
+where prj.p_state = 'RUNNING'
+and team.ct_state = 'ACTIVE'
+order by team.ct_name");
+
+        $data = collect($data);
+        return DataTables::of($data)
+            ->editColumn('status', function ($data){
+                if ($data->status == null){
+                    return '<div class="text-center"><button type="button" class="btn btn-icon btn-xs waves-effect waves-light btn-danger"> <strong><i class="fi fi-cross"></i></strong> </button></div>';
+                } elseif ($data->status == 'oke'){
+                    return '<div class="text-center"><button type="button" class="btn btn-icon btn-xs waves-effect waves-light btn-info"> <strong><i class="fi fi-check"></i></strong> </button></div>';
+                }
+            })
+            ->rawColumns(['status'])
+            ->make(true);
     }
 
 }

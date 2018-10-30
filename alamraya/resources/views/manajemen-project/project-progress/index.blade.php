@@ -242,6 +242,9 @@
                     <div class="card-box">
                         <h4 class="header-title m-b-15 m-t-0 pull-left">Project Progress</h4>
                         <button type="button" onclick="addProject()" class="btn btn-sm btn-custom pull-right w-md waves-effect waves-light"><i class="fa fa-plus"></i> Progress </button>
+                        @if (App\Http\Controllers\erpController::getPosisi('123') == 'ADMIN')
+                        <button type="button" onclick="controllTeam()" class="btn btn-sm btn-info pull-right w-md waves-effect waves-light" style="margin-right: 10px;"><i class="fa fa-users"></i> Control Team </button>
+                        @endif
                         <div class="row col-12" style="margin-top: 50px; margin-left: 2px;">
                             <div class="col-3">
                                 <div class="input-daterange input-group " id="date-range" style="">
@@ -417,6 +420,34 @@
         </div>
     </div><!-- /.modal -->
 
+    <!--  Modal content for the above example -->
+    <div class="custombox-modal custombox-modal-fadein" style="transition-duration: 500ms; z-index: 10003;">
+        <div id="modal-controll" class="modal bs-example-modal-lg" tabindex="-1" role="dialog"
+             aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title edit-fitur" id="modal-title">Controll Progress Team {{ Carbon\Carbon::now('Asia/Jakarta')->format('d M Y') }}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-hover table-bordered table-colored table-pink table-striped" id="table-controll" cellspacing="0" width="100%">
+                            <thead>
+                                <th>Nama Team</th>
+                                <th>Supervisor</th>
+                                <th>Project</th>
+                                <th>Status</th>
+                            </thead>
+                            <tbody>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
+    </div><!-- /.modal -->
+
 
 @endsection
 
@@ -430,6 +461,7 @@
         var id_team = '{{ Auth::user()->un_companyteam }}';
         var sekarang = '{{ Carbon\Carbon::now('Asia/Jakarta')->format('d M Y') }}';
         var statusGlobal = '';
+        var tableControll;
 
         $('#cari-team').autocomplete({
             serviceUrl: baseUrl + '/manajemen-project/project-progress/getTeam',
@@ -785,6 +817,44 @@
                     }
                 }
             });
+        }
+
+        function controllTeam(){
+            if ( $.fn.DataTable.isDataTable('#table-controll') ) {
+                $('#table-controll').DataTable().destroy();
+            }
+
+            $('#table-controll tbody').empty();
+
+            $('#modal-controll').modal('show');
+            $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                
+                tableControll = $("#table-controll").DataTable({
+                    "search": {
+                        "caseInsensitive": true
+                    },
+                    processing: true,
+                    serverSide: true,
+                    "ajax": {
+                        "url": baseUrl + '/manajemen-project/project-progress/controll-progress',
+                        "type": "get"
+                    },
+                    columns: [
+                        {data: 'eksekutor', name: 'eksekutor'},
+                        {data: 'supervisor', name: 'supervisor'},
+                        {data: 'p_name', name: 'p_name'},
+                        {data: 'status', name: 'status'}
+                    ],
+                    responsive: true,
+                    "pageLength": 10,
+                    "aaSorting": [],
+                    "lengthMenu": [[10, 20, 50, -1], [10, 20, 50, "All"]],
+                    "language": dataTableLanguage,
+                });
         }
 
 

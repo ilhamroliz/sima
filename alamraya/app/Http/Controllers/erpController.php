@@ -20,8 +20,11 @@ class erpController
                 ->where('pt_projectcode', '=', $project)
                 ->where('pt_teamid', '=', Auth::user()->un_companyteam)
                 ->first();
-
-            return $posisi->pt_position;
+            if ($posisi == null){
+                return false;
+            } else {
+                return $posisi->pt_position;
+            }
         }
     }
 }
