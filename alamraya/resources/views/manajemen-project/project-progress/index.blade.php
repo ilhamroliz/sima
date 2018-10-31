@@ -841,7 +841,7 @@
                     serverSide: true,
                     "ajax": {
                         "url": baseUrl + '/manajemen-project/project-progress/controll-progress',
-                        "type": "post"
+                        "type": "get"
                     },
                     columns: [
                         {data: 'eksekutor', name: 'eksekutor'},

@@ -977,7 +977,7 @@ class ProjectProgressController extends Controller
     public function controllProgress()
     {
         $data = DB::select("select prj.p_name, team.ct_name as eksekutor, spv.ct_name as supervisor,
-(select 'oke' from d_projectprogress where pp_projectcode = prj.p_code and pp_comp = prj.p_comp and pp_team = team.ct_id and pp_date = CURDATE()) as status
+(select 'oke' from d_projectprogress where pp_projectcode = prj.p_code and pp_comp = prj.p_comp and pp_team = team.ct_id and pp_date = CURDATE() and pp_execution is not null group by pp_team) as status
 from d_companyteam team
 JOIN d_projectteam pt on pt.pt_comp = team.ct_comp and team.ct_id = pt.pt_teamid
 join d_project prj on prj.p_comp = pt.pt_comp and prj.p_code = pt.pt_projectcode

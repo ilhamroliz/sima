@@ -68,7 +68,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('manajemen-project/project-progress/get-project/{project}/getProgress', 'ProjectProgressController@getProgress');
 	Route::post('manajemen-project/project-progress/get-chat', 'ProjectProgressController@chat');
 	Route::post('manajemen-project/project-progress/save-note', 'ProjectProgressController@saveNote');
-	Route::post('manajemen-project/project-progress/controll-progress', 'ProjectProgressController@controllProgress');
+	Route::get('manajemen-project/project-progress/controll-progress', 'ProjectProgressController@controllProgress');
 
 	//==== daftar team
 	Route::get('manajemen-team/daftar-team', 'DaftarTeamController@index');
