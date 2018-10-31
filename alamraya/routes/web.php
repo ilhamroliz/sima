@@ -20,8 +20,10 @@ Route::group(['middleware' => 'guest'], function () {
 	Route::post('authe', 'LoginController@authenticate');
 	//==== Ticket
 	Route::get('bantuan', 'ticketController@index');
-	Route::get('bantuan/getFitur', 'ticketController@getFitur');
+	Route::post('bantuan/getFitur', 'ticketController@getFitur');
 	Route::post('bantuan/submit', 'ticketController@save');
+	Route::get('bantuan/ticket-anda', 'ticketController@ticketAnda');
+	Route::get('bantuan/ticket-anda/data', 'ticketController@dataTicketAnda');
 });
 
 //================================================================
@@ -66,7 +68,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('manajemen-project/project-progress/get-project/{project}/getProgress', 'ProjectProgressController@getProgress');
 	Route::post('manajemen-project/project-progress/get-chat', 'ProjectProgressController@chat');
 	Route::post('manajemen-project/project-progress/save-note', 'ProjectProgressController@saveNote');
-	Route::get('manajemen-project/project-progress/controll-progress', 'ProjectProgressController@controllProgress');
+	Route::post('manajemen-project/project-progress/controll-progress', 'ProjectProgressController@controllProgress');
 
 	//==== daftar team
 	Route::get('manajemen-team/daftar-team', 'DaftarTeamController@index');

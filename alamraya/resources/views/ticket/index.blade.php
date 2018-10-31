@@ -84,7 +84,7 @@
                                             Alamraya untuk menampung semua pertanyaan klien kami</p>
                                     </div>
                                     <div class="col-2 pull-right">
-                                        <button type="button" class="pull-right btn btn-custom btn-bordered waves-effect w-md waves-light"><i class="fa fa-search"></i> Cari Tiket</button>
+                                        <button type="button" onclick="openTicket()" class="pull-right btn btn-custom btn-bordered waves-effect w-md waves-light"><i class="fa fa-search"></i> Tiket Anda</button>
                                     </div>
                                     <form class="form-horizontal col-12" role="form" method="post"
                                           action="{{ url('bantuan/submit') }}" id="form-tiket"
@@ -235,9 +235,14 @@
 
     function getFitur() {
         var projectcode = $('#projectcode').val();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
         $.ajax({
             url: '{{ url('bantuan/getFitur') }}',
-            type: 'get',
+            type: 'post',
             data: {project: projectcode},
             success: function (response) {
                 if ($('#fitur').hasClass("select2-hidden-accessible")) {
@@ -363,6 +368,10 @@
             alert("This browser does not support FileReader.");
         }
     });
+
+    function openTicket(){
+        window.location = "{{ url('bantuan/ticket-anda') }}";
+    }
 
 
 </script>

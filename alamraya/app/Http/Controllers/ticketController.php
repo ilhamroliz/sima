@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use function foo\func;
 use Illuminate\Http\Request;
 use DB;
 use File;
+use Yajra\DataTables\DataTables;
 
 class ticketController extends Controller
 {
@@ -131,9 +133,25 @@ class ticketController extends Controller
         rmdir($dirPath);
     }
 
-    public function sukses()
+    public function ticketAnda()
     {
-        
+        return view('ticket/ticket-anda');
     }
 
+    public function dataTicketAnda()
+    {
+        $data = DB::table('d_projectticket')
+            ->leftJoin('d_projectticket_dt', 'ptdt_id', '=', 'pt_id')
+            ->join('d_project', function ($q){
+                $q->on('p_code', '=', 'pt_projectcode');
+                $q->on('p_comp', '=', 'pt_comp');
+            })
+            ->join('d_projectfitur', function ($q){
+                $q->on('pf_comp', '=', 'pt_comp');
+                $q->on('pf_projectcode', '=', '')
+            })
+            ->select('pt_number', 'p_name', )
+            ->get();
+        dd($data);
+    }
 }
