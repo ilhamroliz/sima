@@ -74,5 +74,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('manajemen-team/daftar-team', 'DaftarTeamController@index');
 	Route::get('manajemen-team/get-team/{status}', 'DaftarTeamController@data');
 
+	//==== project ticket
+	Route::get('manajemen-project/project-ticket', 'ProjectTicketController@index');
 	
 });

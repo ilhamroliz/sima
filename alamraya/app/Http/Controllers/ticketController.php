@@ -146,12 +146,22 @@ class ticketController extends Controller
                 $q->on('p_code', '=', 'pt_projectcode');
                 $q->on('p_comp', '=', 'pt_comp');
             })
-            ->join('d_projectfitur', function ($q){
-                $q->on('pf_comp', '=', 'pt_comp');
-                $q->on('pf_projectcode', '=', '')
+            ->join('d_projectfitur', function ($a){
+                $a->on('pf_comp', '=', 'pt_comp');
+                $a->on('pf_projectcode', '=', 'pt_projectcode');
+                $a->on('pf_code', '=', 'pt_fitur');
+                $a->on('pf_comp', '=', 'p_comp');
+                $a->on('pf_projectcode', '=', 'p_code');
             })
-            ->select('pt_number', 'p_name', )
+            ->select('pt_number', 'p_name', 'pf_detail', DB::raw('date_format(pt_asktime, "%d/%m/%Y") as pt_asktime'), 'pf_detail', 'pt_status')
             ->get();
-        dd($data);
+
+        $data = collect($data);
+        return DataTables::of($data)
+            ->addColumn('aksi', function ($data){
+                return '<div class="text-center"></div>';
+            })
+            ->rawColumns(['aksi'])
+            ->make(true);
     }
 }

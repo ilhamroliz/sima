@@ -38,6 +38,9 @@
                         <li class="{{ Request::is('manajemen-project/termin-pembayaran-project') ? 'active' : '' || Request::is('manajemen-project/termin-pembayaran-project/*') ? 'active' : ''}}">
                             <a href="{{ url('manajemen-project/termin-pembayaran-project') }}">Termin Pembayaran Project</a>
                         </li>
+                        <li class="{{ Request::is('manajemen-project/project-ticket') ? 'active' : '' || Request::is('manajemen-project/project-ticket/*') ? 'active' : ''}}">
+                            <a href="{{ url('manajemen-project/project-ticket') }}">Project Ticket</a>
+                        </li>
                     </ul>
                 </li>
                 <li class="{{ Request::is('manajemen-team/*') ? 'active' : '' }}">
