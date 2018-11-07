@@ -788,7 +788,7 @@
             waitingDialog.show();
             $.ajax({
                 url: baseUrl + '/manajemen-project/project-progress/save-note',
-                type: 'post',
+                type: 'get',
                 data: {
                     note: msg,
                     project: project,
@@ -796,10 +796,25 @@
                 },
                 dataType: 'json',
                 success: function (response) {
-                    note(id, project);
-                    setTimeout(function () {
-                        waitingDialog.hide();
-                    }, 500);
+                    if (response == 'gagal') {
+                        $.toast({
+                            heading: 'Gagal!',
+                            text: 'Gagal mengirim pesan.',
+                            position: 'top-right',
+                            loaderBg: '#5ba035',
+                            icon: 'warning',
+                            hideAfter: 3000,
+                            stack: 1
+                        });
+                        setTimeout(function () {
+                            waitingDialog.hide();
+                        }, 500);
+                    } else {
+                        note(id, project);
+                        setTimeout(function () {
+                            waitingDialog.hide();
+                        }, 500);
+                    }
                 },
                 error: function (xhr, status) {
                     

@@ -912,66 +912,76 @@ class ProjectProgressController extends Controller
 
     public function saveNote(Request $request)
     {
-        $project = $request->project;
-        $pp_id = $request->id;
-        $note = $request->note;
-        $now = Carbon::now('Asia/Jakarta')->format('Y-m-d');
+        DB::beginTransaction();
+        try {
+            $project = $request->project;
+            $pp_id = $request->id;
+            $note = $request->note;
+            $now = Carbon::now('Asia/Jakarta')->format('Y-m-d');
 
-        $get = DB::table('d_projectprogress')
-            ->select('pp_note', 'pp_team', 'pp_init')
-            ->where('pp_projectcode', '=', $project)
-            ->where('pp_id', '=', $pp_id)
-            ->where('pp_comp', '=', Auth::user()->un_comp)
-            ->first();
-
-        $noteAwal = json_decode($get->pp_note);
-        if ($noteAwal == null){
-            $noteAwal = [];
-        }
-
-        if ($note != null || $note != ''){
-            $time = Carbon::now('Asia/Jakarta')->format('H:i');
-            $temp = [];
-            $temp['team'] = Auth::user()->un_companyteam;
-            $temp['time'] = $time;
-            $temp['date'] = $now;
-            $temp['note'] = $note;
-            $note = json_encode([$temp]);
-        };
-        $note = json_decode($note);
-        array_push($noteAwal, $note[0]);
-        $note = json_encode($noteAwal);
-
-        if (Auth::user()->un_companyteam == $get->pp_team){
-            //== user adalah eksekutor
-            DB::table('d_projectprogress')
-                ->where('pp_id', '=', $pp_id)
+            $get = DB::table('d_projectprogress')
+                ->select('pp_note', 'pp_team', 'pp_init')
                 ->where('pp_projectcode', '=', $project)
-                ->where('pp_comp', '=', Auth::user()->un_comp)
-                ->update([
-                    'pp_note' => $note,
-                    'pp_notestate' => '21'
-                ]);
-        } elseif (Auth::user()->un_companyteam == $get->pp_init){
-            //== user adalah inisiator
-            DB::table('d_projectprogress')
                 ->where('pp_id', '=', $pp_id)
-                ->where('pp_projectcode', '=', $project)
                 ->where('pp_comp', '=', Auth::user()->un_comp)
-                ->update([
-                    'pp_note' => $note,
-                    'pp_notestate' => '11'
-                ]);
-        }
+                ->first();
 
-        $data = DB::table('d_projectprogress')
-            ->select('pp_note')
-            ->where('pp_projectcode', '=', $project)
-            ->where('pp_id', '=', $pp_id)
-            ->where('pp_comp', '=', Auth::user()->un_comp)
-            ->first();
-        $data = json_decode($data->pp_note);
-        return response()->json($data);
+            $noteAwal = json_decode($get->pp_note);
+            if ($noteAwal == null){
+                $noteAwal = [];
+            }
+
+            if ($note != null || $note != ''){
+                $time = Carbon::now('Asia/Jakarta')->format('H:i');
+                $temp = [];
+                $temp['team'] = Auth::user()->un_companyteam;
+                $temp['time'] = $time;
+                $temp['date'] = $now;
+                $temp['note'] = $note;
+                $note = json_encode([$temp]);
+
+                $note = json_decode($note);
+                array_push($noteAwal, $note[0]);
+                $note = json_encode($noteAwal);
+            } else {
+                $note = json_encode($noteAwal);
+            }
+
+            if (Auth::user()->un_companyteam == $get->pp_team){
+                //== user adalah eksekutor
+                DB::table('d_projectprogress')
+                    ->where('pp_id', '=', $pp_id)
+                    ->where('pp_projectcode', '=', $project)
+                    ->where('pp_comp', '=', Auth::user()->un_comp)
+                    ->update([
+                        'pp_note' => $note,
+                        'pp_notestate' => '21'
+                    ]);
+            } elseif (Auth::user()->un_companyteam == $get->pp_init){
+                //== user adalah inisiator
+                DB::table('d_projectprogress')
+                    ->where('pp_id', '=', $pp_id)
+                    ->where('pp_projectcode', '=', $project)
+                    ->where('pp_comp', '=', Auth::user()->un_comp)
+                    ->update([
+                        'pp_note' => $note,
+                        'pp_notestate' => '11'
+                    ]);
+            }
+
+            $data = DB::table('d_projectprogress')
+                ->select('pp_note')
+                ->where('pp_projectcode', '=', $project)
+                ->where('pp_id', '=', $pp_id)
+                ->where('pp_comp', '=', Auth::user()->un_comp)
+                ->first();
+            $data = json_decode($data->pp_note);
+            DB::commit();
+            return response()->json($data);
+        } catch (\Exception $e){
+            DB::rollback();
+            return 'gagal';
+        }
     }
 
     public function controllProgress()
