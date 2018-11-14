@@ -788,7 +788,7 @@
             waitingDialog.show();
             $.ajax({
                 url: baseUrl + '/manajemen-project/project-progress/save-note',
-                type: 'get',
+                type: 'post',
                 data: {
                     note: msg,
                     project: project,

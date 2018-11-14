@@ -57,6 +57,14 @@
                 <li class="">
                     <a href="javascript: void(0);" class=""><i class="fi fi-bar-graph-2"></i> <span>Keuangan</span> <span class="menu-arrow"></span></a>
                 </li>
+                <li class="{{ Request::is('pengaturan/*') ? 'active' : '' }}">
+                    <a href="javascript: void(0);" class=""><i class="fi-cog"></i> <span> Pengaturan </span> <span class="menu-arrow"></span></a>
+                    <ul class="nav-second-level" aria-expanded="false">
+                        <li class="{{ Request::is('pengaturan/profile') ? 'active' : '' || Request::is('manajemen-team/daftar-team/*') ? 'active' : '' }}">
+                            <a class="" href="{{ url('pengaturan/profile') }}">Profile</a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
 
         </div>

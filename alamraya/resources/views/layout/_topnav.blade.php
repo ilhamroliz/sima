@@ -34,7 +34,7 @@
                     </div>
 
                     <!-- item-->
-                    <a href="{{ url('profile') }}" class="dropdown-item notify-item">
+                    <a href="{{ url('pengaturan/profile') }}" class="dropdown-item notify-item">
                         <i class="zmdi zmdi-account-circle"></i> <span>Profile</span>
                     </a>
 
