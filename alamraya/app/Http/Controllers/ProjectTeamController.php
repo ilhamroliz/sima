@@ -102,7 +102,12 @@ class ProjectTeamController extends Controller
         $project = $request->project;
 
         if ($kode == 'ourteam'){
-            $team = d_companyteam::where('ct_state', '=', 'Active')->orderBy('ct_id')->get();
+            $team = d_companyteam::where(function ($q){
+                $q->orWhere('ct_state', '=', 'ACTIVE');
+                $q->orWhere('ct_state', '=', 'TRIAL');
+            })
+                ->orderBy('ct_id')
+                ->get();
             $team = collect($team);
 
             return DataTables::of($team)
