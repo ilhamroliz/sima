@@ -820,7 +820,10 @@ class ProjectProgressController extends Controller
         if (Auth::user()->un_companyteam == 'AR000000'){
             $data = DB::table('d_companyteam')
                 ->select('ct_name', 'ct_id')
-                ->where('ct_state', '=', 'ACTIVE')
+                ->where(function ($q){
+                    $q->orWhere('ct_state', '=', 'ACTIVE');
+                    $q->orWhere('ct_state', '=', 'TRIAL');
+                })
                 ->where('ct_name', 'like', '%'.$keyword.'%')
                 ->get();
         } else {
@@ -999,7 +1002,7 @@ left join
 	where ptspv.pt_position = 'PRJSPV') spv 
 	on (spv.ct_comp = pt.pt_comp and spv.pt_projectcode = prj.p_code) 
 where prj.p_state = 'RUNNING'
-and team.ct_state = 'ACTIVE'
+and (team.ct_state = 'ACTIVE' or team.ct_state = 'TRIAL')
 order by team.ct_name");
 
         $data = collect($data);
