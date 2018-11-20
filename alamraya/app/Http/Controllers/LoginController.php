@@ -35,7 +35,7 @@ class LoginController extends Controller
         }
 
         $user = d_username::where(DB::raw('BINARY un_username'), $request->username)->first();
-        if ($request->username != 'ilham'){
+        if ($request->username != 'ilham') {
             //return redirect(url('maintenance'));
         }
 

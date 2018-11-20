@@ -215,6 +215,15 @@
         .badge{
             padding: 3px !important;
         }
+        .noti-icon-badge-left{
+            top: -8px !important;
+            left: -10px !important;
+            position: absolute !important;
+            cursor: pointer;
+        }
+        .btn {
+            cursor: pointer;
+        }
     </style>
 @endsection
 @section('content')

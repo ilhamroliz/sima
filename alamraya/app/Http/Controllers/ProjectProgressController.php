@@ -127,7 +127,7 @@ class ProjectProgressController extends Controller
                     ->join('d_companyteam as init', function ($q){
                         $q->on('init.ct_id', '=', 'pp_init');
                     })
-                    ->select('pp_notestate', 'p_name', 'pp_date', 'team.ct_id as id_eksekutor', 'init.ct_id as id_inisiator', 'team.ct_name as eksekutor', 'init.ct_name as inisiator', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id')
+                    ->select('pp_execution', 'pp_notestate', 'p_name', 'pp_date', 'team.ct_id as id_eksekutor', 'init.ct_id as id_inisiator', 'team.ct_name as eksekutor', 'init.ct_name as inisiator', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id')
                     ->where('pp_comp', '=', $cl_comp)
                     ->where('pp_date', '<=', $end)
                     ->where('pp_date', '>=', $start)
@@ -153,7 +153,7 @@ class ProjectProgressController extends Controller
                             ->join('d_companyteam as init', function ($q){
                                 $q->on('init.ct_id', '=', 'pp_init');
                             })
-                            ->select('pp_notestate', 'p_name', 'pp_date', 'team.ct_id as id_eksekutor', 'init.ct_id as id_inisiator', 'team.ct_name as eksekutor', 'init.ct_name as inisiator', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id')
+                            ->select('pp_execution', 'pp_notestate', 'p_name', 'pp_date', 'team.ct_id as id_eksekutor', 'init.ct_id as id_inisiator', 'team.ct_name as eksekutor', 'init.ct_name as inisiator', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id')
                             ->where('pp_comp', '=', $cl_comp)
                             ->where('pp_date', '<=', $end)
                             ->where('pp_date', '>=', $start)
@@ -182,7 +182,7 @@ class ProjectProgressController extends Controller
                             ->join('d_companyteam as init', function ($q){
                                 $q->on('init.ct_id', '=', 'pp_init');
                             })
-                            ->select('pp_notestate', 'p_name', 'pp_date', 'team.ct_id as id_eksekutor', 'init.ct_id as id_inisiator', 'team.ct_name as eksekutor', 'init.ct_name as inisiator', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id')
+                            ->select('pp_execution', 'pp_notestate', 'p_name', 'pp_date', 'team.ct_id as id_eksekutor', 'init.ct_id as id_inisiator', 'team.ct_name as eksekutor', 'init.ct_name as inisiator', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id')
                             ->where('pp_comp', '=', $cl_comp)
                             ->where('pp_date', '<=', $end)
                             ->where('pp_date', '>=', $start)
@@ -212,7 +212,7 @@ class ProjectProgressController extends Controller
                             ->join('d_companyteam as init', function ($q){
                                 $q->on('init.ct_id', '=', 'pp_init');
                             })
-                            ->select('pp_notestate', 'p_name', 'pp_date', 'team.ct_id as id_eksekutor', 'init.ct_id as id_inisiator', 'team.ct_name as eksekutor', 'init.ct_name as inisiator', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id')
+                            ->select('pp_execution', 'pp_notestate', 'p_name', 'pp_date', 'team.ct_id as id_eksekutor', 'init.ct_id as id_inisiator', 'team.ct_name as eksekutor', 'init.ct_name as inisiator', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id')
                             ->where('pp_comp', '=', $cl_comp)
                             ->where('pp_date', '<=', $end)
                             ->where('pp_date', '>=', $start)
@@ -237,7 +237,7 @@ class ProjectProgressController extends Controller
                             ->join('d_companyteam as init', function ($q){
                                 $q->on('init.ct_id', '=', 'pp_init');
                             })
-                            ->select('pp_notestate', 'p_name', 'pp_date', 'team.ct_id as id_eksekutor', 'init.ct_id as id_inisiator', 'team.ct_name as eksekutor', 'init.ct_name as inisiator', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id')
+                            ->select('pp_execution', 'pp_notestate', 'p_name', 'pp_date', 'team.ct_id as id_eksekutor', 'init.ct_id as id_inisiator', 'team.ct_name as eksekutor', 'init.ct_name as inisiator', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id')
                             ->where('pp_comp', '=', $cl_comp)
                             ->where('pp_date', '<=', $end)
                             ->where('pp_date', '>=', $start)
@@ -250,15 +250,16 @@ class ProjectProgressController extends Controller
             $data = collect($data);
             return Datatables::of($data)
                 ->addColumn('aksi', function ($data){
+                    $edit = '<div class="text-center"><button type="button" onclick="edit('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Edit" class="btn btn-icon waves-effect btn-warning btn-xs"> <i class="fa fa-pencil"></i> </button>';
+                    if ($data->pp_execution != null || $data->pp_execution != ''){
+                        $edit = '<div class="text-center"><div class="list-inline-item dropdown notification-list" style="cursor: pointer"><button type="button" onclick="edit('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Edit" class="btn btn-icon btn-warning btn-xs"> <i class="fa fa-pencil"></i> </button> <span class="badge badge-success noti-icon-badge-left"><i class="mdi mdi-check-all"></i></span></div>';
+                    }
                     if ($data->pp_notestate == '10' || $data->pp_notestate == '20'){
-                        return '<div class="text-center"><button type="button" onclick="edit('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Edit" class="btn btn-icon waves-effect btn-warning btn-xs"> <i class="fa fa-pencil"></i> </button>
-                                    <div class="list-inline-item dropdown notification-list" style="cursor: pointer"><button style="cursor: pointer" type="button"  onclick="note('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Catatan" class="btn btn-icon btn-info btn-xs"> <i class="icon-note"></i> </button><span class="badge badge-success noti-icon-badge"><i class="mdi mdi-check-all"></i></span></div></div>';
+                        return $edit . '<div class="list-inline-item dropdown notification-list" style="cursor: pointer"><button style="cursor: pointer" type="button"  onclick="note('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Catatan" class="btn btn-icon btn-info btn-xs"> <i class="icon-note"></i> </button><span class="badge badge-success noti-icon-badge"><i class="mdi mdi-check-all"></i></span></div></div>';
                     } elseif ($data->pp_notestate == '11' || $data->pp_notestate == '21'){
-                        return '<div class="text-center"><button type="button" onclick="edit('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Edit" class="btn btn-icon waves-effect btn-warning btn-xs"> <i class="fa fa-pencil"></i> </button>
-                                    <div class="list-inline-item dropdown notification-list" style="cursor: pointer"><button style="cursor: pointer" type="button"  onclick="note('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Catatan" class="btn btn-icon btn-info btn-xs"> <i class="icon-note"></i> </button><span class="badge badge-primary noti-icon-badge"><i class="mdi mdi-check"></i></span></div></div>';
+                        return $edit . '<div class="list-inline-item dropdown notification-list" style="cursor: pointer"><button style="cursor: pointer" type="button"  onclick="note('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Catatan" class="btn btn-icon btn-info btn-xs"> <i class="icon-note"></i> </button><span class="badge badge-primary noti-icon-badge"><i class="mdi mdi-check"></i></span></div></div>';
                     } else {
-                        return '<div class="text-center"><button type="button" onclick="edit('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Edit" class="btn btn-icon waves-effect btn-warning btn-xs"> <i class="fa fa-pencil"></i> </button>
-                            <button type="button" onclick="note('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Catatan" class="btn btn-icon waves-effect btn-info btn-xs"> <i class="icon-note"></i> </button></div>';
+                        return $edit . '<button type="button" onclick="note('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Catatan" class="btn btn-icon waves-effect btn-info btn-xs"> <i class="icon-note"></i> </button></div>';
                     }
                 })
                 ->editColumn('pp_date', function ($data){
@@ -277,50 +278,44 @@ class ProjectProgressController extends Controller
             $data = collect($data);
             return Datatables::of($data)
                 ->addColumn('aksi', function ($data){
+                    $edit = '<div class="text-center"><button type="button" onclick="edit('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Edit" class="btn btn-icon waves-effect btn-warning btn-xs"> <i class="fa fa-pencil"></i> </button>';
+                    if ($data->pp_execution != null || $data->pp_execution != ''){
+                        $edit = '<div class="text-center"><div class="list-inline-item dropdown notification-list" style="cursor: pointer"><button type="button" onclick="edit('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Edit" class="btn btn-icon btn-warning btn-xs"> <i class="fa fa-pencil"></i> </button> <span class="badge badge-success noti-icon-badge-left"><i class="mdi mdi-check-all"></i></span></div>';
+                    }
 
                     if ($data->id_eksekutor == Auth::user()->un_companyteam){
                         //== user adalah eksekutor
                         if ($data->pp_notestate == '10'){
                             //read by inisiator
-                            return '<div class="text-center"><button type="button" onclick="edit('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Edit" class="btn btn-icon waves-effect btn-warning btn-xs"> <i class="fa fa-pencil"></i> </button>
-                                    <div class="list-inline-item dropdown notification-list" style="cursor: pointer"><button style="cursor: pointer" type="button"  onclick="note('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Catatan" class="btn btn-icon btn-info btn-xs"> <i class="icon-note"></i> </button><span class="badge badge-success noti-icon-badge"><i class="mdi mdi-check-all"></i></span></div></div>';
+                            return $edit . '<div class="list-inline-item dropdown notification-list" style="cursor: pointer"><button style="cursor: pointer" type="button"  onclick="note('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Catatan" class="btn btn-icon btn-info btn-xs"> <i class="icon-note"></i> </button><span class="badge badge-success noti-icon-badge"><i class="mdi mdi-check-all"></i></span></div></div>';
                         } elseif ($data->pp_notestate == '11'){
                             //edit by inisiator
-                            return '<div class="text-center"><button type="button" onclick="edit('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Edit" class="btn btn-icon waves-effect btn-warning btn-xs"> <i class="fa fa-pencil"></i> </button>
-                                    <div class="list-inline-item dropdown notification-list" style="cursor: pointer"><button style="cursor: pointer" type="button"  onclick="note('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Catatan" class="btn btn-icon btn-info btn-xs"> <i class="icon-note"></i> </button><span class="badge badge-warning noti-icon-badge">!</span></div></div>';
+                            return $edit . '<div class="list-inline-item dropdown notification-list" style="cursor: pointer"><button style="cursor: pointer" type="button"  onclick="note('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Catatan" class="btn btn-icon btn-info btn-xs"> <i class="icon-note"></i> </button><span class="badge badge-warning noti-icon-badge">!</span></div></div>';
                         } elseif ($data->pp_notestate == '20'){
                             //read by eksekutor
-                            return '<div class="text-center"><button type="button" onclick="edit('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Edit" class="btn btn-icon waves-effect btn-warning btn-xs"> <i class="fa fa-pencil"></i> </button>
-                                    <div class="list-inline-item dropdown notification-list" style="cursor: pointer"><button style="cursor: pointer" type="button"  onclick="note('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Catatan" class="btn btn-icon btn-info btn-xs"> <i class="icon-note"></i> </button></div></div>';
+                            return $edit . '<div class="list-inline-item dropdown notification-list" style="cursor: pointer"><button style="cursor: pointer" type="button"  onclick="note('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Catatan" class="btn btn-icon btn-info btn-xs"> <i class="icon-note"></i> </button></div></div>';
                         } elseif ($data->pp_notestate == '21'){
                             //edit by eksekutor
-                            return '<div class="text-center"><button type="button" onclick="edit('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Edit" class="btn btn-icon waves-effect btn-warning btn-xs"> <i class="fa fa-pencil"></i> </button>
-                                    <div class="list-inline-item dropdown notification-list" style="cursor: pointer"><button style="cursor: pointer" type="button"  onclick="note('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Catatan" class="btn btn-icon btn-info btn-xs"> <i class="icon-note"></i> </button><span class="badge badge-primary noti-icon-badge"><i class="mdi mdi-check"></i></span></div></div>';
+                            return $edit . '<div class="list-inline-item dropdown notification-list" style="cursor: pointer"><button style="cursor: pointer" type="button"  onclick="note('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Catatan" class="btn btn-icon btn-info btn-xs"> <i class="icon-note"></i> </button><span class="badge badge-primary noti-icon-badge"><i class="mdi mdi-check"></i></span></div></div>';
                         } else {
-                            return '<div class="text-center"><button type="button" onclick="edit('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Edit" class="btn btn-icon waves-effect btn-warning btn-xs"> <i class="fa fa-pencil"></i> </button>
-                                    <div class="list-inline-item dropdown notification-list" style="cursor: pointer"><button style="cursor: pointer" type="button"  onclick="note('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Catatan" class="btn btn-icon btn-info btn-xs"> <i class="icon-note"></i> </button></div></div>';
+                            return $edit . '<div class="list-inline-item dropdown notification-list" style="cursor: pointer"><button style="cursor: pointer" type="button"  onclick="note('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Catatan" class="btn btn-icon btn-info btn-xs"> <i class="icon-note"></i> </button></div></div>';
                         }
                     } else if ($data->id_inisiator == Auth::user()->un_companyteam){
                         //== user adalah inisiator
                         if ($data->pp_notestate == '10'){
                             //read by inisiator
-                            return '<div class="text-center"><button type="button" onclick="edit('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Edit" class="btn btn-icon waves-effect btn-warning btn-xs"> <i class="fa fa-pencil"></i> </button>
-                                    <div class="list-inline-item dropdown notification-list" style="cursor: pointer"><button style="cursor: pointer" type="button"  onclick="note('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Catatan" class="btn btn-icon btn-info btn-xs"> <i class="icon-note"></i> </button></div></div>';
+                            return $edit . '<div class="list-inline-item dropdown notification-list" style="cursor: pointer"><button style="cursor: pointer" type="button"  onclick="note('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Catatan" class="btn btn-icon btn-info btn-xs"> <i class="icon-note"></i> </button></div></div>';
                         } elseif ($data->pp_notestate == '11'){
                             //edit by inisiator
-                            return '<div class="text-center"><button type="button" onclick="edit('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Edit" class="btn btn-icon waves-effect btn-warning btn-xs"> <i class="fa fa-pencil"></i> </button>
-                                    <div class="list-inline-item dropdown notification-list" style="cursor: pointer"><button style="cursor: pointer" type="button"  onclick="note('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Catatan" class="btn btn-icon btn-info btn-xs"> <i class="icon-note"></i> </button><span class="badge badge-primary noti-icon-badge"><i class="mdi mdi-check"></i></span></div></div>';
+                            return $edit . '<div class="list-inline-item dropdown notification-list" style="cursor: pointer"><button style="cursor: pointer" type="button"  onclick="note('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Catatan" class="btn btn-icon btn-info btn-xs"> <i class="icon-note"></i> </button><span class="badge badge-primary noti-icon-badge"><i class="mdi mdi-check"></i></span></div></div>';
                         } elseif ($data->pp_notestate == '20'){
                             //read by eksekutor
-                            return '<div class="text-center"><button type="button" onclick="edit('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Edit" class="btn btn-icon waves-effect btn-warning btn-xs"> <i class="fa fa-pencil"></i> </button>
-                                    <div class="list-inline-item dropdown notification-list" style="cursor: pointer"><button style="cursor: pointer" type="button"  onclick="note('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Catatan" class="btn btn-icon btn-info btn-xs"> <i class="icon-note"></i> </button><span class="badge badge-success noti-icon-badge"><i class="mdi mdi-check-all"></i></span></div></div>';
+                            return $edit . '<div class="list-inline-item dropdown notification-list" style="cursor: pointer"><button style="cursor: pointer" type="button"  onclick="note('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Catatan" class="btn btn-icon btn-info btn-xs"> <i class="icon-note"></i> </button><span class="badge badge-success noti-icon-badge"><i class="mdi mdi-check-all"></i></span></div></div>';
                         } elseif ($data->pp_notestate == '21'){
                             //edit by eksekutor
-                            return '<div class="text-center"><button type="button" onclick="edit('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Edit" class="btn btn-icon waves-effect btn-warning btn-xs"> <i class="fa fa-pencil"></i> </button>
-                                    <div class="list-inline-item dropdown notification-list" style="cursor: pointer"><button style="cursor: pointer" type="button"  onclick="note('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Catatan" class="btn btn-icon btn-info btn-xs"> <i class="icon-note"></i> </button><span class="badge badge-warning noti-icon-badge">!</span></div></div>';
+                            return $edit . '<div class="list-inline-item dropdown notification-list" style="cursor: pointer"><button style="cursor: pointer" type="button"  onclick="note('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Catatan" class="btn btn-icon btn-info btn-xs"> <i class="icon-note"></i> </button><span class="badge badge-warning noti-icon-badge">!</span></div></div>';
                         } else {
-                            return '<div class="text-center"><button type="button" onclick="edit('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Edit" class="btn btn-icon waves-effect btn-warning btn-xs"> <i class="fa fa-pencil"></i> </button>
-                                    <div class="list-inline-item dropdown notification-list" style="cursor: pointer"><button style="cursor: pointer" type="button"  onclick="note('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Catatan" class="btn btn-icon btn-info btn-xs"> <i class="icon-note"></i> </button></div></div>';
+                            return $edit . '<div class="list-inline-item dropdown notification-list" style="cursor: pointer"><button style="cursor: pointer" type="button"  onclick="note('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Catatan" class="btn btn-icon btn-info btn-xs"> <i class="icon-note"></i> </button></div></div>';
                         }
                     }
 
@@ -370,7 +365,7 @@ class ProjectProgressController extends Controller
                 ->join('d_companyteam as init', function ($q){
                     $q->on('init.ct_id', '=', 'pp_init');
                 })
-                ->select('pp_notestate', 'p_name', 'pp_date', 'team.ct_id as id_eksekutor', 'init.ct_id as id_inisiator', 'team.ct_name as eksekutor', 'init.ct_name as inisiator', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id')
+                ->select('pp_execution', 'pp_notestate', 'p_name', 'pp_date', 'team.ct_id as id_eksekutor', 'init.ct_id as id_inisiator', 'team.ct_name as eksekutor', 'init.ct_name as inisiator', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id')
                 ->where('pp_comp', '=', $cl_comp)
                 ->where(function ($q) use ($cl_id){
                     $q->orWhere('pp_init', '=', $cl_id);
@@ -400,7 +395,7 @@ class ProjectProgressController extends Controller
                         ->join('d_companyteam as init', function ($q){
                             $q->on('init.ct_id', '=', 'pp_init');
                         })
-                        ->select('pp_notestate', 'p_name', 'pp_date', 'team.ct_id as id_eksekutor', 'init.ct_id as id_inisiator', 'team.ct_name as eksekutor', 'init.ct_name as inisiator', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id')
+                        ->select('pp_execution', 'pp_notestate', 'p_name', 'pp_date', 'team.ct_id as id_eksekutor', 'init.ct_id as id_inisiator', 'team.ct_name as eksekutor', 'init.ct_name as inisiator', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id')
                         ->where('pp_comp', '=', $cl_comp)
                         ->where(function ($q) use ($cl_id){
                             $q->orWhere('pp_init', '=', $cl_id);
@@ -433,7 +428,7 @@ class ProjectProgressController extends Controller
                         ->join('d_companyteam as init', function ($q){
                             $q->on('init.ct_id', '=', 'pp_init');
                         })
-                        ->select('pp_notestate', 'p_name', 'pp_date', 'team.ct_id as id_eksekutor', 'init.ct_id as id_inisiator', 'team.ct_name as eksekutor', 'init.ct_name as inisiator', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id')
+                        ->select('pp_execution', 'pp_notestate', 'p_name', 'pp_date', 'team.ct_id as id_eksekutor', 'init.ct_id as id_inisiator', 'team.ct_name as eksekutor', 'init.ct_name as inisiator', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id')
                         ->where('pp_comp', '=', $cl_comp)
                         ->where(function ($q) use ($cl_id){
                             $q->orWhere('pp_init', '=', $cl_id);
@@ -467,7 +462,7 @@ class ProjectProgressController extends Controller
                         ->join('d_companyteam as init', function ($q){
                             $q->on('init.ct_id', '=', 'pp_init');
                         })
-                        ->select('pp_notestate', 'p_name', 'pp_date', 'team.ct_id as id_eksekutor', 'init.ct_id as id_inisiator', 'team.ct_name as eksekutor', 'init.ct_name as inisiator', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id')
+                        ->select('pp_execution', 'pp_notestate', 'p_name', 'pp_date', 'team.ct_id as id_eksekutor', 'init.ct_id as id_inisiator', 'team.ct_name as eksekutor', 'init.ct_name as inisiator', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id')
                         ->where('pp_comp', '=', $cl_comp)
                         ->where(function ($q) use ($cl_id){
                             $q->orWhere('pp_init', '=', $cl_id);
@@ -496,7 +491,7 @@ class ProjectProgressController extends Controller
                         ->join('d_companyteam as init', function ($q){
                             $q->on('init.ct_id', '=', 'pp_init');
                         })
-                        ->select('pp_notestate', 'p_name', 'pp_date', 'team.ct_id as id_eksekutor', 'init.ct_id as id_inisiator', 'team.ct_name as eksekutor', 'init.ct_name as inisiator', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id')
+                        ->select('pp_execution', 'pp_notestate', 'p_name', 'pp_date', 'team.ct_id as id_eksekutor', 'init.ct_id as id_inisiator', 'team.ct_name as eksekutor', 'init.ct_name as inisiator', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id')
                         ->where('pp_comp', '=', $cl_comp)
                         ->where(function ($q) use ($cl_id){
                             $q->orWhere('pp_init', '=', $cl_id);
@@ -622,7 +617,7 @@ class ProjectProgressController extends Controller
                     $q->on('pf_id', '=', 'pp_fitur');
                     $q->where('pf_projectcode', '=', $project);
                 })
-                ->select('pp_notestate', 'p_name', 'pp_date', 't.ct_id as id_eksekutor', 'i.ct_id as id_inisiator', 't.ct_name as eksekutor', 'i.ct_name as inisiator', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id', 'pp_state')
+                ->select('pp_execution', 'pp_notestate', 'p_name', 'pp_date', 't.ct_id as id_eksekutor', 'i.ct_id as id_inisiator', 't.ct_name as eksekutor', 'i.ct_name as inisiator', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id', 'pp_state')
                 ->where('pp_projectcode', '=', $project)
                 ->where('pp_date', '=', $now)
                 ->orderBy('pp_date')
@@ -645,7 +640,7 @@ class ProjectProgressController extends Controller
                     $q->on('pf_id', '=', 'pp_fitur');
                     $q->where('pf_projectcode', '=', $project);
                 })
-                ->select('pp_notestate', 'p_name', 'pp_date', 't.ct_id as id_eksekutor', 'i.ct_id as id_inisiator', 't.ct_name as eksekutor', 'i.ct_name as inisiator', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id', 'pp_state')
+                ->select('pp_execution', 'pp_notestate', 'p_name', 'pp_date', 't.ct_id as id_eksekutor', 'i.ct_id as id_inisiator', 't.ct_name as eksekutor', 'i.ct_name as inisiator', 'pf_detail', 'pp_projectcode', 'pf_id', 'pp_id', 'pp_state')
                 ->where('pp_projectcode', '=', $project)
                 ->where(function ($q) use ($cl_id) {
                     $q->where('pp_init', '=', $cl_id);
@@ -673,49 +668,43 @@ class ProjectProgressController extends Controller
                 return Carbon::createFromFormat('Y-m-d', $data->pp_date)->format('d M Y');
             })
             ->addColumn('aksi', function ($data){
+                $edit = '<div class="text-center"><button type="button" onclick="edit('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Edit" class="btn btn-icon waves-effect btn-warning btn-xs"> <i class="fa fa-pencil"></i> </button>';
+                if ($data->pp_execution != null || $data->pp_execution != ''){
+                    $edit = '<div class="text-center"><div class="list-inline-item dropdown notification-list" style="cursor: pointer"><button type="button" onclick="edit('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Edit" class="btn btn-icon btn-warning btn-xs"> <i class="fa fa-pencil"></i> </button> <span class="badge badge-success noti-icon-badge-left"><i class="mdi mdi-check-all"></i></span></div>';
+                }
                 if ($data->id_eksekutor == Auth::user()->un_companyteam){
                     //== user adalah eksekutor
                     if ($data->pp_notestate == '10'){
                         //read by inisiator
-                        return '<div class="text-center"><button type="button" onclick="edit('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Edit" class="btn btn-icon waves-effect btn-warning btn-xs"> <i class="fa fa-pencil"></i> </button>
-                                    <div class="list-inline-item dropdown notification-list" style="cursor: pointer"><button style="cursor: pointer" type="button"  onclick="note('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Catatan" class="btn btn-icon btn-info btn-xs"> <i class="icon-note"></i> </button><span class="badge badge-success noti-icon-badge"><i class="mdi mdi-check-all"></i></span></div></div>';
+                        return $edit . '<div class="list-inline-item dropdown notification-list" style="cursor: pointer"><button style="cursor: pointer" type="button"  onclick="note('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Catatan" class="btn btn-icon btn-info btn-xs"> <i class="icon-note"></i> </button><span class="badge badge-success noti-icon-badge"><i class="mdi mdi-check-all"></i></span></div></div>';
                     } elseif ($data->pp_notestate == '11'){
                         //edit by inisiator
-                        return '<div class="text-center"><button type="button" onclick="edit('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Edit" class="btn btn-icon waves-effect btn-warning btn-xs"> <i class="fa fa-pencil"></i> </button>
-                                    <div class="list-inline-item dropdown notification-list" style="cursor: pointer"><button style="cursor: pointer" type="button"  onclick="note('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Catatan" class="btn btn-icon btn-info btn-xs"> <i class="icon-note"></i> </button><span class="badge badge-warning noti-icon-badge">!</span></div></div>';
+                        return $edit . '<div class="list-inline-item dropdown notification-list" style="cursor: pointer"><button style="cursor: pointer" type="button"  onclick="note('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Catatan" class="btn btn-icon btn-info btn-xs"> <i class="icon-note"></i> </button><span class="badge badge-warning noti-icon-badge">!</span></div></div>';
                     } elseif ($data->pp_notestate == '20'){
                         //read by eksekutor
-                        return '<div class="text-center"><button type="button" onclick="edit('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Edit" class="btn btn-icon waves-effect btn-warning btn-xs"> <i class="fa fa-pencil"></i> </button>
-                                    <div class="list-inline-item dropdown notification-list" style="cursor: pointer"><button style="cursor: pointer" type="button"  onclick="note('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Catatan" class="btn btn-icon btn-info btn-xs"> <i class="icon-note"></i> </button></div></div>';
+                        return $edit . '<div class="list-inline-item dropdown notification-list" style="cursor: pointer"><button style="cursor: pointer" type="button"  onclick="note('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Catatan" class="btn btn-icon btn-info btn-xs"> <i class="icon-note"></i> </button></div></div>';
                     } elseif ($data->pp_notestate == '21'){
                         //edit by eksekutor
-                        return '<div class="text-center"><button type="button" onclick="edit('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Edit" class="btn btn-icon waves-effect btn-warning btn-xs"> <i class="fa fa-pencil"></i> </button>
-                                    <div class="list-inline-item dropdown notification-list" style="cursor: pointer"><button style="cursor: pointer" type="button"  onclick="note('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Catatan" class="btn btn-icon btn-info btn-xs"> <i class="icon-note"></i> </button><span class="badge badge-primary noti-icon-badge"><i class="mdi mdi-check"></i></span></div></div>';
+                        return $edit . '<div class="list-inline-item dropdown notification-list" style="cursor: pointer"><button style="cursor: pointer" type="button"  onclick="note('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Catatan" class="btn btn-icon btn-info btn-xs"> <i class="icon-note"></i> </button><span class="badge badge-primary noti-icon-badge"><i class="mdi mdi-check"></i></span></div></div>';
                     } else {
-                        return '<div class="text-center"><button type="button" onclick="edit('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Edit" class="btn btn-icon waves-effect btn-warning btn-xs"> <i class="fa fa-pencil"></i> </button>
-                                    <div class="list-inline-item dropdown notification-list" style="cursor: pointer"><button style="cursor: pointer" type="button"  onclick="note('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Catatan" class="btn btn-icon btn-info btn-xs"> <i class="icon-note"></i> </button></div></div>';
+                        return $edit . '<div class="list-inline-item dropdown notification-list" style="cursor: pointer"><button style="cursor: pointer" type="button"  onclick="note('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Catatan" class="btn btn-icon btn-info btn-xs"> <i class="icon-note"></i> </button></div></div>';
                     }
                 } else if ($data->id_inisiator == Auth::user()->un_companyteam){
                     //== user adalah inisiator
                     if ($data->pp_notestate == '10'){
                         //read by inisiator
-                        return '<div class="text-center"><button type="button" onclick="edit('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Edit" class="btn btn-icon waves-effect btn-warning btn-xs"> <i class="fa fa-pencil"></i> </button>
-                                    <div class="list-inline-item dropdown notification-list" style="cursor: pointer"><button style="cursor: pointer" type="button"  onclick="note('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Catatan" class="btn btn-icon btn-info btn-xs"> <i class="icon-note"></i> </button></div></div>';
+                        return $edit . '<div class="list-inline-item dropdown notification-list" style="cursor: pointer"><button style="cursor: pointer" type="button"  onclick="note('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Catatan" class="btn btn-icon btn-info btn-xs"> <i class="icon-note"></i> </button></div></div>';
                     } elseif ($data->pp_notestate == '11'){
                         //edit by inisiator
-                        return '<div class="text-center"><button type="button" onclick="edit('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Edit" class="btn btn-icon waves-effect btn-warning btn-xs"> <i class="fa fa-pencil"></i> </button>
-                                    <div class="list-inline-item dropdown notification-list" style="cursor: pointer"><button style="cursor: pointer" type="button"  onclick="note('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Catatan" class="btn btn-icon btn-info btn-xs"> <i class="icon-note"></i> </button><span class="badge badge-primary noti-icon-badge"><i class="mdi mdi-check"></i></span></div></div>';
+                        return $edit . '<div class="list-inline-item dropdown notification-list" style="cursor: pointer"><button style="cursor: pointer" type="button"  onclick="note('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Catatan" class="btn btn-icon btn-info btn-xs"> <i class="icon-note"></i> </button><span class="badge badge-primary noti-icon-badge"><i class="mdi mdi-check"></i></span></div></div>';
                     } elseif ($data->pp_notestate == '20'){
                         //read by eksekutor
-                        return '<div class="text-center"><button type="button" onclick="edit('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Edit" class="btn btn-icon waves-effect btn-warning btn-xs"> <i class="fa fa-pencil"></i> </button>
-                                    <div class="list-inline-item dropdown notification-list" style="cursor: pointer"><button style="cursor: pointer" type="button"  onclick="note('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Catatan" class="btn btn-icon btn-info btn-xs"> <i class="icon-note"></i> </button><span class="badge badge-success noti-icon-badge"><i class="mdi mdi-check-all"></i></span></div></div>';
+                        return $edit . '<div class="list-inline-item dropdown notification-list" style="cursor: pointer"><button style="cursor: pointer" type="button"  onclick="note('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Catatan" class="btn btn-icon btn-info btn-xs"> <i class="icon-note"></i> </button><span class="badge badge-success noti-icon-badge"><i class="mdi mdi-check-all"></i></span></div></div>';
                     } elseif ($data->pp_notestate == '21'){
                         //edit by eksekutor
-                        return '<div class="text-center"><button type="button" onclick="edit('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Edit" class="btn btn-icon waves-effect btn-warning btn-xs"> <i class="fa fa-pencil"></i> </button>
-                                    <div class="list-inline-item dropdown notification-list" style="cursor: pointer"><button style="cursor: pointer" type="button"  onclick="note('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Catatan" class="btn btn-icon btn-info btn-xs"> <i class="icon-note"></i> </button><span class="badge badge-warning noti-icon-badge">!</span></div></div>';
+                        return $edit . '<div class="list-inline-item dropdown notification-list" style="cursor: pointer"><button style="cursor: pointer" type="button"  onclick="note('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Catatan" class="btn btn-icon btn-info btn-xs"> <i class="icon-note"></i> </button><span class="badge badge-warning noti-icon-badge">!</span></div></div>';
                     } else {
-                        return '<div class="text-center"><button type="button" onclick="edit('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Edit" class="btn btn-icon waves-effect btn-warning btn-xs"> <i class="fa fa-pencil"></i> </button>
-                                    <div class="list-inline-item dropdown notification-list" style="cursor: pointer"><button style="cursor: pointer" type="button"  onclick="note('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Catatan" class="btn btn-icon btn-info btn-xs"> <i class="icon-note"></i> </button></div></div>';
+                        return $edit . '<div class="list-inline-item dropdown notification-list" style="cursor: pointer"><button style="cursor: pointer" type="button"  onclick="note('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Catatan" class="btn btn-icon btn-info btn-xs"> <i class="icon-note"></i> </button></div></div>';
                     }
                 }
 
