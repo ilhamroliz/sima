@@ -250,7 +250,7 @@ class ProjectProgressController extends Controller
             $data = collect($data);
             return Datatables::of($data)
                 ->addColumn('aksi', function ($data){
-                    $edit = '<div class="text-center"><button type="button" onclick="edit('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Edit" class="btn btn-icon waves-effect btn-warning btn-xs"> <i class="fa fa-pencil"></i> </button>';
+                    $edit = '<div class="text-center"><button type="button" onclick="edit('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Edit" class="btn btn-icon waves-effect btn-warning btn-xs m-r-5"> <i class="fa fa-pencil"></i> </button>';
                     if ($data->pp_execution != null || $data->pp_execution != ''){
                         $edit = '<div class="text-center"><div class="list-inline-item dropdown notification-list" style="cursor: pointer"><button type="button" onclick="edit('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Edit" class="btn btn-icon btn-warning btn-xs"> <i class="fa fa-pencil"></i> </button> <span class="badge badge-success noti-icon-badge-left"><i class="mdi mdi-check-all"></i></span></div>';
                     }
@@ -278,7 +278,7 @@ class ProjectProgressController extends Controller
             $data = collect($data);
             return Datatables::of($data)
                 ->addColumn('aksi', function ($data){
-                    $edit = '<div class="text-center"><button type="button" onclick="edit('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Edit" class="btn btn-icon waves-effect btn-warning btn-xs"> <i class="fa fa-pencil"></i> </button>';
+                    $edit = '<div class="text-center"><button type="button" onclick="edit('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Edit" class="btn btn-icon waves-effect btn-warning btn-xs m-r-5"> <i class="fa fa-pencil"></i> </button>';
                     if ($data->pp_execution != null || $data->pp_execution != ''){
                         $edit = '<div class="text-center"><div class="list-inline-item dropdown notification-list" style="cursor: pointer"><button type="button" onclick="edit('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Edit" class="btn btn-icon btn-warning btn-xs"> <i class="fa fa-pencil"></i> </button> <span class="badge badge-success noti-icon-badge-left"><i class="mdi mdi-check-all"></i></span></div>';
                     }
@@ -668,7 +668,7 @@ class ProjectProgressController extends Controller
                 return Carbon::createFromFormat('Y-m-d', $data->pp_date)->format('d M Y');
             })
             ->addColumn('aksi', function ($data){
-                $edit = '<div class="text-center"><button type="button" onclick="edit('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Edit" class="btn btn-icon waves-effect btn-warning btn-xs"> <i class="fa fa-pencil"></i> </button>';
+                $edit = '<div class="text-center"><button type="button" onclick="edit('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Edit" class="btn btn-icon waves-effect btn-warning btn-xs m-r-5"> <i class="fa fa-pencil"></i> </button>';
                 if ($data->pp_execution != null || $data->pp_execution != ''){
                     $edit = '<div class="text-center"><div class="list-inline-item dropdown notification-list" style="cursor: pointer"><button type="button" onclick="edit('.$data->pp_id. ',\'' . $data->pp_projectcode. '\')" title="Edit" class="btn btn-icon btn-warning btn-xs"> <i class="fa fa-pencil"></i> </button> <span class="badge badge-success noti-icon-badge-left"><i class="mdi mdi-check-all"></i></span></div>';
                 }
