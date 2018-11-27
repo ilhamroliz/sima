@@ -285,8 +285,7 @@
                             Project {{ $project[0]->pt_detail }} {{ $project[0]->p_name }}</h4>
                         <h4 class="header-title m-b-15 m-t-0 pull-right">{{ Carbon\Carbon::now('Asia/Jakarta')->format('d M Y') }}</h4>
                         <div class="col-sm-12 table-project" style="margin-top: 50px;">
-                            <table class="table table-hover table-bordered table-colored table-custom table-striped"
-                                   cellspacing="0" width="100%" id="project">
+                            <table class="table table-hover table-bordered table-colored table-custom table-striped" cellspacing="0" width="100%" id="project">
                                 <thead>
                                 <th style="width: 23%;">Nama Fitur</th>
                                 <th style="width: 15%;">Tanggal</th>
@@ -556,7 +555,6 @@
                         {data: 'pp_state', name: 'pp_state'},
                         {data: 'aksi', name: 'aksi'}
                     ],
-                    responsive: true,
                     "pageLength": 10,
                     "ordering": false,
                     "aaSorting": [],
@@ -570,7 +568,6 @@
                     "caseInsensitive": true
                 },
                 fixedColumns: true,
-                responsive: true,
                 "paging": false,
                 "ordering": false,
                 "aaSorting": [],

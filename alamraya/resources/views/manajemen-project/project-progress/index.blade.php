@@ -278,7 +278,7 @@
                             </div>
                         </div>
                         <div class="col-12" style="margin-top: 10px;">
-                            <div style="overflow: auto;" id="content-table1">
+                            <div id="content-table1">
                                 <table class="table table-hover table-bordered table-colored table-custom table-striped" cellspacing="0" width="100%" id="project-progress">
                                     <thead>
                                         <th style="width: 25%;">Nama Project</th>
