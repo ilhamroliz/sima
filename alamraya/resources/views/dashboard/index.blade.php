@@ -369,6 +369,70 @@
             </div><!-- /.modal-dialog -->
         </div>
     </div><!-- /.modal -->
+
+        <!--  Modal content for the above example -->
+    <div class="custombox-modal custombox-modal-fadein" style="transition-duration: 500ms; z-index: 10003;">
+        <div id="modal-catatan" class="modal bs-example-modal-lg" tabindex="-1" role="dialog"
+             aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title edit-fitur" id="modal-title">Catatan Fitur</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-horizontal">
+                            <div class="messaging">
+                                <div class="inbox_msg">
+                                    <div class="mesgs" style="width: 100%">
+                                        <input type="hidden" name="id_pp" id="id_pp">
+                                        <input type="hidden" name="id_project" id="id_project">
+                                        <div class="msg_history" id="konten-chat" style="width: 100%">
+                                            
+                                        </div>
+                                        <div class="type_msg">
+                                            <div class="input_msg_write">
+                                                <input type="text" id="write_msg" class="write_msg" placeholder="Type a message"/>
+                                                <button class="msg_send_btn" id="msg_send_btn" type="button" onclick="writeNote()"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
+    </div><!-- /.modal -->
+
+    <!--  Modal content for the above example -->
+    <div class="custombox-modal custombox-modal-fadein" style="transition-duration: 500ms; z-index: 10003;">
+        <div id="modal-controll" class="modal bs-example-modal-lg" tabindex="-1" role="dialog"
+             aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title edit-fitur" id="modal-title">Controll Progress Team {{ Carbon\Carbon::now('Asia/Jakarta')->format('d M Y') }}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-hover table-bordered table-colored table-pink table-striped" id="table-controll" cellspacing="0" width="100%">
+                            <thead>
+                                <th>Nama Team</th>
+                                <th>Supervisor</th>
+                                <th>Project</th>
+                                <th>Status</th>
+                            </thead>
+                            <tbody>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
+    </div><!-- /.modal -->
 @endsection
 
 @section('extra_scripts')
@@ -445,6 +509,72 @@
                         $('#projectcode').val('');
                         $('#edit-execution').prop('readonly', true);
                         $('.tombol-simpan').hide();
+                    }
+                },
+                error: function (xhr, status) {
+                    setTimeout(function () {
+                        waitingDialog.hide();
+                    }, 500);
+                    if (status == 'timeout') {
+                        $('.error-load').css('visibility', 'visible');
+                        $('.error-load small').text('Ups. Terjadi Kesalahan, Coba Lagi Nanti');
+                    }
+                    else if (xhr.status == 0) {
+                        $('.error-load').css('visibility', 'visible');
+                        $('.error-load small').text('Ups. Koneksi Internet Bemasalah, Coba Lagi Nanti');
+                    }
+                    else if (xhr.status == 500) {
+                        $('.error-load').css('visibility', 'visible');
+                        $('.error-load small').text('Ups. Server Bemasalah, Coba Lagi Nanti');
+                    }
+                }
+            });
+        }
+
+        function note(id, project) {
+            document.getElementById('konten-chat').style.height = (screen.height / 2) + 'px';
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                url: baseUrl + '/manajemen-project/project-progress/get-chat',
+                type: 'post',
+                data: {
+                    id: id,
+                    project: project
+                },
+                dataType: 'json',
+                success: function (response) {
+                    if (response.status == 'success') {
+                        var hasil = response.data;
+                        $('#id_pp').val(id);
+                        $('#id_project').val(project);
+                        $('#modal-title').html('Catatan fitur ' + response.fitur + ' - ' + response.tanggal);
+                        $('#konten-chat').empty();
+                        if (hasil != null) {
+                            for(var i = 0, length1 = hasil.length; i < length1; i++){
+                                if (hasil[i].team == id_team) {
+                                    var chat = '<div class="outgoing_msg"><div class="sent_msg form-group"><label for="">'+hasil[i].name+'</label><p>'+hasil[i].note+'</p><span class="time_date"> '+hasil[i].time+'    |    '+hasil[i].date+'</span></div></div>';
+                                    $('#konten-chat').append(chat);
+                                } else {
+                                    var chat = '<div class="incoming_msg"><div class="received_msg form-group"><label for="">'+hasil[i].name+'</label><div class="received_withd_msg"><p>'+hasil[i].note+'</p><span class="time_date"> '+hasil[i].time+'    |    '+hasil[i].date+'</span></div></div>';
+                                    $('#konten-chat').append(chat);
+                                }
+                            }
+                            $("#konten-chat").animate({ scrollTop: $('#konten-chat').prop("scrollHeight")}, 500);
+                        }
+                        if (response.tanggal == '{{ Carbon\Carbon::now('Asia/Jakarta')->format('d M Y') }}') {
+                            $('.type_msg').show();
+                        } else {
+                            $('.type_msg').hide();
+                        }
+                        $('#modal-catatan').modal('show');
+                        $("#konten-chat").animate({ scrollTop: $('#konten-chat').prop("scrollHeight")}, 500);
+                    } else if (response.status == 'failed') {
+                        
                     }
                 },
                 error: function (xhr, status) {
