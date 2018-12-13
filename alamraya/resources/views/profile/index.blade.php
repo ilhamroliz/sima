@@ -248,6 +248,10 @@
                         $('.passwordbaru').val('');
                         $('.passwordbaru2').val('');
                         $('.passwordlama').val('');
+                        $('#passwordbaru2').removeClass('has-success');
+                        $('.passwordbaru2').removeClass('form-control-success');
+                        $('#passwordbaru2').removeClass('has-danger');
+                        $('.passwordbaru2').removeClass('form-control-danger');
                     } else if (response.status == 'gagal') {
                         if (response.data == 'match') {
                             $.toast({
