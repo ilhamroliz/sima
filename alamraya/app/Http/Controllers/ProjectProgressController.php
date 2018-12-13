@@ -34,7 +34,6 @@ class ProjectProgressController extends Controller
                 ->where('pt_comp', '=', $cl_comp)
                 ->get();
         }
-
         return view('manajemen-project/project-progress/index', compact('project'));
     }
 

@@ -40,6 +40,8 @@ Route::group(['middleware' => 'auth'], function () {
 
 	//==== profile
 	Route::get('pengaturan/profile', 'ProfileController@index');
+	Route::get('pengaturan/profile/update-password', 'ProfileController@updatePassword');
+	Route::post('pengaturan/profile/update-password', 'ProfileController@updatePassword');
 
 	//==== daftar project
 	Route::get('manajemen-project/daftar-project', 'DaftarProjectController@index');
