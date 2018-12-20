@@ -33,7 +33,7 @@ class ProjectFitur extends Controller
             ->addColumn('aksi', function ($data) use ($akses){
                 if ($akses == 'COMDIR' || $akses == 'ADMIN' || $akses == 'PRJSPV'){
                     return '<div class="text-center"><button type="button" title="Lihat Progress" class="btn btn-xs btn-icon waves-effect waves-light btn-custom"> <i class="fa fa-line-chart"></i> </button>
-                        <button type="button" onclick="editProgress(\''.$data->pf_projectcode.'\','.$data->pf_id.')" title="Edit Progress" class="btn btn-xs btn-icon waves-effect waves-light btn-warning"> <i class="fa fa-edit"></i> </button>
+                        <button type="button" onclick="editProgress(\''.$data->pf_projectcode.'\','.$data->pf_id.')" title="Edit Progress" class="btn btn-xs btn-icon waves-effect waves-light btn-warning"> <i class="fa fa-pencil"></i> </button>
                         </div>';
                 } else {
                     return '<div class="text-center"><button type="button" title="Lihat Progress" class="btn btn-xs btn-icon waves-effect waves-light btn-custom"> <i class="fa fa-line-chart"></i> </button>
