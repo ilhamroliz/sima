@@ -64,4 +64,7 @@
 <script src="{{ asset('assets/plugins/jquery.filer/js/jquery.filer.min.js') }}"></script>
 <!-- Bootstrap fileupload js -->
 <script src="{{ asset('assets/plugins/bootstrap-fileupload/bootstrap-fileupload.js') }}"></script>
-
+<!-- autoNumeric -->
+<script src="{{ asset('assets/plugins/autoNumeric/autoNumeric.js') }}" type="text/javascript"></script>
+<!-- Mask Money -->
+<script src="{{ asset('assets/plugins/maskmoney/jquery.maskMoney.js') }}" type="text/javascript"></script>

@@ -48,7 +48,11 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('manajemen-project/tambah-project', 'DaftarProjectController@add');
 	Route::post('manajemen-project/get-project/{status}', 'DaftarProjectController@data');
 	Route::get('manajemen-project/daftar-project/{project}/fitur', 'DaftarProjectController@projectFitur');
-	Route::post('manajemen-project/daftar-project/get-fitur/{project}', 'DaftarProjectController@getFitur');
+
+	//==== Project Fitur
+	Route::post('manajemen-project/daftar-project/get-fitur/{project}', 'ProjectFitur@getFitur');
+	Route::post('manajemen-project/project-fitur/get-info', 'ProjectFitur@getInfo');
+	Route::get('manajemen-project/project-fitur/update-progress', 'ProjectFitur@updateProgress');
 
 	//==== project team
 	Route::get('manajemen-project/project-team', 'ProjectTeamController@index');
