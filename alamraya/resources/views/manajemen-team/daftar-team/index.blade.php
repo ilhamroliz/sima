@@ -1,5 +1,5 @@
 @extends('main')
-@section('title', 'Daftar Project')
+@section('title', 'Daftar Team')
 @section('extra_styles')
     <style type="text/css">
 

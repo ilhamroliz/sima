@@ -49,6 +49,9 @@
                         <li class="{{ Request::is('manajemen-team/daftar-team') ? 'active' : '' || Request::is('manajemen-team/daftar-team/*') ? 'active' : '' }}">
                             <a class="" href="{{ url('manajemen-team/daftar-team') }}">Daftar Team</a>
                         </li>
+                        <li class="{{ Request::is('manajemen-team/absensi') ? 'active' : '' || Request::is('manajemen-team/absensi/*') ? 'active' : '' }}">
+                            <a class="" href="{{ url('manajemen-team/absensi') }}">Absensi</a>
+                        </li>
                     </ul>
                 </li>
                 <li class="">
